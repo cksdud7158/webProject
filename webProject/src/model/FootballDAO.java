@@ -13,9 +13,7 @@ public interface FootballDAO {
 	void closeAll(PreparedStatement ps, Connection conn) throws SQLException;
 	void closeAll(ResultSet rs, PreparedStatement ps, Connection conn) throws SQLException;
 	
-	//Business Logics
-	//로그인
-	UserVO login(String userId, String password) throws SQLException;
+	
 	
 	//회원가입 및 등록	
 	void registerUser(UserVO vo) throws SQLException;
@@ -38,12 +36,22 @@ public interface FootballDAO {
 	
 
 	ArrayList<MatchVO> recommendMatch(String area) throws SQLException;
+		
+	
+	
+	
+	
+	//Business Logics
+		//로그인
+	UserVO login(String userId, String password) throws SQLException;
+	ArrayList<MatchVO> recommendSquad(VoteVO vo) throws SQLException;
+		
 	
 	void makeVote(VoteVO vVo, MatchVO mVo) throws SQLException;
 	void insertVoteResult(VoteVO vVo) throws SQLException;
 	void insertMatch(MatchVO mVo) throws SQLException;
 	void insertMatchResult(MatchResultVO vo) throws SQLException;
-	ArrayList<MatchVO> recommendSquad(VoteVO vo) throws SQLException;
+	
 	ArrayList<MatchVO> TeamSchedule(String teamId) throws SQLException;
 	ArrayList<MatchVO> userSchedule(String userId) throws SQLException;
 	
