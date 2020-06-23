@@ -19,9 +19,9 @@ public interface FootballDAO {
 	
 	//회원가입 및 등록	
 	void registerUser(UserVO vo) throws SQLException;
-	void requestToJoin(PlayerInfoVo pVo, TeamMemberVO tVo) throws SQLException;
-	void allowToJoin(PlayerInfoVo pVo, TeamMemberVO tVo) throws SQLException;
-	void rejectToJoin(PlayerInfoVo pVo, TeamMemberVO tVo) throws SQLException;
+	void requestToJoin(PlayerInfoVO pVo, TeamMemberVO tVo) throws SQLException;
+	void allowToJoin(PlayerInfoVO pVo, TeamMemberVO tVo) throws SQLException;
+	void rejectToJoin(PlayerInfoVO pVo, TeamMemberVO tVo) throws SQLException;
 	void makeTeam(TeamVO vo) throws SQLException;
 	
 	
@@ -34,18 +34,18 @@ public interface FootballDAO {
 	
 	
 	//전적조회
-	ArrayList<MatchResultVO> matchHistory() throws SQLException;
+	ArrayList<MatchVO> matchHistory() throws SQLException;
 	
 
-	ArrayList<MatchResultVO> recommendMatch(String area) throws SQLException;
+	ArrayList<MatchVO> recommendMatch(String area) throws SQLException;
 	
-	void makeVote(VoteVO vVo, MatchResultVO mVo) throws SQLException;
+	void makeVote(VoteVO vVo, MatchVO mVo) throws SQLException;
 	void insertVoteResult(VoteVO vVo) throws SQLException;
-	void insertMatch(MatchResultVO mVo) throws SQLException;
-	void insertMarchResult(MatchResultVO vo) throws SQLException;
-	ArrayList<MatchResultVO> recommendSquad(VoteVO vo) throws SQLException;
-	ArrayList<MatchResultVO> TeamSchedule(String teamId) throws SQLException;
-	ArrayList<MatchResultVO> userSchedule(String userId) throws SQLException;
+	void insertMatch(MatchVO mVo) throws SQLException;
+	void insertMatchResult(MatchResultVO vo) throws SQLException;
+	ArrayList<MatchVO> recommendSquad(VoteVO vo) throws SQLException;
+	ArrayList<MatchVO> TeamSchedule(String teamId) throws SQLException;
+	ArrayList<MatchVO> userSchedule(String userId) throws SQLException;
 	
 	//delete
 	void deleteUser(String userId, String pass) throws SQLException;
