@@ -1,6 +1,6 @@
 package model;
 
-public class PlayerInfoVo {
+public class PlayerInfoVO {
 	String userId;
 	String position;
 	String mainFoot;
@@ -15,9 +15,9 @@ public class PlayerInfoVo {
 	int defence;
 	int total;
 	
-	public PlayerInfoVo() {}
+	public PlayerInfoVO() {}
 
-	public PlayerInfoVo(String userId, String position, String mainFoot, int height, int weight, int injury, int mental,
+	public PlayerInfoVO(String userId, String position, String mainFoot, int height, int weight, int injury, int mental,
 			int speed, int physical, int dribble, int pass, int defence, int total) {
 		super();
 		this.userId = userId;
