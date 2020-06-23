@@ -1,9 +1,7 @@
 package util;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
+import org.apache.catalina.Context;
+import org.apache.tomcat.jdbc.pool.DataSource;
 
 public class DataSourceManager {
 	private DataSource ds;
