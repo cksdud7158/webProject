@@ -12,15 +12,15 @@ import config.ServerInfo;
 import controller.ModelAndView;
 import util.DataSourceManager;
 
-public class SoccerDAOImpl implements SoccerDAO {
+public class FootBallDAOImpl implements FootballDAO {
 	private DataSource ds; 
 	
 	// singletone
-	private static SoccerDAOImpl dao = new SoccerDAOImpl();
-	private SoccerDAOImpl () {
+	private static FootBallDAOImpl dao = new FootBallDAOImpl();
+	private FootBallDAOImpl () {
 		ds = DataSourceManager.getInstance().getDataSource(); 
 	}
-	public static SoccerDAOImpl getInstance() {
+	public static FootBallDAOImpl getInstance() {
 		return dao;
 	}
 	
