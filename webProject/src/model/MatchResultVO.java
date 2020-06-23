@@ -1,13 +1,13 @@
-package main;
+package model;
 
-public class Result {
+public class MatchResultVO {
 	private String matchId;
 	private int score;
 	private int toAwayMannerScore;
 	private int toHomeMannerScore;
 	
-	public Result() {}
-	public Result(String matchId, int score, int toAwayMannerScore, int toHomeMa) {
+	public MatchResultVO() {}
+	public MatchResultVO(String matchId, int score, int toAwayMannerScore, int toHomeMa) {
 		super();
 		this.matchId = matchId;
 		this.score = score;

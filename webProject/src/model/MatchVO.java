@@ -8,7 +8,7 @@ public class MatchVO {
 	private String awayId;
 	private String homeSquad;
 	private String awaySquad;
-	private ResultVO result;
+	private MatchResultVO mrVo ;
 	
 	public MatchVO(String matchId, String teamId, String stadiumId, String schedule) {
 		super();
@@ -18,7 +18,7 @@ public class MatchVO {
 		this.schedule = schedule;
 	}
 	public MatchVO(String matchId, String teamId, String stadiumId, String schedule, String awayId, String homeSquad,
-			String awaySquad, ResultVO result) {
+			String awaySquad, MatchResultVO mrVo) {
 		super();
 		this.matchId = matchId;
 		this.teamId = teamId;
@@ -27,7 +27,7 @@ public class MatchVO {
 		this.awayId = awayId;
 		this.homeSquad = homeSquad;
 		this.awaySquad = awaySquad;
-		this.result = result;
+		this.mrVo = mrVo;
 	}
 	
 	public String getMatchId() {
@@ -72,11 +72,11 @@ public class MatchVO {
 	public void setAwaySquad(String awaySquad) {
 		this.awaySquad = awaySquad;
 	}
-	public ResultVO getResult() {
-		return result;
+	public MatchResultVO getResult() {
+		return mrVo;
 	}
-	public void setResult(ResultVO result) {
-		this.result = result;
+	public void setResult(MatchResultVO result) {
+		this.mrVo = result;
 	}
 	
 	

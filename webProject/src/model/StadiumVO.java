@@ -1,14 +1,14 @@
-package main;
+package model;
 
-public class Stadium {
+public class StadiumVO {
 	private String stadiumId;
 	private String stadiumName;
 	private String stadiumAddr;
 	private int stadiumCost;
 	private String stadiumType;
 	
-	public Stadium() {}
-	public Stadium(String stadiumId, String stadiumName, String stadiumAddr, int stadiumCost, String stadiumType) {
+	public StadiumVO() {}
+	public StadiumVO(String stadiumId, String stadiumName, String stadiumAddr, int stadiumCost, String stadiumType) {
 		super();
 		this.stadiumId = stadiumId;
 		this.stadiumName = stadiumName;

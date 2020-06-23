@@ -1,6 +1,6 @@
-package main;
+package model;
 
-public class TeamInfo {
+public class TeamInfoVO {
 	private String teamId;
 	private int mannerScore;
 	private int matchNum;
@@ -9,8 +9,8 @@ public class TeamInfo {
 	private int teamScore;
 	private int winningScore;
 	
-	public TeamInfo() {}
-	public TeamInfo(String teamId, int mannerScore, int matchNum, int ranking, int memberNum, int teamScore,
+	public TeamInfoVO() {}
+	public TeamInfoVO(String teamId, int mannerScore, int matchNum, int ranking, int memberNum, int teamScore,
 			int winningScore) {
 		super();
 		this.teamId = teamId;
