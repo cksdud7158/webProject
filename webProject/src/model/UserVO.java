@@ -3,23 +3,23 @@ package model;
 import java.util.ArrayList;
 
 public class UserVO {
-	String userId;
-	String pass;
-	String name;
-	String phoneNum;
-	String photo;
-	String ssn;
-	String nickName;
-	char gender;
-	String email;
-	String addr;
-	String favTeam1;
-	String favTeam2;
-	String regDate;
-	String country;
-	String recentLogin;
-	ArrayList<TeamMemberVO> tVoList;
-	PlayerInfoVO pVo;
+	private String userId;
+	private String pass;
+	private String name;
+	private String phoneNum;
+	private String photo;
+	private String ssn;
+	private String nickName;
+	private char gender;
+	private String email;
+	private String addr;
+	private String favTeam1;
+	private String favTeam2;
+	private String regDate;
+	private String country;
+	private String recentLogin;
+	private ArrayList<TeamMemberVO> tVoList;
+	private PlayerInfoVO pVo;
 	
 	public UserVO() {
 		super();
