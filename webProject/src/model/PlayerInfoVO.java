@@ -1,19 +1,19 @@
 package model;
 
 public class PlayerInfoVO {
-	String userId;
-	String position;
-	String mainFoot;
-	int height;
-	int weight;
-	int injury;
-	int mental;
-	int speed;
-	int physical;
-	int dribble;
-	int pass;
-	int defence;
-	int total;
+	private String userId;
+	private String position;
+	private String mainFoot;
+	private int height;
+	private int weight;
+	private int injury;
+	private int mental;
+	private int speed;
+	private int physical;
+	private int dribble;
+	private int pass;
+	private int defence;
+	private int total;
 	
 	public PlayerInfoVO() {}
 

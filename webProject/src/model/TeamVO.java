@@ -1,13 +1,13 @@
 package model;
 
 public class TeamVO {
-	String teamId;
-	String teamName;
-	String emblem;
-	String area1;
-	String area2;
-	String area3;
-	String stadiumId;
+	private String teamId;
+	private String teamName;
+	private String emblem;
+	private String area1;
+	private String area2;
+	private String area3;
+	private String stadiumId;
 	
 	public TeamVO(String teamId, String teamName, String emblem, String area1, String area2, String area3,
 			String stadiumId) {
