@@ -19,14 +19,14 @@ public class UserVO {
 	String country;
 	String recentLogin;
 	ArrayList<TeamMemberVO> tVoList;
-	PlayerInfoVo pVo;
+	playerInfoVO pVo;
 	
 	public UserVO() {
 		super();
 	}
 
 	public UserVO(String userId, String pass, String name, String phoneNum, String ssn, char gender, String email,
-			String addr, String regDate, String recentLogin) {
+			String addr, String regDate, String recentLogin, ArrayList<TeamMemberVO> tVoList, playerInfoVO pVo) {
 		super();
 		this.userId = userId;
 		this.pass = pass;
@@ -63,7 +63,7 @@ public class UserVO {
 
 	public UserVO(String userId, String pass, String name, String phoneNum, String photo, String ssn, String nickName,
 			char gender, String email, String addr, String favTeam1, String favTeam2, String regDate, String country,
-			String recentLogin, ArrayList<TeamMemberVO> tVoList, PlayerInfoVo pVo) {
+			String recentLogin, ArrayList<TeamMemberVO> tVoList, playerInfoVO pVo) {
 		super();
 		this.userId = userId;
 		this.pass = pass;
@@ -212,11 +212,11 @@ public class UserVO {
 		this.tVoList = tVoList;
 	}
 
-	public PlayerInfoVo getpVo() {
+	public playerInfoVO getpVo() {
 		return pVo;
 	}
 
-	public void setpVo(PlayerInfoVo pVo) {
+	public void setpVo(playerInfoVO pVo) {
 		this.pVo = pVo;
 	}
 

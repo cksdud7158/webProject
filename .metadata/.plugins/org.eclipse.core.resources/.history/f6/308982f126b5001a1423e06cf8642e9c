@@ -212,11 +212,11 @@ public class UserVO {
 		this.tVoList = tVoList;
 	}
 
-	public PlayerInfoVo getpVo() {
+	public playerInfoVO getpVo() {
 		return pVo;
 	}
 
-	public void setpVo(PlayerInfoVo pVo) {
+	public void setpVo(playerInfoVO pVo) {
 		this.pVo = pVo;
 	}
 
