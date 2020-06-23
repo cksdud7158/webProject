@@ -1,6 +1,6 @@
 package model;
 
-public class MatchVO {
+public class MatchResultVO {
 	private String matchId;
 	private String teamId;
 	private String stadiumId;
@@ -10,14 +10,14 @@ public class MatchVO {
 	private String awaySquad;
 	private ResultVO result;
 	
-	public MatchVO(String matchId, String teamId, String stadiumId, String schedule) {
+	public MatchResultVO(String matchId, String teamId, String stadiumId, String schedule) {
 		super();
 		this.matchId = matchId;
 		this.teamId = teamId;
 		this.stadiumId = stadiumId;
 		this.schedule = schedule;
 	}
-	public MatchVO(String matchId, String teamId, String stadiumId, String schedule, String awayId, String homeSquad,
+	public MatchResultVO(String matchId, String teamId, String stadiumId, String schedule, String awayId, String homeSquad,
 			String awaySquad, ResultVO result) {
 		super();
 		this.matchId = matchId;
