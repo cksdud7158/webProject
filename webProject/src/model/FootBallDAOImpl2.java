@@ -11,15 +11,15 @@ import javax.sql.DataSource;
 import servlet.model.MemberVO;
 import util.DataSourceManager;
 
-public class FootBallDAOImpl implements FootballDAO {
+public class FootBallDAOImpl2 implements FootballDAO {
 	private DataSource ds; 
 	
 	// singletone
-	private static FootBallDAOImpl dao = new FootBallDAOImpl();
-	private FootBallDAOImpl () {
+	private static FootBallDAOImpl2 dao = new FootBallDAOImpl2();
+	private FootBallDAOImpl2 () {
 		ds = DataSourceManager.getInstance().getDataSource(); 
 	}
-	public static FootBallDAOImpl getInstance() {
+	public static FootBallDAOImpl2 getInstance() {
 		return dao;
 	}
 	
