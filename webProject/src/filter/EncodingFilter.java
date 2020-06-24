@@ -17,6 +17,9 @@ import javax.servlet.annotation.WebInitParam;
 		    )
 public class EncodingFilter implements Filter{
 
+	public static void main(String[] args) {
+		
+	}
 	@Override
 	public void destroy() {	
 		//
