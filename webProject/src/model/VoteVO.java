@@ -2,11 +2,10 @@ package model;
 
 public class VoteVO {
 	private int voteId;
-	private String userId;
-	private int attendance;
+	private int teamId;
 	private String contents;
 	private String dueDate;
-	private int teamId;
+
 	private String matchId;
 	
 	public VoteVO(int voteId, String userId, int attendance, String dueDate, int teamId, String matchId) {
