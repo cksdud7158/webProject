@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `soccerproject`.`user` (
   `favTeam2` VARCHAR(45) NULL DEFAULT NULL,
   `regDate` DATE NOT NULL,
   `country` VARCHAR(20) NULL DEFAULT NULL,
-  `recentLogin` VARCHAR(20) NOT NULL,
+  `recentLogin` DATE NOT NULL,
   PRIMARY KEY (`useId`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
