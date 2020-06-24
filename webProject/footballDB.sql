@@ -5,14 +5,6 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
--- -----------------------------------------------------
 -- Schema soccerproject
 -- -----------------------------------------------------
 
@@ -20,47 +12,7 @@ CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
 -- Schema soccerproject
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `soccerproject` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
-USE `mydb` ;
 USE `soccerproject` ;
-
--- -----------------------------------------------------
--- Table `soccerproject`.`stadium`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `soccerproject`.`stadium` (
-  `stadiumId` VARCHAR(20) NOT NULL,
-  `stadiumName` VARCHAR(100) NOT NULL,
-  `stadiumAddr` VARCHAR(100) NOT NULL,
-  `stadiumCost` INT NOT NULL,
-  `stadiumType` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`stadiumId`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `soccerproject`.`team`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `soccerproject`.`team` (
-  `teamId` VARCHAR(45) NOT NULL,
-  `teamName` VARCHAR(45) NULL DEFAULT NULL,
-  `emblem` VARCHAR(45) NULL DEFAULT NULL,
-  `area1` VARCHAR(45) NULL DEFAULT NULL,
-  `area2` VARCHAR(45) NULL DEFAULT NULL,
-  `area3` VARCHAR(45) NULL DEFAULT NULL,
-  `stadiumId` VARCHAR(45) NULL DEFAULT NULL,
-  `stadium_stadiumId` VARCHAR(20) NOT NULL,
-  PRIMARY KEY (`teamId`),
-  INDEX `fk_team_stadium1_idx` (`stadium_stadiumId` ASC) VISIBLE,
-  CONSTRAINT `fk_team_stadium1`
-    FOREIGN KEY (`stadium_stadiumId`)
-    REFERENCES `soccerproject`.`stadium` (`stadiumId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
 
 -- -----------------------------------------------------
 -- Table `soccerproject`.`match`
@@ -71,14 +23,7 @@ CREATE TABLE IF NOT EXISTS `soccerproject`.`match` (
   `awayId` VARCHAR(45) NULL DEFAULT NULL,
   `homeSquad` VARCHAR(200) NULL DEFAULT NULL,
   `awaySquad` VARCHAR(200) NULL DEFAULT NULL,
-  `team_teamId` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`matchId`, `team_teamId`),
-  INDEX `fk_match_team1_idx` (`team_teamId` ASC) VISIBLE,
-  CONSTRAINT `fk_match_team1`
-    FOREIGN KEY (`team_teamId`)
-    REFERENCES `soccerproject`.`team` (`teamId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`matchId`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -91,12 +36,11 @@ CREATE TABLE IF NOT EXISTS `soccerproject`.`match_result` (
   `score` INT NULL DEFAULT NULL,
   `toAwayMannerScore` INT NULL DEFAULT NULL,
   `toHomeMannerScore` INT NULL DEFAULT NULL,
-  `match_matchId` VARCHAR(20) NOT NULL,
-  `match_team_teamId` VARCHAR(45) NOT NULL,
-  INDEX `fk_match_result_match1_idx` (`match_matchId` ASC, `match_team_teamId` ASC) VISIBLE,
+  `matchId` VARCHAR(20) NOT NULL,
+  INDEX `fk_match_result_match1_idx` (`matchId` ASC) VISIBLE,
   CONSTRAINT `fk_match_result_match1`
-    FOREIGN KEY (`match_matchId` , `match_team_teamId`)
-    REFERENCES `soccerproject`.`match` (`matchId` , `team_teamId`)
+    FOREIGN KEY (`matchId`)
+    REFERENCES `soccerproject`.`match` (`matchId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -133,7 +77,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `soccerproject`.`playerinfo`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `soccerproject`.`playerinfo` (
-  `user_useId` VARCHAR(20) NOT NULL,
+  `useId` VARCHAR(20) NOT NULL,
   `position` VARCHAR(20) NOT NULL,
   `mainFoot` VARCHAR(45) NOT NULL,
   `height` INT NOT NULL,
@@ -147,10 +91,48 @@ CREATE TABLE IF NOT EXISTS `soccerproject`.`playerinfo` (
   `defence` INT NOT NULL,
   `total` INT NOT NULL,
   `playerIdcol` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`user_useId`),
+  PRIMARY KEY (`useId`),
   CONSTRAINT `fk_playerinfo_user`
-    FOREIGN KEY (`user_useId`)
+    FOREIGN KEY (`useId`)
     REFERENCES `soccerproject`.`user` (`useId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `soccerproject`.`stadium`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `soccerproject`.`stadium` (
+  `stadiumId` VARCHAR(20) NOT NULL,
+  `stadiumName` VARCHAR(100) NOT NULL,
+  `stadiumAddr` VARCHAR(100) NOT NULL,
+  `stadiumCost` INT NOT NULL,
+  `stadiumType` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`stadiumId`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `soccerproject`.`team`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `soccerproject`.`team` (
+  `teamId` VARCHAR(45) NOT NULL,
+  `teamName` VARCHAR(45) NULL DEFAULT NULL,
+  `emblem` VARCHAR(45) NULL DEFAULT NULL,
+  `area1` VARCHAR(45) NULL DEFAULT NULL,
+  `area2` VARCHAR(45) NULL DEFAULT NULL,
+  `area3` VARCHAR(45) NULL DEFAULT NULL,
+  `stadium_stadiumId` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`teamId`),
+  INDEX `fk_team_stadium1_idx` (`stadium_stadiumId` ASC) VISIBLE,
+  CONSTRAINT `fk_team_stadium1`
+    FOREIGN KEY (`stadium_stadiumId`)
+    REFERENCES `soccerproject`.`stadium` (`stadiumId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -168,10 +150,10 @@ CREATE TABLE IF NOT EXISTS `soccerproject`.`teaminfo` (
   `memberNum` INT NOT NULL,
   `teamScore` INT NOT NULL,
   `winningScore` INT NOT NULL,
-  `team_teamId` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`team_teamId`),
+  `teamId` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`teamId`),
   CONSTRAINT `fk_teaminfo_team1`
-    FOREIGN KEY (`team_teamId`)
+    FOREIGN KEY (`teamId`)
     REFERENCES `soccerproject`.`team` (`teamId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -188,17 +170,17 @@ CREATE TABLE IF NOT EXISTS `soccerproject`.`teammember` (
   `manager` INT NOT NULL,
   `participation` DECIMAL(1,0) NOT NULL,
   `status` TINYINT NOT NULL,
-  `user_useId` VARCHAR(20) NOT NULL,
-  `team_teamId` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`user_useId`, `team_teamId`),
-  INDEX `fk_teammember_team1_idx` (`team_teamId` ASC) VISIBLE,
+  `useId` VARCHAR(20) NOT NULL,
+  `teamId` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`useId`, `teamId`),
+  INDEX `fk_teammember_team1_idx` (`teamId` ASC) VISIBLE,
   CONSTRAINT `fk_teammember_user1`
-    FOREIGN KEY (`user_useId`)
+    FOREIGN KEY (`useId`)
     REFERENCES `soccerproject`.`user` (`useId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_teammember_team1`
-    FOREIGN KEY (`team_teamId`)
+    FOREIGN KEY (`teamId`)
     REFERENCES `soccerproject`.`team` (`teamId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -215,30 +197,26 @@ CREATE TABLE IF NOT EXISTS `soccerproject`.`vote` (
   `attendence` VARCHAR(45) NOT NULL,
   `contents` VARCHAR(45) NULL DEFAULT NULL,
   `dueDate` VARCHAR(45) NOT NULL,
-  `teamMember_user_useId` VARCHAR(20) NOT NULL,
-  `teamMember_team_teamId` INT NOT NULL,
-  `teammember_user_useId` VARCHAR(20) NOT NULL,
-  `teammember_team_teamId` VARCHAR(45) NOT NULL,
-  `team_teamId` VARCHAR(45) NOT NULL,
-  `match_matchId` VARCHAR(20) NOT NULL,
-  `match_team_teamId` VARCHAR(45) NOT NULL,
+  `teamId` VARCHAR(45) NOT NULL,
+  `matchId` VARCHAR(20) NOT NULL,
+  `useId` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`voteId`),
-  INDEX `fk_vote_teammember1_idx` (`teammember_user_useId` ASC, `teammember_team_teamId` ASC) VISIBLE,
-  INDEX `fk_vote_team1_idx` (`team_teamId` ASC) VISIBLE,
-  INDEX `fk_vote_match1_idx` (`match_matchId` ASC, `match_team_teamId` ASC) VISIBLE,
-  CONSTRAINT `fk_vote_teammember1`
-    FOREIGN KEY (`teammember_user_useId` , `teammember_team_teamId`)
-    REFERENCES `soccerproject`.`teammember` (`user_useId` , `team_teamId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+  INDEX `fk_vote_team1_idx` (`teamId` ASC) VISIBLE,
+  INDEX `fk_vote_match1_idx` (`matchId` ASC) VISIBLE,
+  INDEX `fk_vote_teammember1_idx` (`useId` ASC) VISIBLE,
   CONSTRAINT `fk_vote_team1`
-    FOREIGN KEY (`team_teamId`)
+    FOREIGN KEY (`teamId`)
     REFERENCES `soccerproject`.`team` (`teamId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_vote_match1`
-    FOREIGN KEY (`match_matchId` , `match_team_teamId`)
-    REFERENCES `soccerproject`.`match` (`matchId` , `team_teamId`)
+    FOREIGN KEY (`matchId`)
+    REFERENCES `soccerproject`.`match` (`matchId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_vote_teammember1`
+    FOREIGN KEY (`useId`)
+    REFERENCES `soccerproject`.`teammember` (`useId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
