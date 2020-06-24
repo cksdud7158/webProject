@@ -107,8 +107,10 @@ public class FootBallDAOImpl2 implements FootballDAO {
 		PreparedStatement ps = null;
 		ResultSet rs1 = null;
 		ResultSet rs2 = null;
+		ResultSet rs3 = null;
 		UserVO uVo = null;
 		PlayerInfoVO pVo= null;
+		ArrayList<TeamMemberVO> tVoList = new ArrayList<>();
 		try {
 			conn = getConnection();
 			String query1 = "SELECT * FROM user WHERE userId=? AND pass=?";
@@ -124,20 +126,23 @@ public class FootBallDAOImpl2 implements FootballDAO {
 				ps.setString(1, userId);
 				rs2=ps.executeQuery();
 				if(rs2.next()) {
-					pVo = 
-					
+					pVo = new PlayerInfoVO(userId, rs2.getString("position"),rs2.getString("mainFoot") , rs2.getInt("height"), rs2.getInt("weight"), rs2.getInt("injury"), rs2.getInt("mental"), rs2.getInt("speed"), rs2.getInt("physical"), rs2.getInt("dribble"), rs2.getInt("pass"), rs2.getInt("defence"), rs2.getInt("total"));
+					uVo.setpVo(pVo);
 				}
-				
-			
-			
+				String query3 = "SELECT * FROM teammember WHERE userId=?";
+				ps = conn.prepareStatement(query3);
+				ps.setString(1, userId);
+				rs3 = ps.executeQuery();
+				while(rs3.next()) {
+					tVoList.add(new TeamMemberVO(rs3.getString("userId"), rs3.getString("teamId"), rs3.getString("regDate"), rs3.getInt("manager"), rs3.getFloat("participation"), rs3.getInt("status"))); 
+				}
+				uVo.settVoList(tVoList);			
 			}
-			
-			
 			
 		} finally {
 			closeAll(rs1, ps, conn);
 		}
-		return vo;
+		return uVo;
 	}
 	@Override
 	public ArrayList<MatchVO> recommendSquad(VoteVO vo) throws SQLException {
