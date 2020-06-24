@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
-import servlet.model.MemberVO;
 import util.DataSourceManager;
 
 public class FootBallDAOImpl2 implements FootballDAO {
@@ -108,7 +107,8 @@ public class FootBallDAOImpl2 implements FootballDAO {
 		PreparedStatement ps = null;
 		ResultSet rs1 = null;
 		ResultSet rs2 = null;
-		UserVO vo = null;
+		UserVO uVo = null;
+		PlayerInfoVO pVo= null;
 		try {
 			conn = getConnection();
 			String query1 = "SELECT * FROM user WHERE userId=? AND pass=?";
@@ -118,13 +118,26 @@ public class FootBallDAOImpl2 implements FootballDAO {
 
 			rs1 = ps.executeQuery();
 			if (rs1.next()) {
-				vo = new UserVO(rs1.getString("userId"), rs1.getString("pass"), rs1.getString("name"), rs1.getString("phoneNum"), rs1.getString("photo"), rs1.getString("ssn"), rs1.getString("nickName"), rs1.getString("gender").charAt(0), rs1.getString("email"), rs1.getString("addr"), rs1.getString("favTeam1"), rs1.getString("favTeam2"), rs1.getString("regDate"),  rs1.getString("country"), rs1.getString("recentLogin"));
+				uVo = new UserVO(rs1.getString("userId"), rs1.getString("pass"), rs1.getString("name"), rs1.getString("phoneNum"), rs1.getString("photo"), rs1.getString("ssn"), rs1.getString("nickName"), rs1.getString("gender").charAt(0), rs1.getString("email"), rs1.getString("addr"), rs1.getString("favTeam1"), rs1.getString("favTeam2"), rs1.getString("regDate"),  rs1.getString("country"), rs1.getString("recentLogin"));
+				String query2 = "SELECT * FROM playerinfo WHERE userId=?";
+				ps = conn.prepareStatement(query2);
+				ps.setString(1, userId);
+				rs2=ps.executeQuery();
+				if(rs2.next()) {
+					pVo = 
+					
+				}
+				
+			
+			
 			}
+			
+			
+			
 		} finally {
 			closeAll(rs1, ps, conn);
 		}
 		return vo;
-		return null;
 	}
 	@Override
 	public ArrayList<MatchVO> recommendSquad(VoteVO vo) throws SQLException {

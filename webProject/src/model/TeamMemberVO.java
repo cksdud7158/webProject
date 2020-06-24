@@ -2,37 +2,22 @@ package model;
 
 public class TeamMemberVO {
 	private String userId;
-	private String position;
-	private String mainFoot;
-	private int height;
-	private int weight;
-	private int injury;
-	private int mental;
-	private int speed;
-	private int physical;
-	private int dribble;
-	private int pass;
-	private int defence;
-	private int total;
+	private String teamId;
+	private String regDate;
+	private int manager;
+	private float participation;
+	private int status;
 	public TeamMemberVO() {
 		super();
 	}
-	public TeamMemberVO(String userId, String position, String mainFoot, int height, int weight, int injury, int mental,
-			int speed, int physical, int dribble, int pass, int defence, int total) {
+	public TeamMemberVO(String userId, String teamId, String regDate, int manager, float participation, int status) {
 		super();
 		this.userId = userId;
-		this.position = position;
-		this.mainFoot = mainFoot;
-		this.height = height;
-		this.weight = weight;
-		this.injury = injury;
-		this.mental = mental;
-		this.speed = speed;
-		this.physical = physical;
-		this.dribble = dribble;
-		this.pass = pass;
-		this.defence = defence;
-		this.total = total;
+		this.teamId = teamId;
+		this.regDate = regDate;
+		this.manager = manager;
+		this.participation = participation;
+		this.status = status;
 	}
 	public String getUserId() {
 		return userId;
@@ -40,83 +25,41 @@ public class TeamMemberVO {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getPosition() {
-		return position;
+	public String getTeamId() {
+		return teamId;
 	}
-	public void setPosition(String position) {
-		this.position = position;
+	public void setTeamId(String teamId) {
+		this.teamId = teamId;
 	}
-	public String getMainFoot() {
-		return mainFoot;
+	public String getRegDate() {
+		return regDate;
 	}
-	public void setMainFoot(String mainFoot) {
-		this.mainFoot = mainFoot;
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
 	}
-	public int getHeight() {
-		return height;
+	public int getManager() {
+		return manager;
 	}
-	public void setHeight(int height) {
-		this.height = height;
+	public void setManager(int manager) {
+		this.manager = manager;
 	}
-	public int getWeight() {
-		return weight;
+	public float getParticipation() {
+		return participation;
 	}
-	public void setWeight(int weight) {
-		this.weight = weight;
+	public void setParticipation(float participation) {
+		this.participation = participation;
 	}
-	public int getInjury() {
-		return injury;
+	public int getStatus() {
+		return status;
 	}
-	public void setInjury(int injury) {
-		this.injury = injury;
-	}
-	public int getMental() {
-		return mental;
-	}
-	public void setMental(int mental) {
-		this.mental = mental;
-	}
-	public int getSpeed() {
-		return speed;
-	}
-	public void setSpeed(int speed) {
-		this.speed = speed;
-	}
-	public int getPhysical() {
-		return physical;
-	}
-	public void setPhysical(int physical) {
-		this.physical = physical;
-	}
-	public int getDribble() {
-		return dribble;
-	}
-	public void setDribble(int dribble) {
-		this.dribble = dribble;
-	}
-	public int getPass() {
-		return pass;
-	}
-	public void setPass(int pass) {
-		this.pass = pass;
-	}
-	public int getDefence() {
-		return defence;
-	}
-	public void setDefence(int defence) {
-		this.defence = defence;
-	}
-	public int getTotal() {
-		return total;
-	}
-	public void setTotal(int total) {
-		this.total = total;
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	@Override
 	public String toString() {
-		return "TeamMemberVO [userId=" + userId + ", position=" + position + ", mainFoot=" + mainFoot + ", height="
-				+ height + ", weight=" + weight + ", injury=" + injury + ", mental=" + mental + ", speed=" + speed
-				+ ", physical=" + physical + ", dribble=" + dribble + ", pass=" + pass + ", defence=" + defence
-				+ ", total=" + total + "]";
+		return "TeamMemberVO [userId=" + userId + ", teamId=" + teamId + ", regDate=" + regDate + ", manager=" + manager
+				+ ", participation=" + participation + ", status=" + status + "]";
 	}
+	
+	
 }
