@@ -2,50 +2,31 @@ package model;
 
 public class VoteVO {
 	private int voteId;
-	private int teamId;
 	private String contents;
 	private String dueDate;
-
-	private String matchId;
-	
-	public VoteVO(int voteId, String userId, int attendance, String dueDate, int teamId, String matchId) {
+	private String writer;
+	private int teamId;
+	private MatchVO mVo;
+	private VoteResultVO vVo;
+	public VoteVO() {
 		super();
-		this.voteId = voteId;
-		this.userId = userId;
-		this.attendance = attendance;
-		this.dueDate = dueDate;
-		this.teamId = teamId;
-		this.matchId = matchId;
 	}
-	public VoteVO(int voteId, String userId, int attendance, String contents, String dueDate, int teamId,
-			String matchId) {
+	public VoteVO(int voteId, String contents, String dueDate, String writer, int teamId, MatchVO mVo,
+			VoteResultVO vVo) {
 		super();
 		this.voteId = voteId;
-		this.userId = userId;
-		this.attendance = attendance;
 		this.contents = contents;
 		this.dueDate = dueDate;
+		this.writer = writer;
 		this.teamId = teamId;
-		this.matchId = matchId;
+		this.mVo = mVo;
+		this.vVo = vVo;
 	}
-	
 	public int getVoteId() {
 		return voteId;
 	}
 	public void setVoteId(int voteId) {
 		this.voteId = voteId;
-	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	public int getAttendance() {
-		return attendance;
-	}
-	public void setAttendance(int attendance) {
-		this.attendance = attendance;
 	}
 	public String getContents() {
 		return contents;
@@ -59,22 +40,34 @@ public class VoteVO {
 	public void setDueDate(String dueDate) {
 		this.dueDate = dueDate;
 	}
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
 	public int getTeamId() {
 		return teamId;
 	}
 	public void setTeamId(int teamId) {
 		this.teamId = teamId;
 	}
-	public String getMatchId() {
-		return matchId;
+	public MatchVO getmVo() {
+		return mVo;
 	}
-	public void setMatchId(String matchId) {
-		this.matchId = matchId;
+	public void setmVo(MatchVO mVo) {
+		this.mVo = mVo;
 	}
-	
+	public VoteResultVO getvVo() {
+		return vVo;
+	}
+	public void setvVo(VoteResultVO vVo) {
+		this.vVo = vVo;
+	}
 	@Override
 	public String toString() {
-		return "VoteVO [voteId=" + voteId + ", userId=" + userId + ", attendance=" + attendance + ", contents="
-				+ contents + ", dueDate=" + dueDate + ", teamId=" + teamId + ", matchId=" + matchId + "]";
+		return "VoteVO [voteId=" + voteId + ", contents=" + contents + ", dueDate=" + dueDate + ", writer=" + writer
+				+ ", teamId=" + teamId + ", mVo=" + mVo + "]";
 	}
+	
 }
