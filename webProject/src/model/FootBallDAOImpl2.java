@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
-import util.DataSourceManager;
+import config.ServerInfo;
 
 public class FootBallDAOImpl2 implements FootballDAO {
 	private DataSource ds; 
@@ -16,7 +17,13 @@ public class FootBallDAOImpl2 implements FootballDAO {
 	// singletone
 	private static FootBallDAOImpl2 dao = new FootBallDAOImpl2();
 	private FootBallDAOImpl2 () {
-		ds = DataSourceManager.getInstance().getDataSource(); 
+		try {
+			Class.forName(ServerInfo.DRIVER_NAME);
+			System.out.println("드라이버 로딩");
+		} catch (ClassNotFoundException e) {
+			System.out.println("드라이버 로딩 실패");
+		}
+		//ds = DataSourceManager.getInstance().getDataSource(); 
 	}
 	public static FootBallDAOImpl2 getInstance() {
 		return dao;
@@ -24,7 +31,17 @@ public class FootBallDAOImpl2 implements FootballDAO {
 	
 	@Override
 	public Connection getConnection() throws SQLException {
-		return ds.getConnection();
+		Connection conn=null;
+		try {
+			
+			conn= DriverManager.getConnection(ServerInfo.URL, ServerInfo.USER, ServerInfo.PASS);
+			System.out.println("DB 연결 성공");
+		} catch (SQLException e) {
+			System.out.println("DB 연결 실패");
+		}
+		
+		return conn;
+		//return ds.getConnection();
 	}
 
 	@Override
@@ -191,7 +208,7 @@ public class FootBallDAOImpl2 implements FootballDAO {
 	}
 	@Override
 	public void updateUser(UserVO uVo) throws SQLException {
-		Connection conn = null;
+	/*	Connection conn = null;
 		PreparedStatement ps = null;
 		try {
 			conn = getConnection();
@@ -207,11 +224,11 @@ public class FootBallDAOImpl2 implements FootballDAO {
 		} finally {
 			closeAll(ps, conn);
 		}		
-		
+		*/
 	}
 	@Override
 	public void updateTeam(TeamVO tVo) throws SQLException {
-		Connection conn = null;
+/*		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
 			conn = getConnection();
@@ -226,31 +243,20 @@ public class FootBallDAOImpl2 implements FootballDAO {
 
 		} finally {
 			closeAll(ps, conn);
-		}		
+		}	*/	
 	}
+public static void main(String[] args) throws SQLException {
+	FootBallDAOImpl2 dao = FootBallDAOImpl2.getInstance();
 	
-	// Business Logics
+	//DriverManager 방식의 DB Connection
+
 	
 	
+	//login
+	UserVO vo = dao.login("111", "111");
+	System.out.println(vo);
 	
-	// for unit test
-	/*public void main(String[] args) {
-		SoccerDAOImpl dao = SoccerDAOImpl.getInstance();
-		
-		//DriverManager 방식의 DB Connection
-		try {
-			Class.forName(ServerInfo.DRIVER_NAME);
-			System.out.println("드라이버 로딩");
-		} catch (ClassNotFoundException e) {
-			System.out.println("드라이버 로딩 실패");
-		}
-		try {
-			Connection conn = DriverManager.getConnection(ServerInfo.URL, ServerInfo.USER, ServerInfo.PASS);
-			System.out.println("DB 연결 성공");
-		} catch (SQLException e) {
-			System.out.println("DB 연결 실패");
-		}
-		
-		//dao.method();
-	}*/
+	
+	//dao.method();
+}
 }
