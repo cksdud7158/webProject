@@ -41,8 +41,8 @@ CREATE TABLE IF NOT EXISTS `soccerproject`.`match_result` (
   CONSTRAINT `fk_match_result_match1`
     FOREIGN KEY (`matchId`)
     REFERENCES `soccerproject`.`match` (`matchId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `soccerproject`.`playerinfo` (
     PRIMARY KEY (`useId`),
     CONSTRAINT `fk_playerinfo_user` FOREIGN KEY (`useId`)
         REFERENCES `soccerproject`.`user` (`useId`)
-        ON DELETE NO ACTION ON UPDATE NO ACTION
+        ON DELETE CASCADE ON UPDATE CASCADE
 )  ENGINE=INNODB DEFAULT CHARACTER SET=UTF8MB4 COLLATE = UTF8MB4_0900_AI_CI;
 
 
@@ -128,8 +128,8 @@ CREATE TABLE IF NOT EXISTS `soccerproject`.`team` (
   CONSTRAINT `fk_team_stadium1`
     FOREIGN KEY (`stadium_stadiumId`)
     REFERENCES `soccerproject`.`stadium` (`stadiumId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -150,8 +150,8 @@ CREATE TABLE IF NOT EXISTS `soccerproject`.`teaminfo` (
   CONSTRAINT `fk_teaminfo_team1`
     FOREIGN KEY (`teamId`)
     REFERENCES `soccerproject`.`team` (`teamId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -172,13 +172,13 @@ CREATE TABLE IF NOT EXISTS `soccerproject`.`teammember` (
   CONSTRAINT `fk_teammember_user1`
     FOREIGN KEY (`useId`)
     REFERENCES `soccerproject`.`user` (`useId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_teammember_team1`
     FOREIGN KEY (`teamId`)
     REFERENCES `soccerproject`.`team` (`teamId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -202,18 +202,18 @@ CREATE TABLE IF NOT EXISTS `soccerproject`.`vote` (
   CONSTRAINT `fk_vote_team1`
     FOREIGN KEY (`teamId`)
     REFERENCES `soccerproject`.`team` (`teamId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_vote_match1`
     FOREIGN KEY (`matchId`)
     REFERENCES `soccerproject`.`match` (`matchId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_vote_teammember1`
     FOREIGN KEY (`useId`)
     REFERENCES `soccerproject`.`teammember` (`useId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
