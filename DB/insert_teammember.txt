@@ -1,4 +1,4 @@
-TeamMember
+-- TeamMember
 INSERT INTO `soccerproject`.`teammember` (`regDate`, `userId`, `teamId`) VALUES ('2020-06-24', '111', '1');
 INSERT INTO `soccerproject`.`teammember` (`regDate`, `userId`, `teamId`) VALUES ('2020-06-24', '222', '1');
 INSERT INTO `soccerproject`.`teammember` (`regDate`, `userId`, `teamId`) VALUES ('2020-06-24', '333', '1');

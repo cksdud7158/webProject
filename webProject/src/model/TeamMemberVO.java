@@ -2,7 +2,7 @@ package model;
 
 public class TeamMemberVO {
 	private String userId;
-	private String teamId;
+	private int teamId;
 	private String regDate;
 	private int manager;
 	private float participation;
@@ -10,7 +10,7 @@ public class TeamMemberVO {
 	public TeamMemberVO() {
 		super();
 	}
-	public TeamMemberVO(String userId, String teamId, String regDate, int manager, float participation, int status) {
+	public TeamMemberVO(String userId, int teamId, String regDate, int manager, float participation, int status) {
 		super();
 		this.userId = userId;
 		this.teamId = teamId;
@@ -25,10 +25,10 @@ public class TeamMemberVO {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getTeamId() {
+	public int getTeamId() {
 		return teamId;
 	}
-	public void setTeamId(String teamId) {
+	public void setTeamId(int teamId) {
 		this.teamId = teamId;
 	}
 	public String getRegDate() {
