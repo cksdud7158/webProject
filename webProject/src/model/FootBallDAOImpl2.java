@@ -106,21 +106,22 @@ public class FootBallDAOImpl2 implements FootballDAO {
 	public UserVO login(String userId, String password) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
-		ResultSet rs = null;
+		ResultSet rs1 = null;
+		ResultSet rs2 = null;
 		UserVO vo = null;
 		try {
 			conn = getConnection();
-			String query = "SELECT * FROM member WHERE id=? AND password=?";
-			ps = conn.prepareStatement(query);
-			ps.setString(1, id);
+			String query1 = "SELECT * FROM user WHERE userId=? AND pass=?";
+			ps = conn.prepareStatement(query1);
+			ps.setString(1, userId);
 			ps.setString(2, password);
 
-			rs = ps.executeQuery();
-			if (rs.next()) {
-				vo = new MemberVO(id, password, rs.getString("name"), rs.getString("address"));
+			rs1 = ps.executeQuery();
+			if (rs1.next()) {
+				vo = new UserVO(rs1.getString("userId"), rs1.getString("pass"), rs1.getString("name"), rs1.getString("phoneNum"), rs1.getString("photo"), rs1.getString("ssn"), rs1.getString("nickName"), rs1.getString("gender").charAt(0), rs1.getString("email"), rs1.getString("addr"), rs1.getString("favTeam1"), rs1.getString("favTeam2"), rs1.getString("regDate"),  rs1.getString("country"), rs1.getString("recentLogin"));
 			}
 		} finally {
-			closeAll(rs, ps, conn);
+			closeAll(rs1, ps, conn);
 		}
 		return vo;
 		return null;
