@@ -1,0 +1,47 @@
+
+-- playerInfo
+INSERT INTO `soccerproject`.`playerinfo` (`useId`, `position`, `mainFoot`, `height`, `weight`, `injury`, `mental`, `speed`, `physical`, `dribble`, `pass`, `defence`, `total`) VALUES ('111', 'FW', 'left', '188', '72', '0', '90', '90', '90', '90', '90', '90', '0');
+INSERT INTO `soccerproject`.`playerinfo` (`useId`, `position`, `mainFoot`, `height`, `weight`, `injury`, `mental`, `speed`, `physical`, `dribble`, `pass`, `defence`, `total`) VALUES ('222', 'RWF', 'right', '178', '60', '0', '90', '60', '70', '98', '89', '69', '0');
+INSERT INTO `soccerproject`.`playerinfo` (`useId`, `position`, `mainFoot`, `height`, `weight`, `injury`, `mental`, `speed`, `physical`, `dribble`, `pass`, `defence`, `total`) VALUES ('333', 'DF', 'left', '176', '70', '1', '70', '80', '60', '89', '58', '70', '0');
+INSERT INTO `soccerproject`.`playerinfo` (`useId`, `position`, `mainFoot`, `height`, `weight`, `injury`, `mental`, `speed`, `physical`, `dribble`, `pass`, `defence`, `total`) VALUES ('444', 'MF', 'right', '156', '80', '0', '60', '70', '60', '76', '69', '69', '0');
+INSERT INTO `soccerproject`.`playerinfo` (`useId`, `position`, `mainFoot`, `height`, `weight`, `injury`, `mental`, `speed`, `physical`, `dribble`, `pass`, `defence`, `total`) VALUES ('555', 'FW', 'right', '190', '90', '0', '40', '50', '60', '60', '60', '48', '0');
+
+-- stadium
+INSERT INTO `soccerproject`.`stadium` (`stadiumId`, `stadiumName`, `stadiumAddr`, `stadiumCost`, `stadiumType`) VALUES ('s1', '월드컵경기장', '마포구 성산동', '50000000', '1111');
+INSERT INTO `soccerproject`.`stadium` (`stadiumId`, `stadiumName`, `stadiumAddr`, `stadiumCost`, `stadiumType`) VALUES ('s2', '잠실축구장', '송파구 잠실동', '3000000', '1111');
+INSERT INTO `soccerproject`.`stadium` (`stadiumId`, `stadiumName`, `stadiumAddr`, `stadiumCost`, `stadiumType`) VALUES ('s3', '뚝섬축구장', '성동구 성수동', '3500000', '1111');
+INSERT INTO `soccerproject`.`stadium` (`stadiumId`, `stadiumName`, `stadiumAddr`, `stadiumCost`, `stadiumType`) VALUES ('s4', '난지도공원', '마포구 성산동', '2000000', '66');
+INSERT INTO `soccerproject`.`stadium` (`stadiumId`, `stadiumName`, `stadiumAddr`, `stadiumCost`, `stadiumType`) VALUES ('s5', '반포한강공원', '서초구 반포동', '3800000', '66');
+
+-- team
+INSERT INTO `soccerproject`.`team` (`teamId`, `teamName`, `emblem`, `area1`, `area2`, `area3`, `stadium_stadiumId`) VALUES ('1', 'team1', 'logo1', 'seoul', 'jeju', 'france', 's1');
+INSERT INTO `soccerproject`.`team` (`teamId`, `teamName`, `emblem`, `area1`, `area2`, `area3`, `stadium_stadiumId`) VALUES ('2', 'team2', 'logo2', 'jeju', 'busan', 'japan', 's2');
+INSERT INTO `soccerproject`.`team` (`teamId`, `teamName`, `emblem`, `area1`, `area2`, `area3`, `stadium_stadiumId`) VALUES ('3', 'team3', 'logo3', 'busan', 'ilsan', 'incheon', 's3');
+INSERT INTO `soccerproject`.`team` (`teamId`, `teamName`, `emblem`, `area1`, `area2`, `area3`, `stadium_stadiumId`) VALUES ('4', 'team4', 'logo4', 'ilsan', 'incheon', 'bucheon', 's4');
+INSERT INTO `soccerproject`.`team` (`teamId`, `teamName`, `emblem`, `area1`, `area2`, `area3`, `stadium_stadiumId`) VALUES ('5', 'team5', 'logo5', 'bucheon', 'hanam', 'seoul', 's5');
+
+-- TeamMember
+INSERT INTO `soccerproject`.`teammember` (`regDate`, `userId`, `teamId`) VALUES ('2020-06-24', '111', '1');
+INSERT INTO `soccerproject`.`teammember` (`regDate`, `userId`, `teamId`) VALUES ('2020-06-24', '222', '1');
+INSERT INTO `soccerproject`.`teammember` (`regDate`, `userId`, `teamId`) VALUES ('2020-06-24', '333', '1');
+INSERT INTO `soccerproject`.`teammember` (`regDate`, `userId`, `teamId`) VALUES ('2020-06-24', '444', '1');
+INSERT INTO `soccerproject`.`teammember` (`regDate`, `userId`, `teamId`) VALUES ('2020-06-24', '555', '1');
+INSERT INTO `soccerproject`.`teammember` (`regDate`, `userId`, `teamId`) VALUES ('2020-06-24', '666', '1');
+INSERT INTO `soccerproject`.`teammember` (`regDate`, `userId`, `teamId`) VALUES ('2020-06-24', '777', '1');
+INSERT INTO `soccerproject`.`teammember` (`regDate`, `userId`, `teamId`) VALUES ('2020-06-24', '888', '1');
+INSERT INTO `soccerproject`.`teammember` (`regDate`, `userId`, `teamId`) VALUES ('2020-06-24', '999', '1');
+INSERT INTO `soccerproject`.`teammember` (`regDate`, `userId`, `teamId`) VALUES ('2020-06-24', '111', '2');
+INSERT INTO `soccerproject`.`teammember` (`regDate`, `userId`, `teamId`) VALUES ('2020-06-24', '222', '2');
+INSERT INTO `soccerproject`.`teammember` (`regDate`, `userId`, `teamId`) VALUES ('2020-06-24', '333', '2');
+
+
+-- UserInfo
+INSERT INTO `soccerproject`.`user` (`userId`, `pass`, `name`, `phoneNum`, `photo`, `ssn`, `nickName`, `gender`, `email`, `addr`, `favTeam1`, `favTeam2`, `regDate`, `country`, `recentLogin`) VALUES ('111', '111', '111', '111', 'img111.jpg', '111', '111', 'm', '111@111.com', '111', '111', '111', '2020-06-24', '111', '2020-06-24');
+INSERT INTO `soccerproject`.`user` (`userId`, `pass`, `name`, `phoneNum`, `photo`, `ssn`, `nickName`, `gender`, `email`, `addr`, `favTeam1`, `favTeam2`, `regDate`, `country`, `recentLogin`) VALUES ('222', '222', '222', '222', 'img222.jpg', '222', '222', 'm', '222@222.com', '222', '222', '222', '2020-06-24', '222', '2020-06-24');
+INSERT INTO `soccerproject`.`user` (`userId`, `pass`, `name`, `phoneNum`, `photo`, `ssn`, `nickName`, `gender`, `email`, `addr`, `favTeam1`, `favTeam2`, `regDate`, `country`, `recentLogin`) VALUES ('333', '333', '333', '333', 'img333.jpg', '333', '333', 'm', '333@333.com', '333', '333', '333', '2020-06-24', '333', '2020-06-24');
+INSERT INTO `soccerproject`.`user` (`userId`, `pass`, `name`, `phoneNum`, `photo`, `ssn`, `nickName`, `gender`, `email`, `addr`, `favTeam1`, `favTeam2`, `regDate`, `country`, `recentLogin`) VALUES ('444', '444', '444', '444', 'img444.jpg', '444', '444', 'm', '444@444.com', '444', '444', '444', '2020-06-24', '444', '2020-06-24');
+INSERT INTO `soccerproject`.`user` (`userId`, `pass`, `name`, `phoneNum`, `photo`, `ssn`, `nickName`, `gender`, `email`, `addr`, `favTeam1`, `favTeam2`, `regDate`, `country`, `recentLogin`) VALUES ('555', '555', '555', '555', 'img555.jpg', '555', '555', 'f', '555@555.com', '555', '555', '555', '2020-06-24', '555', '2020-06-24');
+INSERT INTO `soccerproject`.`user` (`userId`, `pass`, `name`, `phoneNum`, `photo`, `ssn`, `nickName`, `gender`, `email`, `addr`, `favTeam1`, `favTeam2`, `regDate`, `country`, `recentLogin`) VALUES ('666', '666', '666', '666', 'img666.jpg', '666', '666', 'm', '666@666.com', '666', '666', '666', '2020-06-24', '666', '2020-06-24');
+INSERT INTO `soccerproject`.`user` (`userId`, `pass`, `name`, `phoneNum`, `photo`, `ssn`, `nickName`, `gender`, `email`, `addr`, `favTeam1`, `favTeam2`, `regDate`, `country`, `recentLogin`) VALUES ('777', '777', '777', '777', 'img777.jpg', '777', '777', 'm', '777@777.com', '777', '777', '777', '2020-06-24', '777', '2020-06-24');
+INSERT INTO `soccerproject`.`user` (`userId`, `pass`, `name`, `phoneNum`, `photo`, `ssn`, `nickName`, `gender`, `email`, `addr`, `favTeam1`, `favTeam2`, `regDate`, `country`, `recentLogin`) VALUES ('888', '888', '888', '888', 'img888.jpg', '888', '888', 'm', '888@888.com', '888', '888', '888', '2020-06-24', '888', '2020-06-24');
+INSERT INTO `soccerproject`.`user` (`userId`, `pass`, `name`, `phoneNum`, `photo`, `ssn`, `nickName`, `gender`, `email`, `addr`, `favTeam1`, `favTeam2`, `regDate`, `country`, `recentLogin`) VALUES ('999', '999', '999', '999', 'img999.jpg', '999', '999', 'm', '999@999.com', '999', '999', '999', '2020-06-24', '999', '2020-06-24');

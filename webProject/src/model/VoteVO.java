@@ -1,15 +1,15 @@
 package model;
 
 public class VoteVO {
-	private String voteId;
+	private int voteId;
 	private String userId;
 	private int attendance;
 	private String contents;
 	private String dueDate;
-	private String teamId;
+	private int teamId;
 	private String matchId;
 	
-	public VoteVO(String voteId, String userId, int attendance, String dueDate, String teamId, String matchId) {
+	public VoteVO(int voteId, String userId, int attendance, String dueDate, int teamId, String matchId) {
 		super();
 		this.voteId = voteId;
 		this.userId = userId;
@@ -18,7 +18,7 @@ public class VoteVO {
 		this.teamId = teamId;
 		this.matchId = matchId;
 	}
-	public VoteVO(String voteId, String userId, int attendance, String contents, String dueDate, String teamId,
+	public VoteVO(int voteId, String userId, int attendance, String contents, String dueDate, int teamId,
 			String matchId) {
 		super();
 		this.voteId = voteId;
@@ -30,10 +30,10 @@ public class VoteVO {
 		this.matchId = matchId;
 	}
 	
-	public String getVoteId() {
+	public int getVoteId() {
 		return voteId;
 	}
-	public void setVoteId(String voteId) {
+	public void setVoteId(int voteId) {
 		this.voteId = voteId;
 	}
 	public String getUserId() {
@@ -60,10 +60,10 @@ public class VoteVO {
 	public void setDueDate(String dueDate) {
 		this.dueDate = dueDate;
 	}
-	public String getTeamId() {
+	public int getTeamId() {
 		return teamId;
 	}
-	public void setTeamId(String teamId) {
+	public void setTeamId(int teamId) {
 		this.teamId = teamId;
 	}
 	public String getMatchId() {

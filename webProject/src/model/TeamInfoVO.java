@@ -1,7 +1,7 @@
 package model;
 
 public class TeamInfoVO {
-	private String teamId;
+	private int teamId;
 	private int mannerScore;
 	private int matchNum;
 	private int ranking;
@@ -10,7 +10,7 @@ public class TeamInfoVO {
 	private int winningScore;
 	
 	public TeamInfoVO() {}
-	public TeamInfoVO(String teamId, int mannerScore, int matchNum, int ranking, int memberNum, int teamScore,
+	public TeamInfoVO(int teamId, int mannerScore, int matchNum, int ranking, int memberNum, int teamScore,
 			int winningScore) {
 		super();
 		this.teamId = teamId;
@@ -22,10 +22,10 @@ public class TeamInfoVO {
 		this.winningScore = winningScore;
 	}
 	
-	public String getTeamId() {
+	public int getTeamId() {
 		return teamId;
 	}
-	public void setTeamId(String teamId) {
+	public void setTeamId(int teamId) {
 		this.teamId = teamId;
 	}
 	public int getMannerScore() {

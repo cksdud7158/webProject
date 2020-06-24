@@ -1,16 +1,16 @@
 package model;
 
 public class TeamVO {
-	private String teamId;
+	private int teamId;
 	private String teamName;
 	private String emblem;
 	private String area1;
 	private String area2;
 	private String area3;
-	private String stadiumId;
+	private int stadiumId;
 	
-	public TeamVO(String teamId, String teamName, String emblem, String area1, String area2, String area3,
-			String stadiumId) {
+	public TeamVO(int teamId, String teamName, String emblem, String area1, String area2, String area3,
+			int stadiumId) {
 		super();
 		this.teamId = teamId;
 		this.teamName = teamName;
@@ -21,11 +21,11 @@ public class TeamVO {
 		this.stadiumId = stadiumId;
 	}
 
-	public String getTeamId() {
+	public int getTeamId() {
 		return teamId;
 	}
 
-	public void setTeamId(String teamId) {
+	public void setTeamId(int teamId) {
 		this.teamId = teamId;
 	}
 
@@ -69,11 +69,11 @@ public class TeamVO {
 		this.area3 = area3;
 	}
 
-	public String getStadiumId() {
+	public int getStadiumId() {
 		return stadiumId;
 	}
 
-	public void setStadiumId(String stadiumId) {
+	public void setStadiumId(int stadiumId) {
 		this.stadiumId = stadiumId;
 	}
 

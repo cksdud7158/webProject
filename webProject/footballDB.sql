@@ -18,7 +18,7 @@ USE `soccerproject` ;
 -- Table `soccerproject`.`match`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `soccerproject`.`match` (
-  `matchId` VARCHAR(20) NOT NULL,
+  `matchId` INT AUTO_INCREMENT NOT NULL,
   `schedule` DATE NULL DEFAULT NULL,
   `awayId` VARCHAR(45) NULL DEFAULT NULL,
   `homeSquad` VARCHAR(200) NULL DEFAULT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `soccerproject`.`match_result` (
   `score` INT NULL DEFAULT NULL,
   `toAwayMannerScore` INT NULL DEFAULT NULL,
   `toHomeMannerScore` INT NULL DEFAULT NULL,
-  `matchId` VARCHAR(20) NOT NULL,
+  `matchId` INT NOT NULL,
   INDEX `fk_match_result_match1_idx` (`matchId` ASC) VISIBLE,
   CONSTRAINT `fk_match_result_match1`
     FOREIGN KEY (`matchId`)
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `soccerproject`.`playerinfo` (
 -- Table `soccerproject`.`stadium`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `soccerproject`.`stadium` (
-  `stadiumId` VARCHAR(20) NOT NULL,
+  `stadiumId` INT AUTO_INCREMENT NOT NULL,
   `stadiumName` VARCHAR(100) NOT NULL,
   `stadiumAddr` VARCHAR(100) NOT NULL,
   `stadiumCost` INT NOT NULL,
@@ -116,17 +116,17 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `soccerproject`.`team`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `soccerproject`.`team` (
-  `teamId` VARCHAR(45) NOT NULL,
+  `teamId` INT AUTO_INCREMENT NOT NULL,
   `teamName` VARCHAR(45) NULL DEFAULT NULL,
   `emblem` VARCHAR(45) NULL DEFAULT NULL,
   `area1` VARCHAR(45) NULL DEFAULT NULL,
   `area2` VARCHAR(45) NULL DEFAULT NULL,
   `area3` VARCHAR(45) NULL DEFAULT NULL,
-  `stadium_stadiumId` VARCHAR(20) NOT NULL,
+  `stadiumId` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`teamId`),
-  INDEX `fk_team_stadium1_idx` (`stadium_stadiumId` ASC) VISIBLE,
+  INDEX `fk_team_stadium1_idx` (`stadiumId` ASC) VISIBLE,
   CONSTRAINT `fk_team_stadium1`
-    FOREIGN KEY (`stadium_stadiumId`)
+    FOREIGN KEY (`stadiumId`)
     REFERENCES `soccerproject`.`stadium` (`stadiumId`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
@@ -145,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `soccerproject`.`teaminfo` (
   `memberNum` INT NOT NULL,
   `teamScore` INT NOT NULL,
   `winningScore` INT NOT NULL,
-  `teamId` VARCHAR(45) NOT NULL,
+  `teamId` INT NOT NULL,
   PRIMARY KEY (`teamId`),
   CONSTRAINT `fk_teaminfo_team1`
     FOREIGN KEY (`teamId`)
@@ -166,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `soccerproject`.`teammember` (
   `participation` DECIMAL(1,0) NOT NULL,
   `status` TINYINT NOT NULL,
   `userId` VARCHAR(20) NOT NULL,
-  `teamId` VARCHAR(45) NOT NULL,
+  `teamId` INT NOT NULL,
   PRIMARY KEY (`userId`, `teamId`),
   INDEX `fk_teammember_team1_idx` (`teamId` ASC) VISIBLE,
   CONSTRAINT `fk_teammember_user1`
@@ -188,12 +188,12 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `soccerproject`.`vote`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `soccerproject`.`vote` (
-  `voteId` VARCHAR(20) NOT NULL,
+  `voteId` INT AUTO_INCREMENT NOT NULL,
   `attendence` VARCHAR(45) NOT NULL,
   `contents` VARCHAR(45) NULL DEFAULT NULL,
   `dueDate` VARCHAR(45) NOT NULL,
-  `teamId` VARCHAR(45) NOT NULL,
-  `matchId` VARCHAR(20) NOT NULL,
+  `teamId` INT NOT NULL,
+  `matchId` INT NOT NULL,
   `userId` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`voteId`),
   INDEX `fk_vote_team1_idx` (`teamId` ASC) VISIBLE,

@@ -1,14 +1,14 @@
 package model;
 
 public class StadiumVO {
-	private String stadiumId;
+	private int stadiumId;
 	private String stadiumName;
 	private String stadiumAddr;
 	private int stadiumCost;
 	private String stadiumType;
 	
 	public StadiumVO() {}
-	public StadiumVO(String stadiumId, String stadiumName, String stadiumAddr, int stadiumCost, String stadiumType) {
+	public StadiumVO(int stadiumId, String stadiumName, String stadiumAddr, int stadiumCost, String stadiumType) {
 		super();
 		this.stadiumId = stadiumId;
 		this.stadiumName = stadiumName;
@@ -17,10 +17,10 @@ public class StadiumVO {
 		this.stadiumType = stadiumType;
 	}
 	
-	public String getStadiumId() {
+	public int getStadiumId() {
 		return stadiumId;
 	}
-	public void setStadiumId(String stadiumId) {
+	public void setStadiumId(int stadiumId) {
 		this.stadiumId = stadiumId;
 	}
 	public String getStadiumName() {
