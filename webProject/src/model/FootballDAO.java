@@ -16,8 +16,8 @@ public interface FootballDAO {
 	//회원가입 및 등록	
 	void registerUser(UserVO vo) throws SQLException;
 	void requestToJoin(PlayerInfoVO pVo, TeamMemberVO tVo) throws SQLException;
-	void allowToJoin(PlayerInfoVO pVo, TeamMemberVO tVo) throws SQLException;
-	void rejectToJoin(PlayerInfoVO pVo, TeamMemberVO tVo) throws SQLException;
+	int allowToJoin(PlayerInfoVO pVo, TeamMemberVO tVo) throws SQLException;
+	int rejectToJoin(PlayerInfoVO pVo, TeamMemberVO tVo) throws SQLException;
 	void makeTeam(TeamVO vo) throws SQLException;
 	
 	
@@ -49,12 +49,12 @@ public interface FootballDAO {
 	void insertMatch(MatchVO mVo) throws SQLException;
 	void insertMatchResult(MatchResultVO vo) throws SQLException;
 	
-	ArrayList<MatchVO> TeamSchedule(String teamId) throws SQLException;
+	ArrayList<MatchVO> TeamSchedule(int teamId) throws SQLException;
 	ArrayList<MatchVO> userSchedule(String userId) throws SQLException;
 	
 	//delete
 	void deleteUser(String userId, String pass) throws SQLException;
-	void deleteTeam(String teamId, String teamName) throws SQLException;
+	void deleteTeam(int teamId, String teamName) throws SQLException;
 	
 	//update
 	void updateUser(UserVO uVo) throws SQLException;

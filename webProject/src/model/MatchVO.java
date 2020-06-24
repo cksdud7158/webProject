@@ -2,23 +2,34 @@ package model;
 
 public class MatchVO {
 	private int matchId;
-	private String teamId;
-	private String stadiumId;
+	private int teamId;
+	private int stadiumId;
 	private String schedule;
-	private String awayId;
+	private int awayId;
 	private String homeSquad;
 	private String awaySquad;
+	private int voteId;
 	private MatchResultVO mrVo ;
-	
-	public MatchVO(int matchId, String teamId, String stadiumId, String schedule) {
+	public MatchVO() {
 		super();
-		this.matchId = matchId;
+	}
+	
+	
+	public MatchVO(int teamId, int stadiumId, String schedule, int awayId, String homeSquad, String awaySquad,
+			int voteId) {
+		super();
 		this.teamId = teamId;
 		this.stadiumId = stadiumId;
 		this.schedule = schedule;
+		this.awayId = awayId;
+		this.homeSquad = homeSquad;
+		this.awaySquad = awaySquad;
+		this.voteId = voteId;
 	}
-	public MatchVO(int matchId, String teamId, String stadiumId, String schedule, String awayId, String homeSquad,
-			String awaySquad, MatchResultVO mrVo) {
+
+
+	public MatchVO(int matchId, int teamId, int stadiumId, String schedule, int awayId, String homeSquad,
+			String awaySquad, int voteId) {
 		super();
 		this.matchId = matchId;
 		this.teamId = teamId;
@@ -27,25 +38,24 @@ public class MatchVO {
 		this.awayId = awayId;
 		this.homeSquad = homeSquad;
 		this.awaySquad = awaySquad;
-		this.mrVo = mrVo;
+		this.voteId = voteId;
 	}
-	
 	public int getMatchId() {
 		return matchId;
 	}
 	public void setMatchId(int matchId) {
 		this.matchId = matchId;
 	}
-	public String getTeamId() {
+	public int getTeamId() {
 		return teamId;
 	}
-	public void setTeamId(String teamId) {
+	public void setTeamId(int teamId) {
 		this.teamId = teamId;
 	}
-	public String getStadiumId() {
+	public int getStadiumId() {
 		return stadiumId;
 	}
-	public void setStadiumId(String stadiumId) {
+	public void setStadiumId(int stadiumId) {
 		this.stadiumId = stadiumId;
 	}
 	public String getSchedule() {
@@ -54,10 +64,10 @@ public class MatchVO {
 	public void setSchedule(String schedule) {
 		this.schedule = schedule;
 	}
-	public String getAwayId() {
+	public int getAwayId() {
 		return awayId;
 	}
-	public void setAwayId(String awayId) {
+	public void setAwayId(int awayId) {
 		this.awayId = awayId;
 	}
 	public String getHomeSquad() {
@@ -72,17 +82,24 @@ public class MatchVO {
 	public void setAwaySquad(String awaySquad) {
 		this.awaySquad = awaySquad;
 	}
-	public MatchResultVO getResult() {
+	public int getVoteId() {
+		return voteId;
+	}
+	public void setVoteId(int voteId) {
+		this.voteId = voteId;
+	}
+	public MatchResultVO getMrVo() {
 		return mrVo;
 	}
-	public void setResult(MatchResultVO result) {
-		this.mrVo = result;
+	public void setMrVo(MatchResultVO mrVo) {
+		this.mrVo = mrVo;
 	}
-	
-	
 	@Override
 	public String toString() {
 		return "MatchVO [matchId=" + matchId + ", teamId=" + teamId + ", stadiumId=" + stadiumId + ", schedule="
-				+ schedule + ", awayId=" + awayId + ", homeSquad=" + homeSquad + ", awaySquad=" + awaySquad + "]";
+				+ schedule + ", awayId=" + awayId + ", homeSquad=" + homeSquad + ", awaySquad=" + awaySquad
+				+ ", voteId=" + voteId + ", mrVo=" + mrVo + "]";
 	}
+	
+	
 }

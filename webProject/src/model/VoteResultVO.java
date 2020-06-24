@@ -1,30 +1,30 @@
 package model;
 
 public class VoteResultVO {
-	private String voteId;
-	private String teamMemberId;
+	private int voteId;
+	private int teamMemberId;
 	private int attendance;
-	
-	public VoteResultVO(String voteId, String teamMemberId, int attendance) {
+
+	public VoteResultVO(int voteId, int teamMemberId, int attendance) {
 		super();
 		this.voteId = voteId;
 		this.teamMemberId = teamMemberId;
 		this.attendance = attendance;
 	}
 
-	public String getVoteId() {
+	public int getVoteId() {
 		return voteId;
 	}
 
-	public void setVoteId(String voteId) {
+	public void setVoteId(int voteId) {
 		this.voteId = voteId;
 	}
 
-	public String getTeamMemberId() {
+	public int getTeamMemberId() {
 		return teamMemberId;
 	}
 
-	public void setTeamMemberId(String teamMemberId) {
+	public void setTeamMemberId(int teamMemberId) {
 		this.teamMemberId = teamMemberId;
 	}
 

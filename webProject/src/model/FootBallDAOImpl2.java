@@ -5,7 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Scanner;
 
 import javax.sql.DataSource;
 
@@ -62,57 +65,365 @@ public class FootBallDAOImpl2 implements FootballDAO {
 	}
 	@Override
 	public void requestToJoin(PlayerInfoVO pVo, TeamMemberVO tVo) throws SQLException {
-		// TODO Auto-generated method stub
-		
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+	
+		int flag = 1; // 요청 상태  : 1, 가입 상태 : 0
+
+		long time = System.currentTimeMillis(); 
+		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd");
+		String str = dayTime.format(new Date(time));
+
+		try {
+			conn = getConnection();
+			String query = "INSERT INTO teammemberId (teammemberId, regDate, manager, participation, status, userId, teamId) VALUES(?, ?, ?, ?, ?, ?, ?)";
+			ps = conn.prepareStatement(query);
+			
+			ps.setInt(1, tVo.getTeamId());
+			ps.setString(2, str);
+			ps.setInt(3, tVo.getManager());
+			ps.setFloat(4, tVo.getParticipation());
+			ps.setFloat(5, tVo.getStatus());
+			ps.setString(6, pVo.getUserId());
+			ps.setInt(7, tVo.getTeamId());
+			
+			rs = ps.executeQuery();
+			
+			flag = tVo.getStatus();
+			
+			if(flag == 1) {
+				query = "DELETE FROM teammember WHERE id = ?";
+				ps = conn.prepareStatement(query);
+				ps.setString(1, pVo.getUserId());
+				rs = ps.executeQuery();
+				if(rs.next()) {
+					System.out.println("this user has been deleted...");
+				} 
+			}
+			else {
+				time = System.currentTimeMillis(); 
+				dayTime = new SimpleDateFormat("yyyy-MM-dd");
+				str = dayTime.format(new Date(time));
+				query = "UPDATE teammember SET regDate = ?, status = ? WHERE userId = ?";
+				ps = conn.prepareStatement(query);
+				
+				ps.setString(1, str);
+				ps.setFloat(2, flag);
+				ps.setString(3, pVo.getUserId());
+				
+				rs = ps.executeQuery();
+				
+				if(rs.next()) {
+					System.out.println("this user has been added...");
+				}
+			}
+			
+		} finally {
+			closeAll(rs, ps, conn);
+		}
 	}
 	@Override
-	public void allowToJoin(PlayerInfoVO pVo, TeamMemberVO tVo) throws SQLException {
-		// TODO Auto-generated method stub
+	public int allowToJoin(PlayerInfoVO pVo, TeamMemberVO tVo) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		PlayerInfoVO vo = new PlayerInfoVO();
 		
+		// 임시로 해둔 것
+		Scanner sc = new Scanner(System.in);
+		
+		int flag = 1;
+		
+		try {
+			conn = getConnection();
+			String query = "SELECT * FROM playerinfo WHERE userid = ?";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, pVo.getUserId());
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				vo = new PlayerInfoVO(rs.getString("userId"), rs.getString("position"), rs.getString("mainFoot"), rs.getInt("height"), rs.getInt("weight"), rs.getInt("injury"), rs.getInt("mental"), rs.getInt("speed"), rs.getInt("physical"), rs.getInt("dribble"), rs.getInt("pass"), rs.getInt("defence"), rs.getInt("total"));
+			}
+			
+			System.out.println(rs.getString("uesrId") + " | Do you want to accept this user as a team member (true/false)?");
+			boolean input = sc.nextBoolean();
+			
+			if(input) {
+				flag = 0;
+				return flag;
+			}
+			else
+				return flag;
+			
+		} finally {
+			closeAll(rs, ps, conn);
+		}
 	}
 	@Override
-	public void rejectToJoin(PlayerInfoVO pVo, TeamMemberVO tVo) throws SQLException {
-		// TODO Auto-generated method stub
+	public int rejectToJoin(PlayerInfoVO pVo, TeamMemberVO tVo) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		PlayerInfoVO vo = new PlayerInfoVO();
 		
+		// 임시로 해둔 것
+		Scanner sc = new Scanner(System.in);
+		
+		int flag = 1;
+		
+		try {
+			conn = getConnection();
+			String query = "SELECT * FROM playerinfo WHERE userid = ?";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, pVo.getUserId());
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				vo = new PlayerInfoVO(rs.getString("userId"), rs.getString("position"), rs.getString("mainFoot"), rs.getInt("height"), rs.getInt("weight"), rs.getInt("injury"), rs.getInt("mental"), rs.getInt("speed"), rs.getInt("physical"), rs.getInt("dribble"), rs.getInt("pass"), rs.getInt("defence"), rs.getInt("total"));
+			}
+			
+			System.out.println(rs.getString("uesrId") + " | Do you want to accept this user as a team member (true/false)?");
+			boolean input = sc.nextBoolean();
+			
+			if(input) {
+				flag = 0;
+				return flag;
+			}
+			else
+				return flag;
+			
+		} finally {
+			closeAll(rs, ps, conn);
+		}
 	}
 	@Override
 	public void makeTeam(TeamVO vo) throws SQLException {
-		// TODO Auto-generated method stub
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		boolean flag = true;
 		
+		try {
+			conn = getConnection();
+			String query = "SELECT teamName From team";
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery(); 
+			
+			while(rs.next()) {
+				if(rs.getString("teamName").equals(vo.getTeamName())) 
+					flag = false;
+			}
+			
+			if(flag) {
+				query = "INSERT INTO team (teamId, teamName, emblem, area1, area2, area3, stadiumId) VALUES(?, ?, ?, ?, ?, ?, ?)";
+				ps.setInt(1, vo.getTeamId());
+				ps.setString(2, vo.getTeamName());
+				ps.setString(3, vo.getEmblem());
+				ps.setString(4, vo.getArea1());
+				ps.setString(5, vo.getArea2());
+				ps.setString(6, vo.getArea3());
+				ps.setInt(7, vo.getStadiumId());
+			}
+			
+		} finally {
+			closeAll(rs, ps, conn);
+		}
 	}
 	@Override
 	public ArrayList<UserVO> showAllMember() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		int count = 0;
+
+		ArrayList<PlayerInfoVO> player = new ArrayList<PlayerInfoVO>();
+		ArrayList<UserVO> user = new ArrayList<UserVO>();
+		
+		try {
+			conn = getConnection();
+			String query = "SELECT * FROM playerinfo";
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				player.add(new PlayerInfoVO(rs.getString("userId"), rs.getString("position"), rs.getString("mainFoot"), rs.getInt("height"), rs.getInt("weight"), rs.getInt("injury"), rs.getInt("mental"), rs.getInt("speed"), rs.getInt("physical"), rs.getInt("dribble"), rs.getInt("pass"), rs.getInt("defence"), rs.getInt("total")));
+			}
+					
+			query = "SELECT * FROM user";
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {			
+				String str = rs.getString("gender");
+				UserVO tmp = new UserVO(
+						rs.getString("userId"),
+						rs.getString("pass"),
+						rs.getString("name"),
+						rs.getString("phoneNum"),
+						rs.getString("photo"),
+						rs.getString("ssn"),
+						rs.getString("nickName"),
+						str.charAt(0),
+						rs.getString("email"),
+						rs.getString("addr"),
+						rs.getString("favTeam1"),
+						rs.getString("favTeam2"),
+						rs.getString("regDate"),
+						rs.getString("country"),
+						rs.getString("recentLogin"),
+						player.get(count)
+						);
+				
+				user.add(tmp);
+				count++;
+			}
+			
+		} finally {
+			closeAll(rs, ps, conn);
+		}
+		
+		return user;
 	}
 	@Override
 	public UserVO findByUserId(String userId) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		UserVO vo = null;
+		
+		try {
+			conn = getConnection();
+			String query = "SELECT * FROM user";
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				if(rs.getString("userId").equals(userId)) {
+					String str = rs.getString("gender");
+					vo = new UserVO(rs.getString("userId"), rs.getString("pass"), rs.getString("name"), rs.getString("phoneNum"), rs.getString("photo"), rs.getString("ssn"), rs.getString("nickName"), str.charAt(0), rs.getString("email"), rs.getString("addr"), rs.getString("favTeam1"), rs.getString("favTeam2"), rs.getString("regDate"), rs.getString("country"), rs.getString("recentLogin"));
+				}
+			}
+			
+		} finally {
+			closeAll(rs, ps, conn);
+		}
+		
+		return vo;
 	}
 	@Override
 	public UserVO findByNickName(String nickName) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		UserVO vo = null;
+		
+		try {
+			conn = getConnection();
+			String query = "SELECT * FROM user";
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				if(rs.getString("nickName").equals(nickName)) {
+					String str = rs.getString("gender");
+					vo = new UserVO(rs.getString("userId"), rs.getString("pass"), rs.getString("name"), rs.getString("phoneNum"), rs.getString("photo"), rs.getString("ssn"), rs.getString("nickName"), str.charAt(0), rs.getString("email"), rs.getString("addr"), rs.getString("favTeam1"), rs.getString("favTeam2"), rs.getString("regDate"), rs.getString("country"), rs.getString("recentLogin"));
+				}
+			}
+			
+		} finally {
+			closeAll(rs, ps, conn);
+		}
+		
+		return vo;
 	}
 	@Override
 	public TeamVO findByTeamName(String teamName) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		TeamVO vo = null;
+		
+		try {
+			conn = getConnection();
+			String query = "SELECT * FROM team";
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				if(rs.getString("teamName").equals(teamName)) {
+					vo = new TeamVO(rs.getInt("teamId"), rs.getString("teamName"), rs.getString("emblem"), rs.getString("area1"), rs.getString("area2"), rs.getString("area3"), rs.getInt("stadiumId"));
+				}
+			}
+			
+		} finally {
+			closeAll(rs, ps, conn);
+		}
+		
+		return vo;
 	}
 	@Override
 	public ArrayList<TeamVO> myTeamList(String userId) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		ArrayList<TeamVO> vo = new ArrayList<TeamVO>();
+		
+		try {
+			conn = getConnection();
+			String query = "SELECT * FROM user";
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				
+			}
+			
+		} finally {
+			closeAll(rs, ps, conn);
+		}
+		
+		return vo;
 	}
 	@Override
 	public ArrayList<MatchVO> matchHistory() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		ArrayList<MatchVO> vo = new ArrayList<MatchVO>();
+		
+		try {
+			conn = getConnection();
+			String query = "SELECT * FROM match";
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				vo.add(new MatchVO(rs.getInt("matchId"), rs.getInt("teamId"), rs.getInt("stadiumId"), rs.getString("schedule"),  rs.getInt("awayId"), rs.getString("homeSquad"), rs.getString("awaySquad"),  rs.getInt("voteId")));
+			}
+			
+		} finally {
+			closeAll(rs, ps, conn);
+		}
+		
+		return vo;
 	}
+	
+	
+	
+	
+	
 	@Override
 	public ArrayList<MatchVO> recommendMatch(String area) throws SQLException {
-		// TODO Auto-generated method stub
+
+		
 		return null;
 	}
 	
@@ -157,7 +468,7 @@ public class FootBallDAOImpl2 implements FootballDAO {
 				uVo.settVoList(tVoList);			
 			}
 			
-		} finally {
+		} finally { 
 			closeAll(rs1, ps, conn);
 		}
 		return uVo;
@@ -173,28 +484,57 @@ public class FootBallDAOImpl2 implements FootballDAO {
 			PreparedStatement ps = null;
 			try {
 				conn = getConnection();
-				String query = "insert into vote (contents, dueDate, writer, matchId) values(?,?,?,?)";
+				String query = "insert into vote (contents, dueDate, managerId, teamId) values(?,?,?,?)";
 				ps = conn.prepareStatement(query);
 				ps.setString(1, vVo.getContents());
 				ps.setString(2, vVo.getDueDate());
 				ps.setString(3, vVo.getWriter());
 				ps.setInt(4, vVo.getTeamId());
 				
-				ps.executeUpdate();
+				System.out.println(ps.executeUpdate()+"명 추가 완료");
 				
 			}finally{
-				
+				closeAll(ps, conn);
 			}
 		
 	}
 	@Override
 	public void insertVoteResult(VoteResultVO vRVo) throws SQLException {
-		// TODO Auto-generated method stub
-		
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = getConnection();
+			String query ="insert into voteresult(voteId,teammemberId, attendence) values(?, ?, ?)";
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, vRVo.getVoteId());
+			ps.setInt(2, vRVo.getTeamMemberId());
+			ps.setInt(3, vRVo.getAttendance());
+			
+		}finally{
+			closeAll(ps, conn);
+		}
+	
 	}
 	@Override
 	public void insertMatch(MatchVO mVo) throws SQLException {
-		// TODO Auto-generated method stub
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = getConnection();
+			String query ="INSERT INTO soccerproject.match (schedule, awayId, stadiumId, homeSquad, awaySquad, teamId, voteId) VALUES(?, ?, ?, ?, ?, ?, ?)";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, mVo.getSchedule());
+			ps.setInt(2, mVo.getAwayId());
+			ps.setInt(3, mVo.getStadiumId());
+			ps.setString(4, mVo.getHomeSquad());
+			ps.setString(5, mVo.getAwaySquad());
+			ps.setInt(6, mVo.getTeamId());
+			ps.setInt(7, mVo.getVoteId());
+			System.out.println(ps.executeUpdate()+"매치 추가 성공");
+		}finally {
+			closeAll(ps, conn);
+			
+		}
 		
 	}
 	@Override
@@ -203,9 +543,52 @@ public class FootBallDAOImpl2 implements FootballDAO {
 		
 	}
 	@Override
-	public ArrayList<MatchVO> TeamSchedule(String teamId) throws SQLException {
-
-		return null;
+	public ArrayList<MatchVO> TeamSchedule(int teamId) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs1 = null;
+		ResultSet rs2 = null;
+		ArrayList<MatchVO> mVo = new ArrayList<>();
+		try {
+			conn = getConnection();
+			String query = "select * from soccerproject.match where teamid = ? order by schedule desc";
+			
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, teamId);
+			
+			rs1 = ps.executeQuery();
+			while(rs1.next()) {
+				MatchVO vo = new MatchVO();
+				vo.setMatchId(rs1.getInt("matchId"));
+				vo.setTeamId(rs1.getInt("teamId"));
+				vo.setStadiumId(rs1.getInt("stadiumId"));
+				vo.setVoteId(rs1.getInt("voteId"));
+				vo.setSchedule(rs1.getString("schedule"));
+				vo.setAwayId(rs1.getInt("awayId"));
+				vo.setHomeSquad(rs1.getString("homeSquad"));
+				vo.setAwaySquad(rs1.getString("awaySquad"));
+				
+				String query2 = "select * from matchresult where matchId = ?";
+				ps = conn.prepareStatement(query2);
+				ps.setInt(1, vo.getMatchId());
+				rs2 = ps.executeQuery();
+				if(rs2.next()) {
+					MatchResultVO mrVo = new MatchResultVO();
+					mrVo.setMatchId(vo.getMatchId());
+					mrVo.setScore(rs2.getInt("score"));
+					mrVo.setToAwayMannerScore(rs2.getInt("toAwayMannerScore"));
+					mrVo.setToHomeMannerScore(rs2.getInt("toHomeMannerScore"));
+					vo.setMrVo(mrVo);
+				}
+				mVo.add(vo);
+			}
+			
+			
+		}finally {
+			closeAll(rs1, ps, conn);
+			
+		}
+		return mVo;
 	}
 	@Override
 	public ArrayList<MatchVO> userSchedule(String userId) throws SQLException {
@@ -230,7 +613,7 @@ public class FootBallDAOImpl2 implements FootballDAO {
 		}
 	}
 	@Override
-	public void deleteTeam(String teamId, String teamName) throws SQLException {
+	public void deleteTeam(int teamId, String teamName) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps =null;
 		
@@ -238,7 +621,7 @@ public class FootBallDAOImpl2 implements FootballDAO {
 		conn = getConnection();
 			String query = "delete from team where teamId = ? and teamName =?";
 			ps= conn.prepareStatement(query);
-			ps.setString(1, teamId);
+			ps.setInt(1, teamId);
 			ps.setString(2, teamName);
 			System.out.println(ps.executeUpdate()+"팀 삭제 하였습니다.");			
 			
@@ -321,14 +704,24 @@ public static void main(String[] args) throws SQLException {
 	UserVO vo = dao.login("111", "111");
 	System.out.println(vo);*/
 	
-	/*///delete
-	dao.deleteUser("111", "111");
-	dao.deleteTeam("1", "1");*/
 	
+	//makeVote
+	//dao.makeVote(new VoteVO("안녕하세요. 반갑습니다.", "2020-07-02", "111", 3));
 	
-	// update
+	//insertMatchVO
+	//dao.insertMatch(new MatchVO(2, 2, "2020-06-30", 222, "homeSquad", "awaySquad", 2));	
+	
+	//TeamSchedule
+	//System.out.println(dao.TeamSchedule(2));
+	
+	///delete
+	//dao.deleteUser("111", "111");
+	//dao.deleteTeam(1, "FC바르셀로나");
+		
+	/*// update
 	UserVO uVo = new UserVO("111", "111", "111", "img/111.jpg", "이재헌", "111@111.com", "답십리", "바르셀로나", "레알마드리드", new PlayerInfoVO("111", "LWF", "왼발", 190, 80, 1, 80, 80, 80, 80, 80, 80, 0));
 	dao.updateUser(uVo);
+	*/
 	
 	
 

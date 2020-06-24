@@ -11,6 +11,27 @@ public class VoteVO {
 	public VoteVO() {
 		super();
 	}
+	
+	
+	public VoteVO(String contents, String dueDate, String writer, int teamId) {
+		super();
+		this.contents = contents;
+		this.dueDate = dueDate;
+		this.writer = writer;
+		this.teamId = teamId;
+	}
+
+
+	public VoteVO(int voteId, String contents, String dueDate, String writer, int teamId) {
+		super();
+		this.voteId = voteId;
+		this.contents = contents;
+		this.dueDate = dueDate;
+		this.writer = writer;
+		this.teamId = teamId;
+	}
+
+
 	public VoteVO(int voteId, String contents, String dueDate, String writer, int teamId, MatchVO mVo,
 			VoteResultVO vVo) {
 		super();
