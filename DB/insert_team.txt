@@ -1,0 +1,6 @@
+team
+INSERT INTO `soccerproject`.`team` (`teamId`, `teamName`, `emblem`, `area1`, `area2`, `area3`, `stadium_stadiumId`) VALUES ('1', 'team1', 'logo1', 'seoul', 'jeju', 'france', 's1');
+INSERT INTO `soccerproject`.`team` (`teamId`, `teamName`, `emblem`, `area1`, `area2`, `area3`, `stadium_stadiumId`) VALUES ('2', 'team2', 'logo2', 'jeju', 'busan', 'japan', 's2');
+INSERT INTO `soccerproject`.`team` (`teamId`, `teamName`, `emblem`, `area1`, `area2`, `area3`, `stadium_stadiumId`) VALUES ('3', 'team3', 'logo3', 'busan', 'ilsan', 'incheon', 's3');
+INSERT INTO `soccerproject`.`team` (`teamId`, `teamName`, `emblem`, `area1`, `area2`, `area3`, `stadium_stadiumId`) VALUES ('4', 'team4', 'logo4', 'ilsan', 'incheon', 'bucheon', 's4');
+INSERT INTO `soccerproject`.`team` (`teamId`, `teamName`, `emblem`, `area1`, `area2`, `area3`, `stadium_stadiumId`) VALUES ('5', 'team5', 'logo5', 'bucheon', 'hanam', 'seoul', 's5');
