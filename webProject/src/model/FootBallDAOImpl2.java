@@ -163,17 +163,24 @@ public class FootBallDAOImpl2 implements FootballDAO {
 		return uVo;
 	}
 	@Override
-	public ArrayList<MatchVO> recommendSquad(VoteVO vo) throws SQLException {
+	public ArrayList<MatchVO> recommendSquad(int participation, int totalAblity) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public void makeVote(VoteVO vVo, MatchVO mVo) throws SQLException {
+	public void makeVote(VoteVO vVo) throws SQLException {
 			Connection conn = null;
 			PreparedStatement ps = null;
 			try {
 				conn = getConnection();
-				String query = "insert into vote (contents, dueDate, teamId, matchId) values(";
+				String query = "insert into vote (contents, dueDate, writer, matchId) values(?,?,?,?)";
+				ps = conn.prepareStatement(query);
+				ps.setString(1, vVo.getContents());
+				ps.setString(2, vVo.getDueDate());
+				ps.setString(3, vVo.getWriter());
+				ps.setInt(4, vVo.getTeamId());
+				
+				ps.executeUpdate();
 				
 			}finally{
 				
@@ -181,7 +188,7 @@ public class FootBallDAOImpl2 implements FootballDAO {
 		
 	}
 	@Override
-	public void insertVoteResult(VoteVO vVo) throws SQLException {
+	public void insertVoteResult(VoteResultVO vRVo) throws SQLException {
 		// TODO Auto-generated method stub
 		
 	}
