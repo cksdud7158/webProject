@@ -64,9 +64,9 @@ CREATE TABLE IF NOT EXISTS `soccerproject`.`user` (
   `addr` VARCHAR(45) NOT NULL,
   `favTeam1` VARCHAR(45) NULL DEFAULT NULL,
   `favTeam2` VARCHAR(45) NULL DEFAULT NULL,
-  `regDate` VARCHAR(20) NOT NULL,
-  `country` DATE NULL DEFAULT NULL,
-  `recentLogin` VARCHAR(20) NOT NULL,
+  `regDate` DATE NOT NULL,
+  `country` VARCHAR(20) NULL DEFAULT NULL,
+  `recentLogin` DATE NOT NULL,
   PRIMARY KEY (`useId`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -77,29 +77,24 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `soccerproject`.`playerinfo`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `soccerproject`.`playerinfo` (
-  `useId` VARCHAR(20) NOT NULL,
-  `position` VARCHAR(20) NOT NULL,
-  `mainFoot` VARCHAR(45) NOT NULL,
-  `height` INT NOT NULL,
-  `weight` INT NOT NULL,
-  `injury` INT NOT NULL,
-  `mental` INT NOT NULL,
-  `speed` INT NOT NULL,
-  `physical` INT NOT NULL,
-  `dribble` INT NOT NULL,
-  `pass` INT NOT NULL,
-  `defence` INT NOT NULL,
-  `total` INT NOT NULL,
-  `playerIdcol` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`useId`),
-  CONSTRAINT `fk_playerinfo_user`
-    FOREIGN KEY (`useId`)
-    REFERENCES `soccerproject`.`user` (`useId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+    `useId` VARCHAR(20) NOT NULL,
+    `position` VARCHAR(20) NOT NULL,
+    `mainFoot` VARCHAR(45) NOT NULL,
+    `height` INT NOT NULL,
+    `weight` INT NOT NULL,
+    `injury` INT NOT NULL,
+    `mental` INT NOT NULL,
+    `speed` INT NOT NULL,
+    `physical` INT NOT NULL,
+    `dribble` INT NOT NULL,
+    `pass` INT NOT NULL,
+    `defence` INT NOT NULL,
+    `total` INT NOT NULL,
+    PRIMARY KEY (`useId`),
+    CONSTRAINT `fk_playerinfo_user` FOREIGN KEY (`useId`)
+        REFERENCES `soccerproject`.`user` (`useId`)
+        ON DELETE NO ACTION ON UPDATE NO ACTION
+)  ENGINE=INNODB DEFAULT CHARACTER SET=UTF8MB4 COLLATE = UTF8MB4_0900_AI_CI;
 
 
 -- -----------------------------------------------------
