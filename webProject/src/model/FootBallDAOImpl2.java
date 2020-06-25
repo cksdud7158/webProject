@@ -539,9 +539,24 @@ public class FootBallDAOImpl2 implements FootballDAO {
 	}
 	@Override
 	public void insertMatchResult(MatchResultVO vo) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+			Connection conn = null;
+			PreparedStatement ps = null;
+			try{
+			conn = getConnection();
+			String query = "INSERT INTO match_result VALUES(?,?,?,?)";
+			ps = conn.prepareStatement(query);
+			
+			ps.setString(1, vo.getScore());
+			ps.setInt(2, vo.getToAwayMannerScore());
+			ps.setInt(3, vo.getToHomeMannerScore());
+			ps.setInt(4, vo.getMatchId());
+			System.out.println(ps.executeUpdate() +"개의 경기결과 입력");
+			} finally {
+				closeAll(ps, conn);
+			}
+		}
+
+
 	@Override
 	public ArrayList<MatchVO> TeamSchedule(int teamId) throws SQLException {
 		Connection conn = null;
@@ -575,26 +590,45 @@ public class FootBallDAOImpl2 implements FootballDAO {
 				if(rs2.next()) {
 					MatchResultVO mrVo = new MatchResultVO();
 					mrVo.setMatchId(vo.getMatchId());
-					mrVo.setScore(rs2.getInt("score"));
+					mrVo.setScore(rs2.getString("score"));
 					mrVo.setToAwayMannerScore(rs2.getInt("toAwayMannerScore"));
 					mrVo.setToHomeMannerScore(rs2.getInt("toHomeMannerScore"));
 					vo.setMrVo(mrVo);
 				}
 				mVo.add(vo);
 			}
-			
-			
 		}finally {
 			closeAll(rs1, ps, conn);
-			
 		}
 		return mVo;
 	}
 	@Override
-	public ArrayList<MatchVO> userSchedule(String userId) throws SQLException {
-
-		return null;
+	public ArrayList<MatchVO> userSchedule(int teamMemberId) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<MatchVO> schedule = new ArrayList<>();
+		try{
+		conn = getConnection();
+		String query = "SELECT v.*, m.* FROM voteresult v, `match` m WHERE v.teammemberid = ? AND v.attendence=? And v.voteid=m.voteid";
+		// 투표 결과 테이블에서 본인이 속한 팀의 일정이면서 참석하겠다고 투표한 일정만 불러온다.
+		ps=conn.prepareStatement(query);
+		ps.setInt(1, teamMemberId);
+		ps.setInt(2, 1); //참석구분 0,1
+		rs = ps.executeQuery();
+		while(rs.next()){
+		schedule.add(new MatchVO(rs.getInt("matchId"), rs.getInt("teamid"),
+				rs.getInt("stadiumId"), rs.getString("schedule"),
+				rs.getInt("awayId"), rs.getString("homesquad"),
+				rs.getString("awaysquad"), rs.getInt("voteid")));
+		}
+		}finally {
+			closeAll(rs, ps, conn);
+		}
+		System.out.println(schedule);
+		return schedule;
 	}
+	
 	@Override
 	public void deleteUser(String userId, String pass) throws SQLException {//지워졌을 때랑 지워지지 않았을때, 로그인 로직으로 갈것인지, 실패 했을때랑 성공햇을 때 리턴값을 가지고 갈것인지.
 		Connection conn = null;

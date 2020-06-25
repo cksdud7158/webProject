@@ -50,7 +50,7 @@ public interface FootballDAO {
 	void insertMatchResult(MatchResultVO vo) throws SQLException;
 	
 	ArrayList<MatchVO> TeamSchedule(int teamId) throws SQLException;
-	ArrayList<MatchVO> userSchedule(String userId) throws SQLException;
+	ArrayList<MatchVO> userSchedule(int teamMemberId) throws SQLException;
 	
 	//delete
 	void deleteUser(String userId, String pass) throws SQLException;
