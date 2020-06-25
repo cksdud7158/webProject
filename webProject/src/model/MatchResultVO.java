@@ -2,12 +2,12 @@ package model;
 
 public class MatchResultVO {
 	private int matchId;
-	private int score;
+	private String score;
 	private int toAwayMannerScore;
 	private int toHomeMannerScore;
 	
 	public MatchResultVO() {}
-	public MatchResultVO(int matchId, int score, int toAwayMannerScore, int toHomeMa) {
+	public MatchResultVO(int matchId, String score, int toAwayMannerScore, int toHomeMa) {
 		super();
 		this.matchId = matchId;
 		this.score = score;
@@ -21,10 +21,10 @@ public class MatchResultVO {
 	public void setMatchId(int matchId) {
 		this.matchId = matchId;
 	}
-	public int getScore() {
+	public String getScore() {
 		return score;
 	}
-	public void setScore(int score) {
+	public void setScore(String score) {
 		this.score = score;
 	}
 	public int getToAwayMannerScore() {
