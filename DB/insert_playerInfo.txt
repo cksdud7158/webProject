@@ -1,6 +1,0 @@
-playerInfo
-INSERT INTO `soccerproject`.`playerinfo` (`useId`, `position`, `mainFoot`, `height`, `weight`, `injury`, `mental`, `speed`, `physical`, `dribble`, `pass`, `defence`, `total`) VALUES ('111', 'FW', 'left', '188', '72', '0', '90', '90', '90', '90', '90', '90', '0');
-INSERT INTO `soccerproject`.`playerinfo` (`useId`, `position`, `mainFoot`, `height`, `weight`, `injury`, `mental`, `speed`, `physical`, `dribble`, `pass`, `defence`, `total`) VALUES ('222', 'RWF', 'right', '178', '60', '0', '90', '60', '70', '98', '89', '69', '0');
-INSERT INTO `soccerproject`.`playerinfo` (`useId`, `position`, `mainFoot`, `height`, `weight`, `injury`, `mental`, `speed`, `physical`, `dribble`, `pass`, `defence`, `total`) VALUES ('333', 'DF', 'left', '176', '70', '1', '70', '80', '60', '89', '58', '70', '0');
-INSERT INTO `soccerproject`.`playerinfo` (`useId`, `position`, `mainFoot`, `height`, `weight`, `injury`, `mental`, `speed`, `physical`, `dribble`, `pass`, `defence`, `total`) VALUES ('444', 'MF', 'right', '156', '80', '0', '60', '70', '60', '76', '69', '69', '0');
-INSERT INTO `soccerproject`.`playerinfo` (`useId`, `position`, `mainFoot`, `height`, `weight`, `injury`, `mental`, `speed`, `physical`, `dribble`, `pass`, `defence`, `total`) VALUES ('555', 'FW', 'right', '190', '90', '0', '40', '50', '60', '60', '60', '48', '0');

@@ -1,5 +1,0 @@
-INSERT INTO `soccerproject`.`stadium` (`stadiumId`, `stadiumName`, `stadiumAddr`, `stadiumCost`, `stadiumType`) VALUES ('s1', '월드컵경기장', '마포구 성산동', '50000000', '11:11');
-INSERT INTO `soccerproject`.`stadium` (`stadiumId`, `stadiumName`, `stadiumAddr`, `stadiumCost`, `stadiumType`) VALUES ('s2', '잠실축구장', '송파구 잠실동', '3000000', '11:11');
-INSERT INTO `soccerproject`.`stadium` (`stadiumId`, `stadiumName`, `stadiumAddr`, `stadiumCost`, `stadiumType`) VALUES ('s3', '뚝섬축구장', '성동구 성수동', '3500000', '11:11');
-INSERT INTO `soccerproject`.`stadium` (`stadiumId`, `stadiumName`, `stadiumAddr`, `stadiumCost`, `stadiumType`) VALUES ('s4', '난지도공원', '마포구 성산동', '2000000', '6:6');
-INSERT INTO `soccerproject`.`stadium` (`stadiumId`, `stadiumName`, `stadiumAddr`, `stadiumCost`, `stadiumType`) VALUES ('s5', '반포한강공원', '서초구 반포동', '3800000', '6:6');
