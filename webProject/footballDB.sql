@@ -91,7 +91,9 @@ CREATE TABLE IF NOT EXISTS `soccerproject`.`match` (
   INDEX `fk_match_stadium1_idx` (`stadiumId` ASC) VISIBLE,
   CONSTRAINT `fk_match_team1`
     FOREIGN KEY (`teamId`)
-    REFERENCES `soccerproject`.`team` (`teamId`),
+    REFERENCES `soccerproject`.`team` (`teamId`)
+	ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_match_vote1`
     FOREIGN KEY (`voteId`)
     REFERENCES `soccerproject`.`vote` (`voteId`)
