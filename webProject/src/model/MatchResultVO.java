@@ -7,6 +7,11 @@ public class MatchResultVO {
 	private int toHomeMannerScore;
 	
 	public MatchResultVO() {}
+	public MatchResultVO(String score, int toAwayMannerScore, int toHomeMa) {
+		this.score = score;
+		this.toAwayMannerScore = toAwayMannerScore;
+		this.toHomeMannerScore = toHomeMa;
+	}
 	public MatchResultVO(int matchId, String score, int toAwayMannerScore, int toHomeMa) {
 		super();
 		this.matchId = matchId;
