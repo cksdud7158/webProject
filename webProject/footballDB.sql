@@ -89,19 +89,19 @@ CREATE TABLE IF NOT EXISTS `soccerproject`.`match` (
   INDEX `fk_match_team1_idx` (`teamId` ASC) VISIBLE,
   INDEX `fk_match_vote1_idx` (`voteId` ASC) VISIBLE,
   INDEX `fk_match_stadium1_idx` (`stadiumId` ASC) VISIBLE,
+  CONSTRAINT `fk_match_stadium1`
+    FOREIGN KEY (`stadiumId`)
+    REFERENCES `soccerproject`.`stadium` (`stadiumId`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_match_team1`
     FOREIGN KEY (`teamId`)
     REFERENCES `soccerproject`.`team` (`teamId`)
-	ON DELETE CASCADE
+    ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_match_vote1`
     FOREIGN KEY (`voteId`)
     REFERENCES `soccerproject`.`vote` (`voteId`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_match_stadium1`
-    FOREIGN KEY (`stadiumId`)
-    REFERENCES `soccerproject`.`stadium` (`stadiumId`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
@@ -158,18 +158,19 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `soccerproject`.`playerinfo` (
   `userId` VARCHAR(20) NOT NULL,
-  `position` VARCHAR(20) NOT NULL,
-  `mainFoot` VARCHAR(45) NOT NULL,
-  `height` INT NOT NULL,
-  `weight` INT NOT NULL,
-  `injury` INT NOT NULL,
-  `mental` INT NOT NULL,
-  `speed` INT NOT NULL,
-  `physical` INT NOT NULL,
-  `dribble` INT NOT NULL,
-  `pass` INT NOT NULL,
-  `defence` INT NOT NULL,
-  `total` INT NOT NULL,
+  `position` VARCHAR(20) NOT NULL DEFAULT 'st',
+  `mainFoot` VARCHAR(45) NOT NULL DEFAULT 'right',
+  `height` INT NOT NULL DEFAULT 0,
+  `weight` INT NOT NULL DEFAULT 0,
+  `injury` INT NOT NULL DEFAULT 0,
+  `mental` INT NOT NULL DEFAULT 0,
+  `speed` INT NOT NULL DEFAULT 0,
+  `physical` INT NOT NULL DEFAULT 0,
+  `dribble` INT NOT NULL DEFAULT 0,
+  `pass` INT NOT NULL DEFAULT 0,
+  `defence` INT NOT NULL DEFAULT 0,
+  `total` INT NOT NULL DEFAULT 0,
+  `playerinfocol` VARCHAR(45) NULL DEFAULT 0,
   PRIMARY KEY (`userId`),
   CONSTRAINT `fk_playerinfo_user`
     FOREIGN KEY (`userId`)
@@ -185,12 +186,12 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `soccerproject`.`teaminfo`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `soccerproject`.`teaminfo` (
-  `mannerScore` INT NOT NULL,
-  `matchNum` INT NOT NULL,
-  `ranking` INT NOT NULL,
-  `memberNum` INT NOT NULL,
-  `teamScore` INT NOT NULL,
-  `winningScore` INT NOT NULL,
+  `mannerScore` INT NOT NULL DEFAULT 0,
+  `matchNum` INT NOT NULL DEFAULT 0,
+  `ranking` INT NOT NULL DEFAULT 0,
+  `memberNum` INT NOT NULL DEFAULT 0,
+  `teamScore` INT NOT NULL DEFAULT 0,
+  `winningScore` INT NOT NULL DEFAULT 0,
   `teamId` INT NOT NULL,
   PRIMARY KEY (`teamId`),
   CONSTRAINT `fk_teaminfo_team1`
@@ -209,22 +210,22 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `soccerproject`.`teammember` (
   `teammemberId` INT NOT NULL AUTO_INCREMENT,
   `regDate` DATE NOT NULL,
-  `manager` INT NOT NULL,
-  `participation` DECIMAL(1,0) NOT NULL,
-  `status` TINYINT NOT NULL,
+  `manager` INT NOT NULL DEFAULT 0,
+  `participation` DECIMAL(1,0) NOT NULL DEFAULT 0,
+  `status` TINYINT NOT NULL DEFAULT 1,
   `userId` VARCHAR(20) NOT NULL,
   `teamId` INT NOT NULL,
   PRIMARY KEY (`teammemberId`),
   INDEX `fk_teammember_user1_idx` (`userId` ASC) VISIBLE,
   INDEX `fk_teammember_team1_idx` (`teamId` ASC) VISIBLE,
-  CONSTRAINT `fk_teammember_user1`
-    FOREIGN KEY (`userId`)
-    REFERENCES `soccerproject`.`user` (`userId`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
   CONSTRAINT `fk_teammember_team1`
     FOREIGN KEY (`teamId`)
     REFERENCES `soccerproject`.`team` (`teamId`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_teammember_user1`
+    FOREIGN KEY (`userId`)
+    REFERENCES `soccerproject`.`user` (`userId`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
@@ -241,14 +242,14 @@ CREATE TABLE IF NOT EXISTS `soccerproject`.`voteresult` (
   `teammemberId` INT NOT NULL,
   INDEX `fk_voteresult_vote1_idx` (`voteId` ASC) VISIBLE,
   INDEX `fk_voteresult_teammember1_idx` (`teammemberId` ASC) VISIBLE,
-  CONSTRAINT `fk_voteresult_vote1`
-    FOREIGN KEY (`voteId`)
-    REFERENCES `soccerproject`.`vote` (`voteId`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
   CONSTRAINT `fk_voteresult_teammember1`
     FOREIGN KEY (`teammemberId`)
     REFERENCES `soccerproject`.`teammember` (`teammemberId`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_voteresult_vote1`
+    FOREIGN KEY (`voteId`)
+    REFERENCES `soccerproject`.`vote` (`voteId`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
