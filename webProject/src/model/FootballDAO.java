@@ -42,7 +42,7 @@ public interface FootballDAO {
 	//Business Logics
 		//로그인
 	UserVO login(String userId, String password) throws SQLException;
-	ArrayList<MatchVO> recommendSquad(int participation, int totalAblity) throws SQLException;
+	ArrayList<UserVO> recommendSquad(int participation, int totalAbility, int teamid) throws SQLException;
 		
 	void makeVote(VoteVO vVo) throws SQLException;
 	void insertVoteResult(VoteResultVO vRVo) throws SQLException;

@@ -456,7 +456,6 @@ public class FootBallDAOImpl2 implements FootballDAO {
 				if(rs2.next()) {
 					pVo = new PlayerInfoVO(userId, rs2.getString("position"),rs2.getString("mainFoot") , rs2.getInt("height"), rs2.getInt("weight"), rs2.getInt("injury"), rs2.getInt("mental"), rs2.getInt("speed"), rs2.getInt("physical"), rs2.getInt("dribble"), rs2.getInt("pass"), rs2.getInt("defence"), rs2.getInt("total"));
 					uVo.setpVo(pVo);
-					
 				}
 				String query3 = "SELECT * FROM teammember WHERE userId=?";
 				ps = conn.prepareStatement(query3);
@@ -473,18 +472,55 @@ public class FootBallDAOImpl2 implements FootballDAO {
 		}
 		return uVo;
 	}
+	
 	@Override
-	public ArrayList<MatchVO> recommendSquad(int participation, int totalAblity) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<UserVO> recommendSquad(int participation, int totalAbility, int teamid) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs1 = null;
+		ResultSet rs2 = null;
+		int matchNum=0;
+		ArrayList<UserVO> uvo = new ArrayList<>();
+		
+		try {
+			conn = getConnection();
+			// 임의의 team 내에서 참석 가능하다고 투표한 사람의 성실도, 종합능력치
+			String query2 = "select matchnum from teaminfo where teamid=?";
+			ps = conn.prepareStatement(query2);
+			ps.setInt(1, teamid);
+			rs2 = ps.executeQuery();
+			if(rs2.next()) {
+				matchNum = rs2.getInt(1);
+			}
+			System.out.println(matchNum);
+			
+			String query1 = "select e.*, (prt*(?)+avg_ability*(?))/10 as wavg from (select d.userid, c.participation/? as prt, ((d.mental+d.speed+d.physical+d.physical+d.dribble+d.pass+d.defence)/6) as avg_ability from (select a.userid, a.participation, b.* from teammember a, (select * from voteresult where voteid = (select max(v1.voteid) from vote v1, voteresult v2 where v1.teamid=? and v1.voteid=v2.voteid)) b where a.teammemberid = b.teammemberid and b.attendence=1) c, playerinfo d where c.userid=d.userid) e order by wavg desc";
+			ps = conn.prepareStatement(query1);
+			ps.setInt(1, matchNum);
+			ps.setInt(2, participation);
+			ps.setInt(3, totalAbility);
+			ps.setInt(4, teamid);
+			rs1 = ps.executeQuery();
+			System.out.println(participation + "/" + totalAbility);
+			
+			while(rs1.next()) {
+				System.out.println(rs1.getString("userid"));
+				//uvo.add(findByUserId(rs1.getString("userid")));
+			}
+		} finally {
+			closeAll(rs1, ps, conn);
+		}
+		//System.out.println(uvo);
+		return uvo;
 	}
+	
 	@Override
 	public void makeVote(VoteVO vVo) throws SQLException {
 			Connection conn = null;
 			PreparedStatement ps = null;
 			try {
 				conn = getConnection();
-				String query = "insert into vote (contents, dueDate, managerId, teamId) values(?,?,?,?)";
+				String query = "insert into vote (contents, dueDate, writer, teamId) values(?,?,?,?)";
 				ps = conn.prepareStatement(query);
 				ps.setString(1, vVo.getContents());
 				ps.setString(2, vVo.getDueDate());
@@ -509,6 +545,7 @@ public class FootBallDAOImpl2 implements FootballDAO {
 			ps.setInt(1, vRVo.getVoteId());
 			ps.setInt(2, vRVo.getTeamMemberId());
 			ps.setInt(3, vRVo.getAttendance());
+			System.out.println(ps.executeUpdate()+"개 추가 되었습니다.");
 			
 		}finally{
 			closeAll(ps, conn);
@@ -583,7 +620,7 @@ public class FootBallDAOImpl2 implements FootballDAO {
 				vo.setHomeSquad(rs1.getString("homeSquad"));
 				vo.setAwaySquad(rs1.getString("awaySquad"));
 				
-				String query2 = "select * from matchresult where matchId = ?";
+				String query2 = "select * from match_result where matchId = ?";
 				ps = conn.prepareStatement(query2);
 				ps.setInt(1, vo.getMatchId());
 				rs2 = ps.executeQuery();
@@ -602,6 +639,7 @@ public class FootBallDAOImpl2 implements FootballDAO {
 		}
 		return mVo;
 	}
+	
 	@Override
 	public ArrayList<MatchVO> userSchedule(int teamMemberId) throws SQLException {
 		Connection conn = null;
@@ -700,7 +738,7 @@ public class FootBallDAOImpl2 implements FootballDAO {
 			ps.setInt(10, uVo.getpVo().getPass());
 			ps.setInt(11, uVo.getpVo().getDefence());
 			ps.setInt(12, uVo.getpVo().getTotal());
-			ps.setString(13, uVo.getpVo().getUserId());
+			ps.setString(13, uVo.getUserId());
 			
 			System.out.println(ps.executeUpdate() + "명 수정 성공2_!!");
 			
@@ -731,35 +769,47 @@ public static void main(String[] args) throws SQLException {
 	FootBallDAOImpl2 dao = FootBallDAOImpl2.getInstance();
 	
 	//DriverManager 방식의 DB Connection
-
-	
-	
+		
 	/*//login
-	UserVO vo = dao.login("111", "111");
+	UserVO vo = dao.login("aaa", "aaa");
 	System.out.println(vo);*/
 	
+	// recommend squad
+	//dao.recommendSquad(3, 7, 1);
 	
 	//makeVote
-	//dao.makeVote(new VoteVO("안녕하세요. 반갑습니다.", "2020-07-02", "111", 3));
+	//dao.makeVote(new VoteVO("안녕하세요. 반갑습니다.", "2020-07-02", "aaa", 1));
+	
+	// insert VoteResult
+	//VoteResultVO vVo = new VoteResultVO(7, 41, 0);
+	//dao.insertVoteResult(vVo);
+	
 	
 	//insertMatchVO
-	//dao.insertMatch(new MatchVO(2, 2, "2020-06-30", 222, "homeSquad", "awaySquad", 2));	
+	//dao.insertMatch(new MatchVO(2, 2, "2020-07-12", 3, "homeSquad", "awaySquad", 7));	
+	
+	// insert match result
+/*	MatchResultVO mrvo = new MatchResultVO(7, "3:4", 5, 7);
+	dao.insertMatchResult(mrvo);*/
 	
 	//TeamSchedule
 	//System.out.println(dao.TeamSchedule(2));
 	
+	// user schedule
+	//dao.userSchedule(1);
+	
 	///delete
-	//dao.deleteUser("111", "111");
-	//dao.deleteTeam(1, "FC바르셀로나");
+	//dao.deleteUser("zzz", "zzz");
+	//dao.deleteTeam(6, "FCfff");
 		
 	/*// update
-	UserVO uVo = new UserVO("111", "111", "111", "img/111.jpg", "이재헌", "111@111.com", "답십리", "바르셀로나", "레알마드리드", new PlayerInfoVO("111", "LWF", "왼발", 190, 80, 1, 80, 80, 80, 80, 80, 80, 0));
+	UserVO uVo = new UserVO("aaa", "aaa", "010-5621-4472", "img/aaa.jpg", "이재헌", "111@gmail.com", "답십리", "바르셀로나", "레알마드리드", new PlayerInfoVO("LWF", "왼발", 190, 80, 1, 80, 80, 80, 80, 80, 80, 0));
 	dao.updateUser(uVo);
 	*/
 	
-	
+	/*// update team
+	TeamVO tVo = new TeamVO(5, "FCeee", "img/FCeee.jpg", "서울", "제주", "강원도", 1);
+	dao.updateTeam(tVo);*/
 
-	
-	//dao.method();
 }
 }

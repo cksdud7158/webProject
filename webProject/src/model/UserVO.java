@@ -240,8 +240,11 @@ public class UserVO {
 		return "UserVO [userId=" + userId + ", pass=" + pass + ", name=" + name + ", phoneNum=" + phoneNum + ", photo="
 				+ photo + ", ssn=" + ssn + ", nickName=" + nickName + ", gender=" + gender + ", email=" + email
 				+ ", addr=" + addr + ", favTeam1=" + favTeam1 + ", favTeam2=" + favTeam2 + ", regDate=" + regDate
-				+ ", country=" + country + ", recentLogin=" + recentLogin + ", tVoList=" + tVoList + "]";
+				+ ", country=" + country + ", recentLogin=" + recentLogin + ", tVoList=" + tVoList + ", pVo=" + pVo
+				+ "]";
 	}
+
+	
 		
 	
 }
