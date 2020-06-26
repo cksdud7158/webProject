@@ -29,7 +29,7 @@
   <!-- Custom Style-->
   <link href="assets/css/app-style.css" rel="stylesheet"/>
   <link href="assets/css/app-style.css" rel="stylesheet"/>
-  
+   
     <!-- Bootstrap core JavaScript-->
   <script src="assets/js/jquery.min.js"></script>
   <script src="assets/js/popper.min.js"></script>
@@ -154,10 +154,76 @@
     <div class="container-fluid">
 
     <div class="row mt-3">
+        <div class="col-lg-6">
+        <div class="card">
+           <div class="card-body">
+           <div class="card-title">기본정보</div>
+           <hr>
+            <form>
+             <div class="pass">
+            <label for="input-9">비밀번호</label>
+            <input type="text" name = "pass" id="pass" class="form-control form-control-rounded" placeholder="비밀번호를 입력하세요.">
+           </div>
+           <div class="passChcek">
+            <label for="input-10">비밀번호 확인</label>
+            <input type="text" name = "passChcek" id="passChcek" class="form-control form-control-rounded" placeholder="비밀번호 확인하세요.">
+           </div>
+             <div class="form-group">
+            <label for="name">이름</label>
+            <input type="text" name = "name" id="name" class="form-control form-control-rounded" placeholder="이름을 입력하세요.">
+           </div>      
+           <div class="form-group">
+            <label for="phoneNum">핸드폰번호</label>
+            <input type="text" name = "phoneNum" id="phoneNum" class="form-control form-control-rounded" id="input-7" placeholder="-를 제외한 숫자만 기입해주세요.">
+           </div>
+           <div class="form-group">
+            <label for="input-8">사진</label>
+             <input class="form-control form-control-rounded" id="input-8" type="file">
+           </div>
+          <div class="form-group">
+            <label for="input-7">주민등록번호</label>
+            <input type="text" class="form-control form-control-rounded" id="input-7" placeholder="주민등록번호를 입력해주세요.">
+          </div>
+          <div class="form-group">
+            <label for="input-7">별명</label>
+            <input type="text" class="form-control form-control-rounded" id="input-7" placeholder="Enter Your Email Address">
+          </div>
+           <div class="form-group">
+            <label for="input-7">성별</label>
+            	남<input type="radio" class="form-control-rounded" id="input-7" value="m">&nbsp;&nbsp;여<input type="radio" class="form-control-rounded" id="input-7" value="f"> 
+          </div>
+          <div class="form-group">
+            <label for="input-7">Email</label>
+            <input type="text" class="form-control form-control-rounded" id="input-7" placeholder="이메일을 입력해주세요.">
+           </div>
+          <div class="form-group">
+            <label for="input-7">주소</label>
+            <input type="text" class="form-control form-control-rounded" id="input-7" placeholder="주소를 입력해주세요.">
+          </div>
+          <div class="form-group">
+            <label for="input-7">favTeam1</label>
+            <input type="text" class="form-control form-control-rounded" id="input-7" placeholder="주소를 입력해주세요.">
+          </div>
+           <div class="form-group">
+            <label for="input-7">favTeam2</label>
+            <input type="text" class="form-control form-control-rounded" id="input-7" placeholder="주소를 입력해주세요.">
+          </div>
+            <div class="form-group">
+            <label for="input-7">country</label>
+            <input type="text" class="form-control form-control-rounded" id="input-7" placeholder="주소를 입력해주세요.">
+          </div>          
+          <div class="form-group">
+            <button type="submit" class="btn btn-light btn-round px-5"><i class="icon-lock"></i> Register</button>
+          </div>
+          </form>
+         </div>
+         </div>
+      </div>
+      
       <div class="col-lg-6">
          <div class="card">
            <div class="card-body">
-           <div class="card-title">Vertical Form</div>
+           <div class="card-title">선수정보</div>
            <hr>
             <form>
            <div class="form-group">
@@ -188,46 +254,6 @@
            </div>
            <div class="form-group">
             <button type="submit" class="btn btn-light px-5"><i class="icon-lock"></i> Register</button>
-          </div>
-          </form>
-         </div>
-         </div>
-      </div>
-
-      <div class="col-lg-6">
-        <div class="card">
-           <div class="card-body">
-           <div class="card-title">Round Vertical Form</div>
-           <hr>
-            <form>
-           <div class="form-group">
-            <label for="input-6">Name</label>
-            <input type="text" class="form-control form-control-rounded" id="input-6" placeholder="Enter Your Name">
-           </div>
-           <div class="form-group">
-            <label for="input-7">Email</label>
-            <input type="text" class="form-control form-control-rounded" id="input-7" placeholder="Enter Your Email Address">
-           </div>
-           <div class="form-group">
-            <label for="input-8">Mobile</label>
-            <input type="text" class="form-control form-control-rounded" id="input-8" placeholder="Enter Your Mobile Number">
-           </div>
-           <div class="form-group">
-            <label for="input-9">Password</label>
-            <input type="text" class="form-control form-control-rounded" id="input-9" placeholder="Enter Password">
-           </div>
-           <div class="form-group">
-            <label for="input-10">Confirm Password</label>
-            <input type="text" class="form-control form-control-rounded" id="input-10" placeholder="Confirm Password">
-           </div>
-           <div class="form-group py-2">
-             <div class="icheck-material-white">
-            <input type="checkbox" id="user-checkbox2" checked=""/>
-            <label for="user-checkbox2">I Agree Terms & Conditions</label>
-            </div>
-           </div>
-           <div class="form-group">
-            <button type="submit" class="btn btn-light btn-round px-5"><i class="icon-lock"></i> Register</button>
           </div>
           </form>
          </div>

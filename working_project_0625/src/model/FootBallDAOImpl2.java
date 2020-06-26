@@ -60,12 +60,71 @@ public class FootBallDAOImpl2 implements FootballDAO {
 		closeAll(ps, conn);
 	}
 	@Override
-	public void registerUser(UserVO vo) throws SQLException {
-		// TODO Auto-generated method stub
+	public void registerPlayerInfo(PlayerInfoVO pVO)throws SQLException{
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = getConnection();
+			String query = "INSERT INTO `soccerproject`.`playerinfo` (`userId`, `position`, `mainFoot`, `height`, `weight`, `mental`, `speed`, `physical`, `dribble`, `pass`, `defence`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, pVO.getUserId());
+			ps.setString(2, pVO.getPosition() );
+			ps.setString(3, pVO.getMainFoot());
+			ps.setInt(4, pVO.getHeight());
+			ps.setInt(5, pVO.getWeight());
+			ps.setInt(6, pVO.getMental());
+			ps.setInt(7, pVO.getSpeed());
+			ps.setInt(8, pVO.getPhysical());
+			ps.setInt(9, pVO.getDribble());
+			ps.setInt(10, pVO.getPass());
+			ps.setInt(11, pVO.getDefence());
+			
+			System.out.println(ps.executeUpdate()+"명 player infroamtrion이 등록되었습니다.");
+		} finally {
+			closeAll(ps, conn);
+		}
 		
 	}
+	
 	@Override
-	public void requestToJoin(PlayerInfoVO pVo, TeamMemberVO tVo) throws SQLException {
+	public void registerUser(UserVO vo, PlayerInfoVO pVO) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		long time = System.currentTimeMillis();
+		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd");
+		String str = dayTime.format(new Date(time));
+		System.out.println(str);
+		
+		try {
+			conn = getConnection();
+			String query1= "INSERT INTO `soccerproject`.`user` (`userId`, `pass`, `name`, `phoneNum`, `photo`, `ssn`, `nickName`, `gender`, `email`, `addr`, `favTeam1`, `favTeam2`, `regDate`, `country`, `recentLogin`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+			ps = conn.prepareStatement(query1);
+			ps.setString(1, vo.getUserId());
+			ps.setString(2, vo.getPass());
+			ps.setString(3, vo.getName());
+			ps.setString(4, vo.getPhoneNum());
+			ps.setString(5, vo.getPhoto());
+			ps.setString(6, vo.getSsn());
+			ps.setString(7, vo.getNickName());
+			ps.setString(8, String.valueOf(vo.getGender()));
+			ps.setString(9, vo.getEmail());
+			ps.setString(10, vo.getAddr());
+			ps.setString(11, vo.getFavTeam1());
+			ps.setString(12, vo.getFavTeam2());
+			ps.setString(13, str);
+			ps.setString(14, vo.getCountry());
+			ps.setString(15, str);
+			
+			System.out.println(ps.executeUpdate()+"명 user 등록되었습니다.");
+			
+			registerPlayerInfo(pVO);
+		} finally {
+			closeAll(ps, conn);
+		}
+	}
+	@Override
+	public void requestToJoin(PlayerInfoVO pVo, int teamId) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -78,143 +137,67 @@ public class FootBallDAOImpl2 implements FootballDAO {
 
 		try {
 			conn = getConnection();
-			String query = "INSERT INTO teammemberId (teammemberId, regDate, manager, participation, status, userId, teamId) VALUES(?, ?, ?, ?, ?, ?, ?)";
+			String query = "INSERT INTO teammember (regDate, status, userId, teamId) VALUES(?, ?, ?, ?)";
 			ps = conn.prepareStatement(query);
 			
-			ps.setInt(1, tVo.getTeamId());
-			ps.setString(2, str);
-			ps.setInt(3, tVo.getManager());
-			ps.setFloat(4, tVo.getParticipation());
-			ps.setFloat(5, tVo.getStatus());
-			ps.setString(6, pVo.getUserId());
-			ps.setInt(7, tVo.getTeamId());
+			ps.setString(1, str);
+			ps.setFloat(2, flag);
+			ps.setString(3, pVo.getUserId());
+			ps.setInt(4, teamId);
 			
-			rs = ps.executeQuery();
-			
-			flag = tVo.getStatus();
-			
-			if(flag == 1) {
-				query = "DELETE FROM teammember WHERE id = ?";
-				ps = conn.prepareStatement(query);
-				ps.setString(1, pVo.getUserId());
-				rs = ps.executeQuery();
-				if(rs.next()) {
-					System.out.println("this user has been deleted...");
-				} 
-			}
-			else {
-				time = System.currentTimeMillis(); 
-				dayTime = new SimpleDateFormat("yyyy-MM-dd");
-				str = dayTime.format(new Date(time));
-				query = "UPDATE teammember SET regDate = ?, status = ? WHERE userId = ?";
-				ps = conn.prepareStatement(query);
-				
-				ps.setString(1, str);
-				ps.setFloat(2, flag);
-				ps.setString(3, pVo.getUserId());
-				
-				rs = ps.executeQuery();
-				
-				if(rs.next()) {
-					System.out.println("this user has been added...");
-				}
-			}
-			
+			System.out.println(ps.executeUpdate()+"명, 팀 가입 요청되었습니다.");
 		} finally {
 			closeAll(rs, ps, conn);
 		}
 	}
 	
+
 	@Override
 	public void makeTeam(TeamVO vo) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
-		ResultSet rs = null;
-
-		boolean flag = true;
 		
 		try {
 			conn = getConnection();
-			String query = "SELECT teamName From team";
+			String query = "INSERT INTO team (teamName, emblem, area1, area2, area3, stadiumId) VALUES(?, ?, ?, ?, ?, ?)";
 			ps = conn.prepareStatement(query);
-			rs = ps.executeQuery(); 
+			ps.setString(1, vo.getTeamName());
+			ps.setString(2, vo.getEmblem());
+			ps.setString(3, vo.getArea1());
+			ps.setString(4, vo.getArea2());
+			ps.setString(5, vo.getArea3());
+			ps.setInt(6, vo.getStadiumId());
 			
-			while(rs.next()) {
-				if(rs.getString("teamName").equals(vo.getTeamName())) 
-					flag = false;
-			}
-			
-			if(flag) {
-				query = "INSERT INTO team (teamId, teamName, emblem, area1, area2, area3, stadiumId) VALUES(?, ?, ?, ?, ?, ?, ?)";
-				ps.setInt(1, vo.getTeamId());
-				ps.setString(2, vo.getTeamName());
-				ps.setString(3, vo.getEmblem());
-				ps.setString(4, vo.getArea1());
-				ps.setString(5, vo.getArea2());
-				ps.setString(6, vo.getArea3());
-				ps.setInt(7, vo.getStadiumId());
-			}
-			
-		} finally {
-			closeAll(rs, ps, conn);
+			System.out.println(ps.executeUpdate()+"개의 팀이 만들어졌습니다.");
+		}finally {
+			closeAll(ps, conn);
 		}
 	}
+	
 	@Override
-	public ArrayList<UserVO> showAllMember(String teamId) throws SQLException {
-		ArrayList<UserVO> user = new ArrayList<UserVO>();
-		/*Connection conn = null;
+	public ArrayList<PlayerInfoVO> showAllMember(int teamId) throws SQLException {
+		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
-		int count = 0;
-
-		ArrayList<PlayerInfoVO> player = new ArrayList<PlayerInfoVO>();
-		ArrayList<UserVO> user = new ArrayList<UserVO>();
+		ArrayList<PlayerInfoVO> list = new ArrayList<PlayerInfoVO>();
 		
 		try {
 			conn = getConnection();
-			String query = "SELECT * FROM playerinfo";
+			String query = "select * from playerinfo where userid in (SELECT userId FROM soccerproject.teammember where teamId=?)";
 			ps = conn.prepareStatement(query);
+			ps.setInt(1, teamId);
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				player.add(new PlayerInfoVO(rs.getString("userId"), rs.getString("position"), rs.getString("mainFoot"), rs.getInt("height"), rs.getInt("weight"), rs.getInt("injury"), rs.getInt("mental"), rs.getInt("speed"), rs.getInt("physical"), rs.getInt("dribble"), rs.getInt("pass"), rs.getInt("defence"), rs.getInt("total")));
-			}
-					
-			query = "SELECT * FROM user";
-			ps = conn.prepareStatement(query);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {			
-				String str = rs.getString("gender");
-				UserVO tmp = new UserVO(
-						rs.getString("userId"),
-						rs.getString("pass"),
-						rs.getString("name"),
-						rs.getString("phoneNum"),
-						rs.getString("photo"),
-						rs.getString("ssn"),
-						rs.getString("nickName"),
-						str.charAt(0),
-						rs.getString("email"),
-						rs.getString("addr"),
-						rs.getString("favTeam1"),
-						rs.getString("favTeam2"),
-						rs.getString("regDate"),
-						rs.getString("country"),
-						rs.getString("recentLogin"),
-						player.get(count)
-						);
-				
-				user.add(tmp);
-				count++;
+				list.add(new PlayerInfoVO(rs.getString("userId"), rs.getString("position"), rs.getString("mainFoot"), rs.getInt("height"), rs.getInt("weight"), rs.getInt("injury"), rs.getInt("mental"), rs.getInt("speed"), rs.getInt("physical"), rs.getInt("dribble"), rs.getInt("pass"), rs.getInt("defence"), rs.getInt("mental") +rs.getInt("speed") +rs.getInt("physical") +rs.getInt("dribble") +rs.getInt("pass")+ rs.getInt("defence")));
 			}
 			
 		} finally {
 			closeAll(rs, ps, conn);
-		}*/
+		} // finally
 		
-		return user;
+		return list;
 	}
 	@Override
 	public UserVO findByUserId(String userId) throws SQLException {
@@ -243,6 +226,7 @@ public class FootBallDAOImpl2 implements FootballDAO {
 		
 		return vo;
 	}
+	
 	@Override
 	public UserVO findByNickName(String nickName) throws SQLException {
 		Connection conn = null;
@@ -325,30 +309,32 @@ public class FootBallDAOImpl2 implements FootballDAO {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		MatchVO mVo = null;
 		
 		ArrayList<MatchVO> vo = new ArrayList<MatchVO>();
+		MatchResultVO mrVo = null;
 		
 		try {
 			conn = getConnection();
-			String query = "SELECT * FROM match";
+			String query = "select m.*, mr.* from `match` m, match_result mr where m.matchId = mr.matchId;";
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				vo.add(new MatchVO(rs.getInt("matchId"), rs.getInt("teamId"), rs.getInt("stadiumId"), rs.getString("schedule"),  rs.getInt("awayId"), rs.getString("homeSquad"), rs.getString("awaySquad"),  rs.getInt("voteId")));
+				mrVo = new MatchResultVO(rs.getString("score"), rs.getInt("toAwayMannerScore"), rs.getInt("toHomeMannerScore"));
+				mVo = new MatchVO(rs.getInt("matchId"), rs.getInt("teamId"),rs.getInt("stadiumId"), rs.getString("schedule"),  rs.getInt("awayId"),
+						rs.getString("homeSquad"), rs.getString("awaySquad"),  rs.getInt("voteId"));
+				mVo.setMrVo(mrVo);
+				vo.add(mVo);
 			}
-			
 		} finally {
 			closeAll(rs, ps, conn);
 		}
-		
+		System.out.println(vo);
+		System.out.println("matchHistory BL 호출 성공");
 		return vo;
 	}
-	
-	
-	
-	
-	
+
 	@Override
 	public ArrayList<MatchVO> recommendMatch(String area) throws SQLException {
 
