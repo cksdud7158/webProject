@@ -97,7 +97,7 @@ public class FootBallDAOImpl1 implements FootballDAO {
 	}
 	
 	@Override
-	public void requestToJoin(PlayerInfoVO pVo, TeamMemberVO tVo) throws SQLException {
+	public void requestToJoin(PlayerInfoVO pVo, String teamId) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -110,126 +110,54 @@ public class FootBallDAOImpl1 implements FootballDAO {
 
 		try {
 			conn = getConnection();
-			String query = "INSERT INTO teammember (teammemberId, regDate, manager, participation, status, userId, teamId) VALUES(?, ?, ?, ?, ?, ?, ?)";
+			String query = "INSERT INTO teammember (regDate, status, userId, teamId) VALUES(?, ?, ?, ?)";
 			ps = conn.prepareStatement(query);
 			
-			ps.setInt(1, tVo.getTeamId());
-			ps.setString(2, str);
-			ps.setInt(3, tVo.getManager());
-			ps.setFloat(4, tVo.getParticipation());
-			ps.setInt(5, tVo.getStatus());
-			ps.setString(6, pVo.getUserId());
-			ps.setInt(7, tVo.getTeamId());
+			ps.setString(1, str);
+			ps.setFloat(2, flag);
+			ps.setString(4, pVo.getUserId());
+			ps.setString(5, teamId);
 			
-			rs = ps.executeQuery();
-			
-			flag = tVo.getStatus();
-			
-			if(flag == 1) {
-				query = "DELETE FROM teammember WHERE userId = ?";
-				ps = conn.prepareStatement(query);
-				ps.setString(1, pVo.getUserId());
-				rs = ps.executeQuery();
-				if(rs.next()) {
-					System.out.println("this user has been deleted...");
-				} 
-			}
-			else {
-				time = System.currentTimeMillis(); 
-				dayTime = new SimpleDateFormat("yyyy-MM-dd");
-				str = dayTime.format(new Date(time));
-				query = "UPDATE teammember SET regDate = ?, status = ? WHERE userId = ?";
-				ps = conn.prepareStatement(query);
-				
-				ps.setString(1, str);
-				ps.setInt(2, flag);
-				ps.setString(3, pVo.getUserId());
-				
-				rs = ps.executeQuery();
-				
-				if(rs.next()) {
-					System.out.println("this user has been added...");
-				}
-			}
-			
+			System.out.println(ps.executeUpdate()+"명 요청되었습니다.");
 		} finally {
 			closeAll(rs, ps, conn);
 		}
 	}
 	@Override
-	public int allowToJoin(PlayerInfoVO pVo, TeamMemberVO tVo) throws SQLException {
+	public void allowToJoin(int teamMemberId) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
-		ResultSet rs = null;
-		PlayerInfoVO vo = new PlayerInfoVO();
-		
-		// 임시로 해둔 것
-		Scanner sc = new Scanner(System.in);
-		
-		int flag = 1;
 		
 		try {
 			conn = getConnection();
-			String query = "SELECT * FROM playerinfo WHERE userId = ?";
+			String query = "update teammember set status=0 where teammemberId=?";
 			ps = conn.prepareStatement(query);
-			ps.setString(1, pVo.getUserId());
-			rs = ps.executeQuery();
+			ps.setInt(1, teamMemberId);
 			
-			if(rs.next()) {
-				vo = new PlayerInfoVO(rs.getString("userId"), rs.getString("position"), rs.getString("mainFoot"), rs.getInt("height"), rs.getInt("weight"), rs.getInt("injury"), rs.getInt("mental"), rs.getInt("speed"), rs.getInt("physical"), rs.getInt("dribble"), rs.getInt("pass"), rs.getInt("defence"), rs.getInt("total"));
-			}
-			
-			System.out.println(rs.getString("uesrId") + " | Do you want to accept this user as a team member (true/false)?");
-			boolean input = sc.nextBoolean();
-			
-			if(input) {
-				flag = 0;
-				return flag;
-			}
-			else
-				return flag;
+			System.out.println(ps.executeUpdate()+"명이 팀에 가입되셨습니다.");
 			
 		} finally {
-			closeAll(rs, ps, conn);
+			closeAll(ps, conn);
 		}
 	}
+	
 	@Override
-	public int rejectToJoin(PlayerInfoVO pVo, TeamMemberVO tVo) throws SQLException {
+	public void rejectToJoin(int teamMemberId) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
-		ResultSet rs = null;
-		PlayerInfoVO vo = new PlayerInfoVO();
-		
-		// 임시로 해둔 것
-		Scanner sc = new Scanner(System.in);
-		
-		int flag = 1;
 		
 		try {
 			conn = getConnection();
-			String query = "SELECT * FROM playerinfo WHERE userId = ?";
+			String query = "delete from teammember where teammemberId=?";
 			ps = conn.prepareStatement(query);
-			ps.setString(1, pVo.getUserId());
-			rs = ps.executeQuery();
+			ps.setInt(1, teamMemberId);
 			
-			if(rs.next()) {
-				vo = new PlayerInfoVO(rs.getString("userId"), rs.getString("position"), rs.getString("mainFoot"), rs.getInt("height"), rs.getInt("weight"), rs.getInt("injury"), rs.getInt("mental"), rs.getInt("speed"), rs.getInt("physical"), rs.getInt("dribble"), rs.getInt("pass"), rs.getInt("defence"), rs.getInt("total"));
-			}
-			
-			System.out.println(rs.getString("uesrId") + " | Do you want to accept this user as a team member (true/false)?");
-			boolean input = sc.nextBoolean();
-			
-			if(input) {
-				flag = 0;
-				return flag;
-			}
-			else
-				return flag;
-			
+			System.out.println(ps.executeUpdate()+"명이 팀에 가입 거절되셨습니다.");
 		} finally {
-			closeAll(rs, ps, conn);
+			closeAll(ps, conn);
 		}
 	}
+	
 	@Override
 	public void makeTeam(TeamVO vo) throws SQLException {
 		Connection conn = null;
@@ -892,4 +820,5 @@ public static void main(String[] args) throws SQLException {
 	dao.updateTeam(tVo);*/
 
 	}
+
 }
