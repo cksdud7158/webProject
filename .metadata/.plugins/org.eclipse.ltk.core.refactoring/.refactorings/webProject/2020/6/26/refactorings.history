@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;webProject/src/model/PlayerInfoVo.java&apos; to &apos;PlayerInfoVO.java&apos;" description="Rename resource &apos;PlayerInfoVo.java&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/model/PlayerInfoVo.java" name="PlayerInfoVO.java" stamp="1592898797540" updateReferences="true"/>
-</session>
