@@ -22,7 +22,7 @@ public interface FootballDAO {
 	
 	
 	//검색
-	ArrayList<UserVO> showAllMember() throws SQLException;
+	ArrayList<UserVO> showAllMember(String teamId) throws SQLException;
 	UserVO findByUserId(String userId) throws SQLException;
 	UserVO findByNickName(String nickName) throws SQLException;
 	TeamVO findByTeamName(String teamName) throws SQLException;
