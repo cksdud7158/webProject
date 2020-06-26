@@ -280,50 +280,7 @@ public class FootBallDAOImpl1 implements FootballDAO {
 		return uVo;
 	}
 	
-	@Override
-	public UserVO findByNickName(String nickName) throws SQLException {
-		Connection conn = null;
-		PreparedStatement ps = null;
-		ResultSet rs1 = null;
-		ResultSet rs2 = null;
-		ResultSet rs3 = null;
-		
-		UserVO uVo = null;
-		PlayerInfoVO pVo= null;
-		ArrayList<TeamMemberVO> tVoList = new ArrayList<>();
-		
-		/*try {
-			conn = getConnection();
-			String query1 = "select * from user where nickName =?";
-			ps = conn.prepareStatement(query1);
-			ps.setString(1, nickName);
-
-			rs1 = ps.executeQuery();
-			if (rs1.next()) {
-				uVo = new UserVO(rs1.getString("userId"), rs1.getString("pass"), rs1.getString("name"), rs1.getString("phoneNum"), rs1.getString("photo"), rs1.getString("ssn"), rs1.getString("nickName"), rs1.getString("gender").charAt(0), rs1.getString("email"), rs1.getString("addr"), rs1.getString("favTeam1"), rs1.getString("favTeam2"), rs1.getString("regDate"),  rs1.getString("country"), rs1.getString("recentLogin"));
-				String query2 = "SELECT * FROM playerinfo WHERE userId=?";
-				ps = conn.prepareStatement(query2);
-				ps.setString(1, rs1.getString("userId"));
-				rs2=ps.executeQuery();
-				if(rs2.next()) {
-					pVo = new PlayerInfoVO(userId, rs2.getString("position"),rs2.getString("mainFoot") , rs2.getInt("height"), rs2.getInt("weight"), rs2.getInt("injury"), rs2.getInt("mental"), rs2.getInt("speed"), rs2.getInt("physical"), rs2.getInt("dribble"), rs2.getInt("pass"), rs2.getInt("defence"), rs2.getInt("mental") +rs2.getInt("speed") +rs2.getInt("physical") +rs2.getInt("dribble") +rs2.getInt("pass")+ rs2.getInt("defence"));
-					uVo.setpVo(pVo);
-				}
-				String query3 = "SELECT * FROM teammember WHERE userId=?";
-				ps = conn.prepareStatement(query3);
-				ps.setString(1, userId);
-				rs3 = ps.executeQuery();
-				while(rs3.next()) {
-					tVoList.add(new TeamMemberVO(rs3.getString("userId"), rs3.getInt("teamId"), rs3.getString("regDate"), rs3.getInt("manager"), rs3.getFloat("participation"), rs3.getInt("status"))); 
-				}
-				uVo.settVoList(tVoList);			
-			}
-			
-		} finally { 
-			closeAll(rs1, ps, conn);
-		}*/
-		return null;
-	}
+	
 	@Override
 	public TeamVO findByTeamName(String teamName) throws SQLException {
 		Connection conn = null;

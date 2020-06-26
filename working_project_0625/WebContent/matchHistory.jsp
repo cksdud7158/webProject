@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,13 +11,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
   <meta name="description" content=""/>
   <meta name="author" content=""/>
-  <title>Dashtreme Admin - Free Dashboard for Bootstrap 4 by Codervent</title>
+  <title>FootBall Together - 전적 조회</title>
   
   <!-- loader-->
   <link href="assets/css/pace.min.css" rel="stylesheet"/>
   <script src="assets/js/pace.min.js"></script>
   <!--favicon-->
-  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="ours/img/logo.png" type="image/x-icon">
   <!-- Vector CSS -->
   <link href="assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
   <!-- simplebar CSS-->
@@ -50,6 +53,24 @@
  
   <!-- Index js -->
   <script src="assets/js/index.js"></script>
+  
+  <script src="plugins/Chart.js"></script>
+  
+  <!-- match History  -->
+<!--   <script>
+  var arr1 = new Array();
+  var arr2 = new Array();
+  	<c:forEach items="${history}" var="match">
+  		var arr3 = ${match}.split(':');
+  		for(var i in arr3){
+  			${tvo}
+  		}
+  	</c:forEach>
+  
+  </script> -->
+  
+  
+  
 </head>
 
 <body class="bg-theme bg-theme1">
@@ -61,7 +82,7 @@
    <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
      <div class="brand-logo">
       <a href="index.html">
-       <img src="ours/c" class="logo-icon" alt="logo icon">
+       <img src="ours/img/logo.png" class="logo-icon" alt="logo icon">
      </a>
    </div>
    <ul class="sidebar-menu do-nicescrol">
@@ -175,16 +196,96 @@
 <!--End topbar header-->
 
 <div class="clearfix"></div>
-  <div class="content-wrapper">
-
-
-
-<!-- 여기에 내용을 쓰면 됩니다. -->
-
-
-
-
-
+  <div class="content-wrapper" style="margin-top:50px">
+  <div class="row">
+  <div class="col-lg-8">
+		<div class="card">
+		  <div class="card-body">
+			<h5 class="card-title" align="center" style="font-size:20px">전적 조회</h5>
+			<div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col"  style="font-size: 15px;">#</th>
+                    <th scope="col" style="font-size: 15px;">경기일자</th>
+                    <th scope="col" style="font-size: 15px;">상대팀</th>
+                    <th scope="col" style="font-size: 15px;text-align:right;">결과</th>
+                    <th scope="col"style="font-size: 15px;"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- <tr>
+                    <th scope="row">1</th>
+                    <td>2020.6.1</td>
+                    <td>레알 마드리드</td>
+                    <td>2:0</td>
+                    <td>승</td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>2020.6.8</td>
+                    <td>토트넘</td>
+                    <td>1:3</td>
+                    <td>패</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>2020.6.15</td>
+                    <td>FC서울</td>
+                    <td>1:1</td>
+                    <td>무승부</td> 
+                  </tr> -->
+                  <c:forEach items="${history}" var="match" varStatus="status">
+                  	<tr>
+                  	  <th scope="row">${status.count}</th>
+                  	  <td>${match.schedule}</td>
+                  	  <td>${match.awayId}</td>
+                  	  <td>${match.mrVo.score}</td>
+                  	  <td>승</td>     
+                  </c:forEach>
+                </tbody>
+              </table>
+            </div>
+            </div>
+        </div>
+        </div>
+        <div class="col-lg-4">
+        	<canvas id="myChart" width="200" height="200"></canvas>
+        <!-- graph 들어갈 자리 -->
+         <script>
+  var ctx = document.getElementById('myChart');
+  var myChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+          labels: ['승리', '패배', '무승부'],
+          datasets: [{
+              data: [10, 20, 30],
+              backgroundColor: [
+            	  'rgba(249, 0, 120, 0.7)',
+            	  'rgba(1, 166, 247, 0.7)',
+            	  'rgba(255, 255, 255, 0.7)'
+              ],
+              borderColor: 'rgba(175,171,171,0.6)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+    	  legend:{
+    		  display:true,
+    		  labels:{
+    			  fontColor: 'rgb(255, 255, 255)',
+    			  fontSize: 15
+    		  }
+    	  }
+      },
+      animation: {
+    	  duration: 5000
+      }
+  });
+  </script>
+    </div>
+    </div>
 
 
     </div><!--End content-wrapper-->

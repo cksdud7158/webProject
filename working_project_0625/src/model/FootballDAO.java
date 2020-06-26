@@ -25,13 +25,12 @@ public interface FootballDAO {
 	//검색
 	ArrayList<PlayerInfoVO> showAllMember(int teamId) throws SQLException;
 	UserVO findByUserId(String userId) throws SQLException;
-	UserVO findByNickName(String nickName) throws SQLException;
 	TeamVO findByTeamName(String teamName) throws SQLException;
 	ArrayList<TeamVO> myTeamList(String userId) throws SQLException; 
 	
 	
 	//전적조회
-	ArrayList<MatchVO> matchHistory() throws SQLException;
+	ArrayList<MatchVO> matchHistory(int teamId) throws SQLException;
 	
 
 	ArrayList<MatchVO> recommendMatch(String area) throws SQLException;

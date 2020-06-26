@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class TeamVO {
 	private int teamId;
 	private String teamName;
@@ -8,7 +10,12 @@ public class TeamVO {
 	private String area2="없음";
 	private String area3="없음";
 	private int stadiumId;
+	ArrayList<TeamMemberVO> tmvList;
 	
+	public TeamVO() {
+		super();
+	}
+
 	public TeamVO(int teamId, String teamName, String emblem, String area1, String area2, String area3,
 			int stadiumId) {
 		super();
@@ -19,6 +26,19 @@ public class TeamVO {
 		this.area2 = area2;
 		this.area3 = area3;
 		this.stadiumId = stadiumId;
+	}
+
+	public TeamVO(int teamId, String teamName, String emblem, String area1, String area2, String area3, int stadiumId,
+			ArrayList<TeamMemberVO> tmvList) {
+		super();
+		this.teamId = teamId;
+		this.teamName = teamName;
+		this.emblem = emblem;
+		this.area1 = area1;
+		this.area2 = area2;
+		this.area3 = area3;
+		this.stadiumId = stadiumId;
+		this.tmvList = tmvList;
 	}
 
 	public int getTeamId() {
@@ -77,11 +97,19 @@ public class TeamVO {
 		this.stadiumId = stadiumId;
 	}
 
+	public ArrayList<TeamMemberVO> getTmvList() {
+		return tmvList;
+	}
+
+	public void setTmvList(ArrayList<TeamMemberVO> tmvList) {
+		this.tmvList = tmvList;
+	}
+
 	@Override
 	public String toString() {
 		return "TeamVO [teamId=" + teamId + ", teamName=" + teamName + ", emblem=" + emblem + ", area1=" + area1
-				+ ", area2=" + area2 + ", area3=" + area3 + ", stadiumId=" + stadiumId + "]";
+				+ ", area2=" + area2 + ", area3=" + area3 + ", stadiumId=" + stadiumId + ", tmvList=" + tmvList + "]";
 	}
-	
+
 	
 }
