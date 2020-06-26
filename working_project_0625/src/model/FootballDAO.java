@@ -16,8 +16,8 @@ public interface FootballDAO {
 	//회원가입 및 등록	
 	void registerUser(UserVO vo) throws SQLException;
 	void requestToJoin(PlayerInfoVO pVo, TeamMemberVO tVo) throws SQLException;
-	int allowToJoin(PlayerInfoVO pVo, TeamMemberVO tVo) throws SQLException;
-	int rejectToJoin(PlayerInfoVO pVo, TeamMemberVO tVo) throws SQLException;
+	void allowToJoin(int teamMemberId) throws SQLException;
+	void rejectToJoin(int teamMemberId) throws SQLException;
 	void makeTeam(TeamVO vo) throws SQLException;
 	
 	
