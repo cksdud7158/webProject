@@ -1,3 +1,5 @@
-/model/
+/config/
 /controller/
+/filter/
+/model/
 /util/
