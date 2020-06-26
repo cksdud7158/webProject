@@ -16,6 +16,41 @@ public class PlayerInfoVO {
 	private int total;
 	
 	public PlayerInfoVO() {}
+	
+	
+	public PlayerInfoVO(String userId, String position, String mainFoot, int height, int weight, int mental, int speed,
+			int physical, int dribble, int pass, int defence, int total) {
+		super();
+		this.userId = userId;
+		this.position = position;
+		this.mainFoot = mainFoot;
+		this.height = height;
+		this.weight = weight;
+		this.mental = mental;
+		this.speed = speed;
+		this.physical = physical;
+		this.dribble = dribble;
+		this.pass = pass;
+		this.defence = defence;
+		this.total = total;
+	}
+
+	public PlayerInfoVO(String userId,String position, String mainFoot, int height, int weight, int mental, int speed,
+			int physical, int dribble, int pass, int defence) {
+		super();
+		this.userId = userId;
+		this.position = position;
+		this.mainFoot = mainFoot;
+		this.height = height;
+		this.weight = weight;
+		this.mental = mental;
+		this.speed = speed;
+		this.physical = physical;
+		this.dribble = dribble;
+		this.pass = pass;
+		this.defence = defence;
+	}
+
 	public PlayerInfoVO(String position, String mainFoot, int height, int weight, int injury, int mental,
 			int speed, int physical, int dribble, int pass, int defence, int total) {
 		super();
