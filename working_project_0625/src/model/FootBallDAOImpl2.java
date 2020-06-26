@@ -28,7 +28,6 @@ public class FootBallDAOImpl2 implements FootballDAO {
 			System.out.println("드라이버 로딩 실패");
 		}*/
 		ds = DataSourceManager.getInstance().getConnection(); 
-		System.out.println("ds를 받아옵니다.");
 	}
 	public static FootBallDAOImpl2 getInstance() {
 		return dao;
@@ -125,80 +124,7 @@ public class FootBallDAOImpl2 implements FootballDAO {
 			closeAll(rs, ps, conn);
 		}
 	}
-	@Override
-	public int allowToJoin(PlayerInfoVO pVo, TeamMemberVO tVo) throws SQLException {
-		Connection conn = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		PlayerInfoVO vo = new PlayerInfoVO();
-		
-		// 임시로 해둔 것
-		Scanner sc = new Scanner(System.in);
-		
-		int flag = 1;
-		
-		try {
-			conn = getConnection();
-			String query = "SELECT * FROM playerinfo WHERE userid = ?";
-			ps = conn.prepareStatement(query);
-			ps.setString(1, pVo.getUserId());
-			rs = ps.executeQuery();
-			
-			if(rs.next()) {
-				vo = new PlayerInfoVO(rs.getString("userId"), rs.getString("position"), rs.getString("mainFoot"), rs.getInt("height"), rs.getInt("weight"), rs.getInt("injury"), rs.getInt("mental"), rs.getInt("speed"), rs.getInt("physical"), rs.getInt("dribble"), rs.getInt("pass"), rs.getInt("defence"), rs.getInt("total"));
-			}
-			
-			System.out.println(rs.getString("uesrId") + " | Do you want to accept this user as a team member (true/false)?");
-			boolean input = sc.nextBoolean();
-			
-			if(input) {
-				flag = 0;
-				return flag;
-			}
-			else
-				return flag;
-			
-		} finally {
-			closeAll(rs, ps, conn);
-		}
-	}
-	@Override
-	public int rejectToJoin(PlayerInfoVO pVo, TeamMemberVO tVo) throws SQLException {
-		Connection conn = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		PlayerInfoVO vo = new PlayerInfoVO();
-		
-		// 임시로 해둔 것
-		Scanner sc = new Scanner(System.in);
-		
-		int flag = 1;
-		
-		try {
-			conn = getConnection();
-			String query = "SELECT * FROM playerinfo WHERE userid = ?";
-			ps = conn.prepareStatement(query);
-			ps.setString(1, pVo.getUserId());
-			rs = ps.executeQuery();
-			
-			if(rs.next()) {
-				vo = new PlayerInfoVO(rs.getString("userId"), rs.getString("position"), rs.getString("mainFoot"), rs.getInt("height"), rs.getInt("weight"), rs.getInt("injury"), rs.getInt("mental"), rs.getInt("speed"), rs.getInt("physical"), rs.getInt("dribble"), rs.getInt("pass"), rs.getInt("defence"), rs.getInt("total"));
-			}
-			
-			System.out.println(rs.getString("uesrId") + " | Do you want to accept this user as a team member (true/false)?");
-			boolean input = sc.nextBoolean();
-			
-			if(input) {
-				flag = 0;
-				return flag;
-			}
-			else
-				return flag;
-			
-		} finally {
-			closeAll(rs, ps, conn);
-		}
-	}
+	
 	@Override
 	public void makeTeam(TeamVO vo) throws SQLException {
 		Connection conn = null;
@@ -815,4 +741,14 @@ public class FootBallDAOImpl2 implements FootballDAO {
 	dao.updateTeam(tVo);
 
 }*/
+	@Override
+	public void allowToJoin(int teamMemberId) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void rejectToJoin(int teamMemberId) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
 }

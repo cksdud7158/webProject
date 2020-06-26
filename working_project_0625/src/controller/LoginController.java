@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +14,10 @@ public class LoginController implements Controller {
 
 	@Override
 	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String path = "loginFail.jsp";
+		String path = "loginCheck.jsp";
 		String id = request.getParameter("id");
 		String pass = request.getParameter("pass");
+		PrintWriter out = response.getWriter();
 		System.out.println("여기까지 실행");
 		try {
 			UserVO uVo = FootBallDAOImpl2.getInstance().login(id, pass);
@@ -25,12 +27,11 @@ public class LoginController implements Controller {
 				session.setAttribute("uVo", uVo);
 				System.out.println("JSESSIONID :: " + session.getId());
 				path = "login.jsp";
+				out.print(path);
 			}
 		} catch (SQLException e) {
 			System.out.println(e);
 		}
-		return new ModelAndView(path);
-
+		return null;
 	}
-
 }

@@ -37,10 +37,12 @@ public class DispatcherServlet extends HttpServlet {
 			mv = controller.handle(request, response);
 			System.out.println("컨트롤러 실행");
 			path = mv.getPath();
+			System.out.println(path+"입니다.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
+	
 		if(mv!=null) {
 			if(mv.isRedirect()) response.sendRedirect(path);
 			else request.getRequestDispatcher(path).forward(request, response);

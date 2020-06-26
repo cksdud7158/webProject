@@ -48,21 +48,27 @@ var pass="";
 		 	} else if($('#exampleInputPassword').val()==""){
 		 		alert("pass 값을 입력해 주세요.");
 		 		$('#exampleInputPassword').focus();
-		 	}
-			
-			$.ajax({
-				type:'post',
-				url:'login.do',
-				data:'id='+id+'&&pass='+pass,
-				dataType:'text', 
-				
-				success:function(data){
-					alert(data);
-				}//callback
-			});//ajax
-			
-		
-			
+		 	}else{
+		 		
+		 		$.ajax({
+					type:'post',
+					url:'login.do',
+					data:'id='+id+'&&pass='+pass,			
+					
+					success:function(data){
+						console.log(data);
+						if(data=="login.jsp"){
+						location.href=data;
+						}else{
+							alert("로그인에 실패하셨습니다.")
+							$('#exampleInputUsername').val("");
+							$('#exampleInputPassword').val("");
+							$('#exampleInputUsername').focus();
+							$('#exampleInputPassword').focus();
+						}
+					}//callback
+				});//ajax
+		 	}		
 		});//click
 	 
 	 
