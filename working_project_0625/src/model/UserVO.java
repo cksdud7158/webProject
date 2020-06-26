@@ -39,6 +39,26 @@ public class UserVO {
 		this.favTeam2 = favTeam2;
 		this.pVo = pVo;
 	}
+	
+	
+
+	public UserVO(String userId, String pass, String name, String phoneNum, String photo, String ssn, String nickName,
+			char gender, String email, String addr, String favTeam1, String favTeam2, String country) {
+		super();
+		this.userId = userId;
+		this.pass = pass;
+		this.name = name;
+		this.phoneNum = phoneNum;
+		this.photo = photo;
+		this.ssn = ssn;
+		this.nickName = nickName;
+		this.gender = gender;
+		this.email = email;
+		this.addr = addr;
+		this.favTeam1 = favTeam1;
+		this.favTeam2 = favTeam2;
+		this.country = country;
+	}
 
 	public UserVO(String userId, String pass, String name, String phoneNum, String ssn, char gender, String email,
 			String addr, String regDate, String recentLogin) {
