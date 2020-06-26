@@ -12,9 +12,10 @@ public class HandlerMapping {
 	public Controller createController(String command) {
 		Controller controller = null;
 		
-		if(command.equals("")) {
-			System.out.println("컨트롤러 생성");
-			// controller = 
+		if(command.equals("login.do")) {
+			controller = new LoginController();
+			System.out.println("LoginController 컨트롤러 생성");
+
 		}
 		
 		return controller;

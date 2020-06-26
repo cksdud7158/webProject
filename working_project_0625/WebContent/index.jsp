@@ -22,8 +22,66 @@
   <link href="assets/css/icons.css" rel="stylesheet" type="text/css"/>
   <!-- Custom Style-->
   <link href="assets/css/app-style.css" rel="stylesheet"/>
-  
-    <style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+var id ="";
+var pass="";
+
+ $(function(){
+
+ $('#exampleInputUsername').on('keyup', function(){
+		id = $('#exampleInputUsername').val();
+		checkUp();
+	 });
+	 
+	 $('#exampleInputPassword').on('keyup', function(){
+		pass = $('#exampleInputPassword').val();
+		checkUp();
+	 }); 
+ 
+	 $('#submit-btn').click(function() {
+			if($('#exampleInputUsername').val()==""){
+		 		alert("id 값을 입력해 주세요.");
+		 		$('#exampleInputUsername').focus();
+		 		
+		 	} else if($('#exampleInputPassword').val()==""){
+		 		alert("pass 값을 입력해 주세요.");
+		 		$('#exampleInputPassword').focus();
+		 	}
+			
+			$.ajax({
+				type:'post',
+				url:'login.do',
+				data:'id='+id+'&&pass='+pass,
+				dataType:'text', 
+				
+				success:function(data){
+					alert(data);
+				}//callback
+			});//ajax
+			
+		
+			
+		});//click
+	 
+	 
+	 
+	 
+	 
+  });
+
+ 
+ function checkUp(){	
+	 if(id!=""&&pass!=""){
+			 $('#submit-btn').css('background-color','#02fd89');
+		 }else{
+			 $('#submit-btn').css('background-color','#afabab');
+			}
+ }
+</script>    
+   
+ <style>
 body{
   background-color: #6820a3;
   opacity: 0.9;
@@ -55,7 +113,9 @@ h2{
   text-align: center;
   margin-top: 1em;
 }
-
+.submit_hover{
+box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.50);
+}
 
 
     </style>
@@ -72,16 +132,14 @@ h2{
 <!-- Start wrapper-->
  <div id="wrapper">
  <div class="loader-wrapper"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
-	<div class="card card-authentication1 mx-auto my-5" style="
-    width: 341px;
-">
+	<div class="card card-authentication1 mx-auto my-5" style="width: 341px;">
 		<div class="card-body">
 		 <div class="card-content p-2">
 		 	<div class="text-center">
 		 		<img width="200" id = "logo" src="ours/img/logo.png" alt="logo icon">
 		 	</div>
 		  <div class="card-title text-uppercase text-center py-3"><b>로그인</b></div>
-		    <form>
+		   <form action="login.do" id="login-form">
 			  <div class="form-group">
 			  <label for="exampleInputUsername" class="sr-only">Username</label>
 			   <div class="position-relative has-icon-right">
@@ -111,8 +169,8 @@ h2{
 			  <a href="reset-password.html">Reset Password</a>
 			 </div>
 			</div>
-			 <button type="button" class="btn btn-light btn-block"><a href="login.jsp"></a>로그인</button>
-				 </form>
+			 <button type="button" id = "submit-btn" class="btn btn-light btn-block">로그인</button>
+		</form>
 		   </div>
 		  </div>
 		  <div class="card-footer text-center py-3">

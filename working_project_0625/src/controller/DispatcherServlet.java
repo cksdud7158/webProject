@@ -22,15 +22,17 @@ public class DispatcherServlet extends HttpServlet {
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// extracting command
 		String requestURI = request.getRequestURI();
+		System.out.println(requestURI);
 		String contextPath = request.getContextPath();
+		System.out.println(contextPath);
 		String command = requestURI.substring(contextPath.length()+1);
+		System.out.println(command);
 		
 		// creating controller
 		Controller controller = HandlerMapping.getInstance().createController(command);
 		String path = "index.jsp"; // default path
 		ModelAndView mv = null; 
-		
-		
+
 		try {
 			mv = controller.handle(request, response);
 			System.out.println("컨트롤러 실행");

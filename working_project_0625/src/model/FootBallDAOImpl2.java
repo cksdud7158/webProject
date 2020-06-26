@@ -13,6 +13,7 @@ import java.util.Scanner;
 import javax.sql.DataSource;
 
 import config.ServerInfo;
+import util.DataSourceManager;
 
 public class FootBallDAOImpl2 implements FootballDAO {
 	private DataSource ds; 
@@ -20,13 +21,14 @@ public class FootBallDAOImpl2 implements FootballDAO {
 	// singletone
 	private static FootBallDAOImpl2 dao = new FootBallDAOImpl2();
 	private FootBallDAOImpl2 () {
-		try {
+		/*try {
 			Class.forName(ServerInfo.DRIVER_NAME);
 			System.out.println("드라이버 로딩");
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패");
-		}
-		//ds = DataSourceManager.getInstance().getDataSource(); 
+		}*/
+		ds = DataSourceManager.getInstance().getConnection(); 
+		System.out.println("ds를 받아옵니다.");
 	}
 	public static FootBallDAOImpl2 getInstance() {
 		return dao;
@@ -34,7 +36,7 @@ public class FootBallDAOImpl2 implements FootballDAO {
 	
 	@Override
 	public Connection getConnection() throws SQLException {
-		Connection conn=null;
+	/*	Connection conn=null;
 		try {
 			
 			conn= DriverManager.getConnection(ServerInfo.URL, ServerInfo.USER, ServerInfo.PASS);
@@ -43,8 +45,8 @@ public class FootBallDAOImpl2 implements FootballDAO {
 			System.out.println("DB 연결 실패");
 		}
 		
-		return conn;
-		//return ds.getConnection();
+		return conn;*/
+		return ds.getConnection();
 	}
 
 	@Override
@@ -232,8 +234,9 @@ public class FootBallDAOImpl2 implements FootballDAO {
 		}
 	}
 	@Override
-	public ArrayList<UserVO> showAllMember() throws SQLException {
-		Connection conn = null;
+	public ArrayList<UserVO> showAllMember(String teamId) throws SQLException {
+		ArrayList<UserVO> user = new ArrayList<UserVO>();
+		/*Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
@@ -283,7 +286,7 @@ public class FootBallDAOImpl2 implements FootballDAO {
 			
 		} finally {
 			closeAll(rs, ps, conn);
-		}
+		}*/
 		
 		return user;
 	}
@@ -765,14 +768,14 @@ public class FootBallDAOImpl2 implements FootballDAO {
 			closeAll(ps, conn);
 		}
 	}
-public static void main(String[] args) throws SQLException {
+/*public static void main(String[] args) throws SQLException {
 	FootBallDAOImpl2 dao = FootBallDAOImpl2.getInstance();
 	
 	//DriverManager 방식의 DB Connection
 		
-	/*//login
+	//login
 	UserVO vo = dao.login("aaa", "aaa");
-	System.out.println(vo);*/
+	System.out.println(vo);
 	
 	// recommend squad
 	//dao.recommendSquad(3, 7, 1);
@@ -789,8 +792,8 @@ public static void main(String[] args) throws SQLException {
 	//dao.insertMatch(new MatchVO(2, 2, "2020-07-12", 3, "homeSquad", "awaySquad", 7));	
 	
 	// insert match result
-/*	MatchResultVO mrvo = new MatchResultVO(7, "3:4", 5, 7);
-	dao.insertMatchResult(mrvo);*/
+	MatchResultVO mrvo = new MatchResultVO(7, "3:4", 5, 7);
+	dao.insertMatchResult(mrvo);
 	
 	//TeamSchedule
 	//System.out.println(dao.TeamSchedule(2));
@@ -802,14 +805,14 @@ public static void main(String[] args) throws SQLException {
 	//dao.deleteUser("zzz", "zzz");
 	//dao.deleteTeam(6, "FCfff");
 		
-	/*// update
+	// update
 	UserVO uVo = new UserVO("aaa", "aaa", "010-5621-4472", "img/aaa.jpg", "이재헌", "111@gmail.com", "답십리", "바르셀로나", "레알마드리드", new PlayerInfoVO("LWF", "왼발", 190, 80, 1, 80, 80, 80, 80, 80, 80, 0));
 	dao.updateUser(uVo);
-	*/
 	
-	/*// update team
+	
+	// update team
 	TeamVO tVo = new TeamVO(5, "FCeee", "img/FCeee.jpg", "서울", "제주", "강원도", 1);
-	dao.updateTeam(tVo);*/
+	dao.updateTeam(tVo);
 
-}
+}*/
 }
