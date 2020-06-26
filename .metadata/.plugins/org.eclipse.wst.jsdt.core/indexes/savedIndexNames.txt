@@ -1,7 +1,0 @@
-INDEX VERSION 1.4+\\Mac\Home\Documents\webProject\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-3909207629.index
-1881383158.index
-1247656920.index
-4109252047.index
-47806279.index
-667576619.index
