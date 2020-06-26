@@ -14,15 +14,16 @@ public interface FootballDAO {
 	
 	
 	//회원가입 및 등록	
-	void registerUser(UserVO vo) throws SQLException;
-	void requestToJoin(PlayerInfoVO pVo, TeamMemberVO tVo) throws SQLException;
+	void registerUser(UserVO vo, PlayerInfoVO pVO) throws SQLException;
+	void registerPlayerInfo(PlayerInfoVO pVO)throws SQLException;
+	void requestToJoin(PlayerInfoVO pVo, int teamId) throws SQLException;
 	void allowToJoin(int teamMemberId) throws SQLException;
 	void rejectToJoin(int teamMemberId) throws SQLException;
 	void makeTeam(TeamVO vo) throws SQLException;
 	
 	
 	//검색
-	ArrayList<UserVO> showAllMember(String teamId) throws SQLException;
+	ArrayList<PlayerInfoVO> showAllMember(int teamId) throws SQLException;
 	UserVO findByUserId(String userId) throws SQLException;
 	UserVO findByNickName(String nickName) throws SQLException;
 	TeamVO findByTeamName(String teamName) throws SQLException;

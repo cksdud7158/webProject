@@ -5,8 +5,8 @@ public class TeamVO {
 	private String teamName;
 	private String emblem;
 	private String area1;
-	private String area2;
-	private String area3;
+	private String area2="없음";
+	private String area3="없음";
 	private int stadiumId;
 	
 	public TeamVO(int teamId, String teamName, String emblem, String area1, String area2, String area3,

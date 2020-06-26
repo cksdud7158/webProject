@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Scanner;
 
 import javax.sql.DataSource;
 
@@ -59,8 +58,36 @@ public class FootBallDAOImpl1 implements FootballDAO {
 		if(rs!=null) rs.close();
 		closeAll(ps, conn);
 	}
+	
 	@Override
-	public void registerUser(UserVO vo) throws SQLException {
+	public void registerPlayerInfo(PlayerInfoVO pVO)throws SQLException{
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = getConnection();
+			String query = "INSERT INTO `soccerproject`.`playerinfo` (`userId`, `position`, `mainFoot`, `height`, `weight`, `mental`, `speed`, `physical`, `dribble`, `pass`, `defence`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, pVO.getUserId());
+			ps.setString(2, pVO.getPosition() );
+			ps.setString(3, pVO.getMainFoot());
+			ps.setInt(4, pVO.getHeight());
+			ps.setInt(5, pVO.getWeight());
+			ps.setInt(6, pVO.getMental());
+			ps.setInt(7, pVO.getSpeed());
+			ps.setInt(8, pVO.getPhysical());
+			ps.setInt(9, pVO.getDribble());
+			ps.setInt(10, pVO.getPass());
+			ps.setInt(11, pVO.getDefence());
+			
+			System.out.println(ps.executeUpdate()+"명 player infroamtrion이 등록되었습니다.");
+		} finally {
+			closeAll(ps, conn);
+		}
+		
+	}
+	
+	@Override
+	public void registerUser(UserVO vo, PlayerInfoVO pVO) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		
@@ -71,9 +98,8 @@ public class FootBallDAOImpl1 implements FootballDAO {
 		
 		try {
 			conn = getConnection();
-			String query = "INSERT INTO `soccerproject`.`user` (`userId`, `pass`, `name`, `phoneNum`, `photo`, `ssn`, `nickName`, `gender`, `email`, `addr`, `favTeam1`, `favTeam2`, `regDate`, `country`, `recentLogin`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
-			ps = conn.prepareStatement(query);
-			
+			String query1= "INSERT INTO `soccerproject`.`user` (`userId`, `pass`, `name`, `phoneNum`, `photo`, `ssn`, `nickName`, `gender`, `email`, `addr`, `favTeam1`, `favTeam2`, `regDate`, `country`, `recentLogin`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+			ps = conn.prepareStatement(query1);
 			ps.setString(1, vo.getUserId());
 			ps.setString(2, vo.getPass());
 			ps.setString(3, vo.getName());
@@ -91,13 +117,15 @@ public class FootBallDAOImpl1 implements FootballDAO {
 			ps.setString(15, str);
 			
 			System.out.println(ps.executeUpdate()+"명 user 등록되었습니다.");
+			
+			registerPlayerInfo(pVO);
 		} finally {
 			closeAll(ps, conn);
 		}
 	}
 	
 	@Override
-	public void requestToJoin(PlayerInfoVO pVo, String teamId) throws SQLException {
+	public void requestToJoin(PlayerInfoVO pVo, int teamId) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -115,14 +143,15 @@ public class FootBallDAOImpl1 implements FootballDAO {
 			
 			ps.setString(1, str);
 			ps.setFloat(2, flag);
-			ps.setString(4, pVo.getUserId());
-			ps.setString(5, teamId);
+			ps.setString(3, pVo.getUserId());
+			ps.setInt(4, teamId);
 			
-			System.out.println(ps.executeUpdate()+"명 요청되었습니다.");
+			System.out.println(ps.executeUpdate()+"명, 팀 가입 요청되었습니다.");
 		} finally {
 			closeAll(rs, ps, conn);
 		}
 	}
+	
 	@Override
 	public void allowToJoin(int teamMemberId) throws SQLException {
 		Connection conn = null;
@@ -162,188 +191,138 @@ public class FootBallDAOImpl1 implements FootballDAO {
 	public void makeTeam(TeamVO vo) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
-		ResultSet rs = null;
-
-		boolean flag = true;
 		
 		try {
 			conn = getConnection();
-			String query = "SELECT teamName From team";
+			String query = "INSERT INTO team (teamName, emblem, area1, area2, area3, stadiumId) VALUES(?, ?, ?, ?, ?, ?)";
 			ps = conn.prepareStatement(query);
-			rs = ps.executeQuery(); 
+			ps.setString(1, vo.getTeamName());
+			ps.setString(2, vo.getEmblem());
+			ps.setString(3, vo.getArea1());
+			ps.setString(4, vo.getArea2());
+			ps.setString(5, vo.getArea3());
+			ps.setInt(6, vo.getStadiumId());
 			
-			while(rs.next()) {
-				if(rs.getString("teamName").equals(vo.getTeamName())) 
-					flag = false;
-			}
-			
-			if(flag) {
-				query = "INSERT INTO team (teamId, teamName, emblem, area1, area2, area3, stadiumId) VALUES(?, ?, ?, ?, ?, ?, ?)";
-				ps.setInt(1, vo.getTeamId());
-				ps.setString(2, vo.getTeamName());
-				ps.setString(3, vo.getEmblem());
-				ps.setString(4, vo.getArea1());
-				ps.setString(5, vo.getArea2());
-				ps.setString(6, vo.getArea3());
-				ps.setInt(7, vo.getStadiumId());
-			}
-			
-		} finally {
-			closeAll(rs, ps, conn);
+			System.out.println(ps.executeUpdate()+"개의 팀이 만들어졌습니다.");
+		}finally {
+			closeAll(ps, conn);
 		}
 	}
+	
 	@Override
-	public ArrayList<UserVO> showAllMember(String teamId) throws SQLException {
+	public ArrayList<PlayerInfoVO> showAllMember(int teamId) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		ResultSet rs1 = null;
-		ResultSet rs2 = null;
 		
-		int count = 0;
-
-		ArrayList<PlayerInfoVO> player = new ArrayList<PlayerInfoVO>();
-		ArrayList<TeamMemberVO> team = new ArrayList<TeamMemberVO>();
-		ArrayList<UserVO> user = new ArrayList<UserVO>();
+		ArrayList<PlayerInfoVO> list = new ArrayList<PlayerInfoVO>();
 		
 		try {
-			// teammember에서 teammember 정보들을 추출
 			conn = getConnection();
-			String query = "SELECT * FROM teammember WHERE teamId = ?";
+			String query = "select * from playerinfo where userid in (SELECT userId FROM soccerproject.teammember where teamId=?)";
 			ps = conn.prepareStatement(query);
+			ps.setInt(1, teamId);
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				team.add(
-						new TeamMemberVO(
-								rs.getString("userId"),
-								rs.getInt("teamId"),
-								rs.getString("regDate"),
-								rs.getInt("manager"),
-								rs.getFloat("participation"),
-								rs.getInt("status")
-						)
-						);
-				
-				String query1 = "SELECT * FROM playerinfo WHERE userId =? ";
-				ps = conn.prepareStatement(query1);
-				ps.setString(1, team.get(count).getUserId());
-				rs1 = ps.executeQuery();
-				
-				if(rs1.next()) {
-					player.add(
-							new PlayerInfoVO(
-									rs1.getString("userId"),
-									rs1.getString("position"),
-									rs1.getString("mainFoot"),
-									rs1.getInt("height"),
-									rs1.getInt("weight"),
-									rs1.getInt("injury"),
-									rs1.getInt("mental"),
-									rs1.getInt("speed"),
-									rs1.getInt("physical"),
-									rs1.getInt("dribble"),
-									rs1.getInt("pass"),
-									rs1.getInt("defence"),
-									rs1.getInt("total")
-									)
-							);
-				}
-				
-				
-				String query2 = "SELECT * FROM user WHERE userId = ?";
-				ps = conn.prepareStatement(query2);
-				ps.setString(1, team.get(count).getUserId());
-				rs2 = ps.executeQuery();
-							
-				if(rs2.next()) {			
-					String str = rs2.getString("gender");
-					UserVO tmp = new UserVO(
-							rs2.getString("userId"),
-							rs2.getString("pass"),
-							rs2.getString("name"),
-							rs2.getString("phoneNum"),
-							rs2.getString("photo"),
-							rs2.getString("ssn"),
-							rs2.getString("nickName"),
-							str.charAt(0),
-							rs2.getString("email"),
-							rs2.getString("addr"),
-							rs2.getString("favTeam1"),
-							rs2.getString("favTeam2"),
-							rs2.getString("regDate"),
-							rs2.getString("country"),
-							rs2.getString("recentLogin"),
-							team,
-							player.get(count)
-							);
-					
-					user.add(tmp);
-				}
-				
-				count++;
-			} // while
+				list.add(new PlayerInfoVO(rs.getString("userId"), rs.getString("position"), rs.getString("mainFoot"), rs.getInt("height"), rs.getInt("weight"), rs.getInt("injury"), rs.getInt("mental"), rs.getInt("speed"), rs.getInt("physical"), rs.getInt("dribble"), rs.getInt("pass"), rs.getInt("defence"), rs.getInt("mental") +rs.getInt("speed") +rs.getInt("physical") +rs.getInt("dribble") +rs.getInt("pass")+ rs.getInt("defence")));
+			}
 			
 		} finally {
 			closeAll(rs, ps, conn);
 		} // finally
 		
-		return user;
+		return list;
 	}
 	
 	@Override
 	public UserVO findByUserId(String userId) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
-		ResultSet rs = null;
+		ResultSet rs1 = null;
+		ResultSet rs2 = null;
+		ResultSet rs3 = null;
 		
-		UserVO vo = null;
+		UserVO uVo = null;
+		PlayerInfoVO pVo= null;
+		ArrayList<TeamMemberVO> tVoList = new ArrayList<>();
 		
 		try {
 			conn = getConnection();
-			String query = "SELECT * FROM user";
-			ps = conn.prepareStatement(query);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				if(rs.getString("userId").equals(userId)) {
-					String str = rs.getString("gender");
-					vo = new UserVO(rs.getString("userId"), rs.getString("pass"), rs.getString("name"), rs.getString("phoneNum"), rs.getString("photo"), rs.getString("ssn"), rs.getString("nickName"), str.charAt(0), rs.getString("email"), rs.getString("addr"), rs.getString("favTeam1"), rs.getString("favTeam2"), rs.getString("regDate"), rs.getString("country"), rs.getString("recentLogin"));
+			String query1 = "SELECT * FROM user WHERE userId=?";
+			ps = conn.prepareStatement(query1);
+			ps.setString(1, userId);
+
+			rs1 = ps.executeQuery();
+			if (rs1.next()) {
+				uVo = new UserVO(rs1.getString("userId"), rs1.getString("pass"), rs1.getString("name"), rs1.getString("phoneNum"), rs1.getString("photo"), rs1.getString("ssn"), rs1.getString("nickName"), rs1.getString("gender").charAt(0), rs1.getString("email"), rs1.getString("addr"), rs1.getString("favTeam1"), rs1.getString("favTeam2"), rs1.getString("regDate"),  rs1.getString("country"), rs1.getString("recentLogin"));
+				String query2 = "SELECT * FROM playerinfo WHERE userId=?";
+				ps = conn.prepareStatement(query2);
+				ps.setString(1, userId);
+				rs2=ps.executeQuery();
+				if(rs2.next()) {
+					pVo = new PlayerInfoVO(userId, rs2.getString("position"),rs2.getString("mainFoot") , rs2.getInt("height"), rs2.getInt("weight"), rs2.getInt("injury"), rs2.getInt("mental"), rs2.getInt("speed"), rs2.getInt("physical"), rs2.getInt("dribble"), rs2.getInt("pass"), rs2.getInt("defence"), rs2.getInt("mental") +rs2.getInt("speed") +rs2.getInt("physical") +rs2.getInt("dribble") +rs2.getInt("pass")+ rs2.getInt("defence"));
+					uVo.setpVo(pVo);
 				}
+				String query3 = "SELECT * FROM teammember WHERE userId=?";
+				ps = conn.prepareStatement(query3);
+				ps.setString(1, userId);
+				rs3 = ps.executeQuery();
+				while(rs3.next()) {
+					tVoList.add(new TeamMemberVO(rs3.getString("userId"), rs3.getInt("teamId"), rs3.getString("regDate"), rs3.getInt("manager"), rs3.getFloat("participation"), rs3.getInt("status"))); 
+				}
+				uVo.settVoList(tVoList);			
 			}
 			
-		} finally {
-			closeAll(rs, ps, conn);
+		} finally { 
+			closeAll(rs1, ps, conn);
 		}
-		
-		return vo;
+		return uVo;
 	}
+	
 	@Override
 	public UserVO findByNickName(String nickName) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
-		ResultSet rs = null;
+		ResultSet rs1 = null;
+		ResultSet rs2 = null;
+		ResultSet rs3 = null;
 		
-		UserVO vo = null;
+		UserVO uVo = null;
+		PlayerInfoVO pVo= null;
+		ArrayList<TeamMemberVO> tVoList = new ArrayList<>();
 		
-		try {
+		/*try {
 			conn = getConnection();
-			String query = "SELECT * FROM user";
-			ps = conn.prepareStatement(query);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				if(rs.getString("nickName").equals(nickName)) {
-					String str = rs.getString("gender");
-					vo = new UserVO(rs.getString("userId"), rs.getString("pass"), rs.getString("name"), rs.getString("phoneNum"), rs.getString("photo"), rs.getString("ssn"), rs.getString("nickName"), str.charAt(0), rs.getString("email"), rs.getString("addr"), rs.getString("favTeam1"), rs.getString("favTeam2"), rs.getString("regDate"), rs.getString("country"), rs.getString("recentLogin"));
+			String query1 = "select * from user where nickName =?";
+			ps = conn.prepareStatement(query1);
+			ps.setString(1, nickName);
+
+			rs1 = ps.executeQuery();
+			if (rs1.next()) {
+				uVo = new UserVO(rs1.getString("userId"), rs1.getString("pass"), rs1.getString("name"), rs1.getString("phoneNum"), rs1.getString("photo"), rs1.getString("ssn"), rs1.getString("nickName"), rs1.getString("gender").charAt(0), rs1.getString("email"), rs1.getString("addr"), rs1.getString("favTeam1"), rs1.getString("favTeam2"), rs1.getString("regDate"),  rs1.getString("country"), rs1.getString("recentLogin"));
+				String query2 = "SELECT * FROM playerinfo WHERE userId=?";
+				ps = conn.prepareStatement(query2);
+				ps.setString(1, rs1.getString("userId"));
+				rs2=ps.executeQuery();
+				if(rs2.next()) {
+					pVo = new PlayerInfoVO(userId, rs2.getString("position"),rs2.getString("mainFoot") , rs2.getInt("height"), rs2.getInt("weight"), rs2.getInt("injury"), rs2.getInt("mental"), rs2.getInt("speed"), rs2.getInt("physical"), rs2.getInt("dribble"), rs2.getInt("pass"), rs2.getInt("defence"), rs2.getInt("mental") +rs2.getInt("speed") +rs2.getInt("physical") +rs2.getInt("dribble") +rs2.getInt("pass")+ rs2.getInt("defence"));
+					uVo.setpVo(pVo);
 				}
+				String query3 = "SELECT * FROM teammember WHERE userId=?";
+				ps = conn.prepareStatement(query3);
+				ps.setString(1, userId);
+				rs3 = ps.executeQuery();
+				while(rs3.next()) {
+					tVoList.add(new TeamMemberVO(rs3.getString("userId"), rs3.getInt("teamId"), rs3.getString("regDate"), rs3.getInt("manager"), rs3.getFloat("participation"), rs3.getInt("status"))); 
+				}
+				uVo.settVoList(tVoList);			
 			}
 			
-		} finally {
-			closeAll(rs, ps, conn);
-		}
-		
-		return vo;
+		} finally { 
+			closeAll(rs1, ps, conn);
+		}*/
+		return null;
 	}
 	@Override
 	public TeamVO findByTeamName(String teamName) throws SQLException {
@@ -775,9 +754,18 @@ public static void main(String[] args) throws SQLException {
 	//DriverManager 방식의 DB Connection
 	
 	//registerUser
+	//dao.registerUser(new UserVO("id2", "pass1", "name1", "phoneNum1", "photo1", "ssn1", "nickName1", 'm', "email1", "addr1", "favTeam11", "favTeam21", "korea"), new PlayerInfoVO("id2","st", "left", 180, 70, 100, 100, 100, 100, 100, 100));
+	//dao.registerPlayerInfo(new PlayerInfoVO("id2","st", "left", 180, 70, 100, 100, 100, 100, 100, 100));
 	
-	dao.registerUser(new UserVO("id1", "pass1", "name1", "phoneNum1", "photo1", "ssn1", "nickName1", 'm', "email1", "addr1", "favTeam11", "favTeam21", "korea"));
-
+	//requestToJoin
+	//dao.requestToJoin(new PlayerInfoVO("id1", "st","right", 180, 70, 100, 100, 100, 100, 100, 100, 100), 2);
+	
+	//allowToJoin
+	//dao.allowToJoin(40);
+	
+	//rejectToJoin
+	//dao.rejectToJoin(40);
+	
 	/*//login
 	UserVO vo = dao.login("aaa", "aaa");
 	System.out.println(vo);*/
@@ -818,7 +806,13 @@ public static void main(String[] args) throws SQLException {
 	/*// update team
 	TeamVO tVo = new TeamVO(5, "FCeee", "img/FCeee.jpg", "서울", "제주", "강원도", 1);
 	dao.updateTeam(tVo);*/
-
+	
+	//showAllMember
+	//System.out.println(dao.showAllMember(3));
+	
+	//findByUserId
+	//System.out.println(dao.findByUserId("aaa"));
+	
 	}
 
 }
