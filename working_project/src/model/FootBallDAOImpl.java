@@ -26,7 +26,7 @@ public class FootBallDAOImpl implements FootballDAO {
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패");
 		}*/
-	ds = DataSourceManager.getInstance().getConnection(); 
+	ds = DataSourceManager.getInstance().getConnection();
 	}
 	public static FootBallDAOImpl getInstance() {
 		return dao;
