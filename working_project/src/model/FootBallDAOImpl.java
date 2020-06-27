@@ -60,23 +60,25 @@ public class FootBallDAOImpl implements FootballDAO {
 	}
 	@Override
 	public void registerPlayerInfo(PlayerInfoVO pVO)throws SQLException{
+		System.out.println("player info");
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
 			conn = getConnection();
-			String query = "INSERT INTO `soccerproject`.`playerinfo` (`userId`, `position`, `mainFoot`, `height`, `weight`, `mental`, `speed`, `physical`, `dribble`, `pass`, `defence`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String query = "INSERT INTO `soccerproject`.`playerinfo` (`userId`, `position`, `mainFoot`, `height`, `weight`,`injury`, `mental`, `speed`, `physical`, `dribble`, `pass`, `defence`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 			ps = conn.prepareStatement(query);
 			ps.setString(1, pVO.getUserId());
 			ps.setString(2, pVO.getPosition() );
 			ps.setString(3, pVO.getMainFoot());
 			ps.setInt(4, pVO.getHeight());
 			ps.setInt(5, pVO.getWeight());
-			ps.setInt(6, pVO.getMental());
-			ps.setInt(7, pVO.getSpeed());
-			ps.setInt(8, pVO.getPhysical());
-			ps.setInt(9, pVO.getDribble());
-			ps.setInt(10, pVO.getPass());
-			ps.setInt(11, pVO.getDefence());
+			ps.setInt(6, pVO.getInjury());
+			ps.setInt(7, pVO.getMental());
+			ps.setInt(8, pVO.getSpeed());
+			ps.setInt(9, pVO.getPhysical());
+			ps.setInt(10, pVO.getDribble());
+			ps.setInt(11, pVO.getPass());
+			ps.setInt(12, pVO.getDefence());
 			
 			System.out.println(ps.executeUpdate()+"명 player infroamtrion이 등록되었습니다.");
 		} finally {
@@ -87,6 +89,7 @@ public class FootBallDAOImpl implements FootballDAO {
 	
 	@Override
 	public void registerUser(UserVO vo, PlayerInfoVO pVO) throws SQLException {
+		System.out.println("user");
 		Connection conn = null;
 		PreparedStatement ps = null;
 		
@@ -99,6 +102,7 @@ public class FootBallDAOImpl implements FootballDAO {
 			conn = getConnection();
 			String query1= "INSERT INTO `soccerproject`.`user` (`userId`, `pass`, `name`, `phoneNum`, `photo`, `ssn`, `nickName`, `gender`, `email`, `addr`, `favTeam1`, `favTeam2`, `regDate`, `country`, `recentLogin`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 			ps = conn.prepareStatement(query1);
+			System.out.println(vo.getUserId());
 			ps.setString(1, vo.getUserId());
 			ps.setString(2, vo.getPass());
 			ps.setString(3, vo.getName());
