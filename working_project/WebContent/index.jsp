@@ -136,10 +136,10 @@ box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.50);
    <!-- end loader -->
 
 <!-- Start wrapper-->
- <div id="wrapper">
+ <div id="wrapper" style="margin-top: 200px;">
  <div class="loader-wrapper"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
 	<div class="card card-authentication1 mx-auto my-5" style="width: 341px;">
-		<div class="card-body">
+		<div class="card-body" style="border-top-left-radius: 5px; border-top-right-radius: 5px; ">
 		 <div class="card-content p-2">
 		 	<div class="text-center">
 		 		<img width="200" id = "logo" src="ours/img/logo.png" alt="logo icon">
