@@ -43,16 +43,19 @@ public class HandlerMapping {
 		}else if (command.equals("voteBulletin.do")) {
 		controller = new VoteBulletinController();
 		System.out.println("VoteBulletinController 컨트롤러 생성");
-	}else if (command.equals("myTeamList.do")) {
-		controller = new myTeamListController();
-		System.out.println("myTeamListControlle 컨트롤러 생성");
-	}else if (command.equals("teamHome.do")) {
-		controller = new teamHomeController();
-		System.out.println("teamHomeControlle 컨트롤러 생성");
-	}else if (command.equals("matchHistory.do")) {
-		controller = new matchHistoryController();
-		System.out.println("matchHistoryControlle 컨트롤러 생성");
-	}
+		}else if (command.equals("myTeamList.do")) {
+			controller = new myTeamListController();
+			System.out.println("myTeamListControlle 컨트롤러 생성");
+		}else if (command.equals("teamHome.do")) {
+			controller = new teamHomeController();
+			System.out.println("teamHomeControlle 컨트롤러 생성");
+		}else if (command.equals("matchHistory.do")) {
+			controller = new matchHistoryController();
+			System.out.println("matchHistoryControlle 컨트롤러 생성");
+		}else if(command.equals("userSchedule.do")) {
+			controller = new userScheduleController();
+			System.out.println("userSchedule 컨트롤러 생성");
+		}
 		
 		
 		
