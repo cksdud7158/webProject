@@ -31,9 +31,9 @@
 <!-- Sidebar CSS-->
 <link href="assets/css/sidebar-menu.css" rel="stylesheet" />
 <!-- Custom Style-->
-<link href="assets/css/app-style.css" rel="stylesheet" />
-<link href="assets/css/app-style.css" rel="stylesheet" />
-
+<link href="assets/css/appstyle.css" rel="stylesheet" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Bootstrap core JavaScript-->
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/popper.min.js"></script>
@@ -53,8 +53,7 @@
 
 <!-- Index js -->
 <script src="assets/js/index.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <style type="text/css">
 select option {
 	background-color: #02fd89;;

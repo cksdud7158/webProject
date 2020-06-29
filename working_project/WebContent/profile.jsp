@@ -28,7 +28,7 @@
   <!-- Sidebar CSS-->
   <link href="assets/css/sidebar-menu.css" rel="stylesheet"/>
   <!-- Custom Style-->
-  <link href="assets/css/app-style.css" rel="stylesheet"/>
+  <link href="app-style.css" rel="stylesheet"/>
 
   <!-- Bootstrap core JavaScript-->
   <script src="assets/js/jquery.min.js"></script>
@@ -620,10 +620,6 @@ select option {
 			<!-- End container-fluid-->
 		</div>
 		<!--End content-wrapper-->
-		<!--Start Back To Top Button-->
-		<a href="javaScript:void();" class="back-to-top"><i
-			class="fa fa-angle-double-up"></i> </a>
-		<!--End Back To Top Button-->
 		<!--Start Back To Top Button-->
 		<a href="javaScript:void();" class="back-to-top"><i
 			class="fa fa-angle-double-up"></i> </a>
