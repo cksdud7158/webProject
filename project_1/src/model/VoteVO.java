@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class VoteVO {
 	private int voteId;
 	private String contents;
@@ -7,7 +9,7 @@ public class VoteVO {
 	private String writer;
 	private int teamId;
 	private MatchVO mVo;
-	private VoteResultVO vVo;
+	private ArrayList<VoteResultVO> vrVoList;
 	public VoteVO() {
 		super();
 	}
@@ -41,7 +43,6 @@ public class VoteVO {
 		this.writer = writer;
 		this.teamId = teamId;
 		this.mVo = mVo;
-		this.vVo = vVo;
 	}
 	public int getVoteId() {
 		return voteId;
@@ -79,16 +80,17 @@ public class VoteVO {
 	public void setmVo(MatchVO mVo) {
 		this.mVo = mVo;
 	}
-	public VoteResultVO getvVo() {
-		return vVo;
+
+
+	public ArrayList<VoteResultVO> getVrVoList() {
+		return vrVoList;
 	}
-	public void setvVo(VoteResultVO vVo) {
-		this.vVo = vVo;
+
+
+	public void setVrVoList(ArrayList<VoteResultVO> vrVoList) {
+		this.vrVoList = vrVoList;
 	}
-	@Override
-	public String toString() {
-		return "VoteVO [voteId=" + voteId + ", contents=" + contents + ", dueDate=" + dueDate + ", writer=" + writer
-				+ ", teamId=" + teamId + ", mVo=" + mVo + "]";
-	}
+
+	
 	
 }

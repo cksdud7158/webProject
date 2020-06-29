@@ -18,6 +18,8 @@
   <script src="assets/js/pace.min.js"></script>
   <!--favicon-->
   <link rel="icon" href="ours/img/logo.png" type="image/x-icon">
+  <!-- Vector CSS -->
+  <link href="assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
   <!-- simplebar CSS-->
   <link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
   <!-- Bootstrap core CSS-->

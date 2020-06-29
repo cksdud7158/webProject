@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,16 +9,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
   <meta name="description" content=""/>
   <meta name="author" content=""/>
-  <title>Dashtreme Admin - Free Dashboard for Bootstrap 4 by Codervent</title>
+  <title>FootBallTogether - ${tVo.teamName}</title>
   
   <!-- loader-->
   <link href="assets/css/pace.min.css" rel="stylesheet"/>
   <script src="assets/js/pace.min.js"></script>
   <!--favicon-->
-  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-  <!-- Vector CSS -->
-  <link href="assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
-  <!-- simplebar CSS-->
+  <link rel="icon" href="ours/img/logo.png" type="image/x-icon">
+   <!-- simplebar CSS-->
   <link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
   <!-- Bootstrap core CSS-->
   <link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
@@ -48,9 +47,9 @@
   
   <script src="assets/plugins/Chart.js/Chart.min.js"></script>
  
-  <!-- Index js -->
-  <script src="assets/js/index.js"></script>
+
 </head>
+<c:set var="manager" value="${tVo.tmvList[0].manager}"/>
 
 <body class="bg-theme bg-theme1">
  
@@ -60,13 +59,16 @@
   <!--Start sidebar-wrapper-->
    <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
      <div class="brand-logo">
-      <a href="index.html">
+      <a href="index.jsp">
        <img src="ours/c" class="logo-icon" alt="logo icon">
      </a>
    </div>
    <ul class="sidebar-menu do-nicescrol">
       <li class="sidebar-header"><b style="font-size:large">Menu</b></li>
-      <li style="margin-left:50px; margin-bottom: 5px;">반갑습니다. <span></span>님</li>
+      <li style="margin-left:50px; margin-bottom: 5px;">반갑습니다. <span><strong>${uVo.name}</strong></span>님</li>
+      
+      
+      <!-- 매니저 / 일반회원인지에 따라 왼쪽 메뉴가 다르게 보여야 함 -->
       <li>
         <a href="index.jsp">
           <i class="zmdi zmdi-view-dashboard"></i> <span>홈으로</span>
@@ -74,7 +76,7 @@
       </li>
       <li>
         <a href="showAllMember.jsp">
-          <i class="zmdi zmdi-accounts"></i> <span>멤버보기</span>
+          <i class="zmdi zmdi-accounts"></i> <span>멤버 보기</span>
         </a>
       </li>
       <li>
@@ -83,28 +85,30 @@
         </a>
       </li>
       <li>
-        <a href="matchHistory.jsp">
-          <i class="zmdi zmdi-file-text"></i> <span>전적조회</span>
+        <a href="matchHistory.do?teamId=${tVo.teamId}">
+          <i class="zmdi zmdi-file-text"></i> <span>전적 조회</span>
         </a>
       </li>
       <li>
         <a href="vote.jsp">
-          <i class="zmdi zmdi-check-square"></i> <span>투표</span>
+          <i class="zmdi zmdi-check-square"></i> <span>투표하기</span>
         </a>
       </li>
+      <c:choose>
+      <c:when test="${manager=='1'}">
       <li>
         <a href="findMatch.jsp">
-          <i class="zmdi zmdi-search-for"></i> <span>매치찾기</span>
-        </a>
-      </li>
-      <li>
-        <a href="teamInfo.jsp">
-          <i class="zmdi zmdi-folder-star"></i> <span>팀 페이지</span>
+          <i class="zmdi zmdi-search-for"></i> <span>매치 찾기</span>
         </a>
       </li>
       <li>
         <a href="request.jsp" target="_blank">
-          <i class="zmdi zmdi-account-circle"></i> <span>가입신청</span>
+          <i class="zmdi zmdi-account-circle"></i> <span>가입신청 리스트</span>
+        </a>
+      </li>
+         <li>
+        <a href="voteBulletin.do?teamId=${tVo.teamId}">
+          <i class="zmdi zmdi-check-square"></i> <span>투표 만들기</span>
         </a>
       </li>
       <li>
@@ -112,6 +116,8 @@
           <i class="icon-settings mr-2"></i> <span>팀 설정</span>
         </a>
       </li>
+      </c:when>
+   </c:choose>
     </ul>
    </div>
 
@@ -181,11 +187,12 @@
 
 <!-- 여기에 내용을 쓰면 됩니다. -->
 
+<section>
+	<h1>We are ${tVo.teamName}</h1>
+	<div>현재 랭킹 : ${tVo.ti.ranking}위, 회원수 : ${tVo.ti.memberNum}</div>
+	<img src="${tVo.emblem}">
 
-
-
-
-
+</section>
 
     </div><!--End content-wrapper-->
   <!--Start Back To Top Button-->

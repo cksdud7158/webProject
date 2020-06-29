@@ -19,6 +19,7 @@ public interface FootballDAO {
 	void requestToJoin(PlayerInfoVO pVo, int teamId) throws SQLException;
 	void allowToJoin(int teamMemberId) throws SQLException;
 	void rejectToJoin(int teamMemberId) throws SQLException;
+	void insertStadium(StadiumVO sVo) throws SQLException;
 	void makeTeam(TeamVO vo) throws SQLException;
 	
 	
@@ -59,5 +60,10 @@ public interface FootballDAO {
 	//update
 	void updateUser(UserVO uVo) throws SQLException;
 	void updateTeam(TeamVO tVo) throws SQLException;
+	MatchResultVO findMatchResultByMatchId(int matchId) throws SQLException;
+	MatchVO findMatchByVoteId(int VoteId) throws SQLException;
+	ArrayList<VoteResultVO> findVoteResult(int voteId) throws SQLException;
+	TeamVO getSelectedTeam(String userId, int teamId) throws SQLException;
+	VoteVO findVoteByTeamId(int teamId) throws SQLException;
 	
 }

@@ -10,6 +10,7 @@ public class TeamVO {
 	private int stadiumId;
 	ArrayList<TeamMemberVO> tmvList;
 	private TeamInfoVO ti;
+	private StadiumVO sVo;
 	
 	public TeamVO() {
 		super();
@@ -89,12 +90,20 @@ public class TeamVO {
 	public TeamInfoVO getTi() {
 		return ti;
 	}
+	public StadiumVO getsVo() {
+		return sVo;
+	}
+	public void setsVo(StadiumVO sVo) {
+		this.sVo = sVo;
+	}
 	public void setTi(TeamInfoVO ti) {
 		this.ti = ti;
 	}
 	@Override
 	public String toString() {
 		return "TeamVO [teamId=" + teamId + ", teamName=" + teamName + ", emblem=" + emblem + ", area1=" + area1
-				+ ", area2=" + area2 + ", area3=" + area3 + ", stadiumId=" + stadiumId + ", tmvList=" + tmvList + "]";
-	}	
+				+ ", area2=" + area2 + ", area3=" + area3 + ", stadiumId=" + stadiumId + ", tmvList=" + tmvList
+				+ ", ti=" + ti + ", sVo=" + sVo + "]";
+	}
+	
 }

@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.FootBallDAOImpl2;
+import model.FootBallDAOImpl;
 import model.UserVO;
 
 public class LoginController implements Controller {
@@ -20,7 +20,7 @@ public class LoginController implements Controller {
 		PrintWriter out = response.getWriter();
 		System.out.println("여기까지 실행");
 		try {
-			UserVO uVo = FootBallDAOImpl2.getInstance().login(id, pass);
+			UserVO uVo = FootBallDAOImpl.getInstance().login(id, pass);
 			HttpSession session = request.getSession();
 
 			if (uVo != null) {

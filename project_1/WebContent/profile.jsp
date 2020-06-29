@@ -72,12 +72,6 @@ select option {
 		$('#height').text(${uVo.pVo.height});
 		$('#weight').text(${uVo.pVo.weight});
 		
-	$('#profilePicture').css({
-		'background-image': 'url("${uVo.photo}")',
-	'background-repeat': 'no-repeat',
-	'background-size' : 'cover',
-	'background-color': '#afabab'
-		});
 	var totalScore = eval((${uVo.pVo.mental}+${uVo.pVo.physical}+${uVo.pVo.speed}+${uVo.pVo.dribble}+${uVo.pVo.pass}+${uVo.pVo.defence})/6);
 		$('#totalScore').text(Math.round(totalScore));
 	
@@ -117,7 +111,10 @@ if("${uVo.pVo.mainFoot}"=="right"){
 	});//jquery
 </script>
 <style>
-
+#profilePicture{
+	background-repeat: no-repeat;
+	background-size : cover;
+}
 </style>
 </head>
 
@@ -245,9 +242,9 @@ if("${uVo.pVo.mainFoot}"=="right"){
 										<h3 class="mb-3">선수정보</h3>
 										<hr>
 										<div class="row">
-											<div class="col-md-4" id="profilePicture">
+											<div class="col-md-6" id="profilePicture" style="background-image: url('${uVo.photo}')">
 												<div class="col-md-12" id="pictureIn1">
-													<div class="col-lg-8">
+													<div class="col-lg-12">
 														<div class="card">
 															<div class="card-body" style="background-color: rgb(175, 171, 171, 0.2); margin-top:25px;">
 																<h5 class="card-title">${uVo.name}</h5>
@@ -278,12 +275,12 @@ if("${uVo.pVo.mainFoot}"=="right"){
 													</div>
 												</div>
 											</div>
-											<div class="col-md-4" >
+											<div class="col-md-3" >
 												<div id="chartjs-radar">
 													<canvas id="myChart" style="color: #02fd89"></canvas>
 												</div>
 											</div>
-											<div class="col-md-4" style="background-color: rgb(175, 171, 171, 0.2)">
+											<div class="col-md-3" style="background-color: rgb(175, 171, 171, 0.2)">
 												<div class="col-md-12" id="pictureIn2">
 													<div class="row">
 														<div class="col-md-6">
@@ -292,7 +289,7 @@ if("${uVo.pVo.mainFoot}"=="right"){
 															<hr>
 															<h1 id="totalScore" style="text-align: center"> </h1>
 															<hr>
-															<h5 style="text-align: center">종합 능력치</h5>
+															<h6 style="text-align: center">종합 능력치</h6>
 														</div>
 														<div class="col-md-6">
 														<p></p><p></p><p></p><p></p><p></p><p></p>

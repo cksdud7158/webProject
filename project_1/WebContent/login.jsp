@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,14 +9,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
   <meta name="description" content=""/>
   <meta name="author" content=""/>
-  <title>Dashtreme Admin - Free Dashboard for Bootstrap 4 by Codervent</title>
+  <title>FootBallTogether - 홈</title>
   <!-- loader-->
   <link href="assets/css/pace.min.css" rel="stylesheet"/>
   <script src="assets/js/pace.min.js"></script>
   <!--favicon-->
-  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="ours/img/logo.png" type="image/x-icon">
   <!-- Vector CSS -->
-  <link href="assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
+  <!-- <link href="assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/> -->
   <!-- simplebar CSS-->
   <link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
   <!-- Bootstrap core CSS-->
@@ -43,15 +44,30 @@
   <script src="assets/js/jquery.loading-indicator.js"></script>
   <!-- Custom scripts -->
   <script src="assets/js/app-script.js"></script>
-  <!-- Chart js -->
-  
+  <!-- Chart js --> 
   <script src="assets/plugins/Chart.js/Chart.min.js"></script>
  
   <!-- Index js -->
-  <script src="assets/js/index.js"></script>
-  
+  <!-- <script src="assets/js/index.js"></script> -->
+<c:set var="userId" value="${uVo.userId}"/>
+<script type="text/javascript">
+	$(function() {
+		var userId = '<c:out value="${userId}"/>';
+		//alert(userId);
+		
+		$.ajax({
+			type:'post',
+			url:'myTeamList.do',
+			data:'userId='+userId,
+			
+			success: function(result) {
+				$('#myTeams').html(result)
+			}//callback
+		})//ajax
+	}); //ready
+</script>
 </head>
-
+​
 <body class="bg-theme bg-theme1">
  
 <!-- Start wrapper-->
@@ -66,7 +82,7 @@
    </div>
      <ul class="sidebar-menu do-nicescrol">
       <li class="sidebar-header"><b style="font-size:large">Menu</b></li>
-      <li style="margin-left:50px; margin-bottom: 5px;">반갑습니다. <span></span>님</li>
+      <li style="margin-left:50px; margin-bottom: 5px;">반갑습니다. <span><strong>${uVo.name}</strong></span>님</li>
       <li>
         <a href="index.jsp">
           <i class="zmdi zmdi-view-dashboard"></i> <span>홈으로</span>
@@ -90,7 +106,7 @@
       </ul>
    </div>
    <!--End sidebar-wrapper-->
-
+​
 <!--Start topbar header-->
 <header class="topbar-nav">
  <nav class="navbar navbar-expand fixed-top">
@@ -147,13 +163,20 @@
 </nav>
 </header>
 <!--End topbar header-->
-
+​
 <div class="clearfix"></div>
 	 <div class="content-wrapper">
 <!-- 내용을  쓰시면 됩니다. -->
-    
-    
-    
+<section style="padding-top:40px">
+	<div id="myTeams">
+	<a href="test.jsp">팀 정보 불러오기</a>
+	</div>
+</section>
+<section style="padding-top:40px">
+	<div id="mySchedules">
+	
+	</div>
+</section>
   </div><!--End content-wrapper-->
    <!--Start Back To Top Button-->
     <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
@@ -167,7 +190,7 @@
       </div>
     </footer>
 	<!--End footer-->
-
+​
  </div><!--End wrapper-->
 </body>
 </html>

@@ -5,6 +5,10 @@ public class VoteResultVO {
 	private int teamMemberId;
 	private int attendance;
 
+	public VoteResultVO() {
+		super();
+	}
+
 	public VoteResultVO(int voteId, int teamMemberId, int attendance) {
 		super();
 		this.voteId = voteId;

@@ -34,7 +34,28 @@ public class HandlerMapping {
 		}else if (command.equals("logout.do")) {
 			controller = new LogoutController();
 			System.out.println("LogoutController() 컨트롤러 생성");
-		}
+		}else if (command.equals("makeVote.do")) {
+			controller = new MakeVoteController();
+			System.out.println("MakeVoteController() 컨트롤러 생성");
+		}else if (command.equals("vote.do")) {
+			controller = new VoteController();
+			System.out.println("VoteController() 컨트롤러 생성");
+		}else if (command.equals("voteBulletin.do")) {
+		controller = new VoteBulletinController();
+		System.out.println("VoteBulletinController 컨트롤러 생성");
+	}else if (command.equals("myTeamList.do")) {
+		controller = new myTeamListController();
+		System.out.println("myTeamListControlle 컨트롤러 생성");
+	}else if (command.equals("teamHome.do")) {
+		controller = new teamHomeController();
+		System.out.println("teamHomeControlle 컨트롤러 생성");
+	}else if (command.equals("matchHistory.do")) {
+		controller = new matchHistoryController();
+		System.out.println("matchHistoryControlle 컨트롤러 생성");
+	}
+		
+		
+		
 		
 		return controller;
 	}
