@@ -58,6 +58,9 @@ public class HandlerMapping {
 	}else if(command.equals("ToHome.do")) {
 		controller = new ToHomeController();
 		System.out.println("ToHome 컨트롤러 생성");
+	}else if(command.equals("updateTeamInfo.do")) {
+		controller = new updateTeamInfoController();
+		System.out.println("updateTeamInfo 컨트롤러 생성");
 	}
 		
 		

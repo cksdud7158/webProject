@@ -1,11 +1,12 @@
 package controller;
-
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 @WebServlet("*.do")
 public class DispatcherServlet extends HttpServlet {
@@ -46,6 +47,8 @@ public class DispatcherServlet extends HttpServlet {
 		if(mv!=null) {
 			if(mv.isRedirect()) response.sendRedirect(path);
 			else request.getRequestDispatcher(path).forward(request, response);
-		}
+ 		}
+		
+		
 	}
 }

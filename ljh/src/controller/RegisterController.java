@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,25 +28,28 @@ public class RegisterController implements Controller {
         String photo= mr.getFilesystemName("photo");
         System.out.println(photo);
         */
+		
+		HashMap<String, String> map = new fileuplaod().fileupload(request, response);
+		
 		String path = "login.jsp";
 		UserVO uVo= new UserVO();
 		PlayerInfoVO pVo= new PlayerInfoVO();
 		HttpSession session = request.getSession();
 		
 		//user 정보
-		String userId = request.getParameter("userId");
-		String password = request.getParameter("password");
-		String name = request.getParameter("name");
-		String phoneNum = request.getParameter("phoneNum");
-		String photo = request.getParameter("photo");
-		String ssn = request.getParameter("ssn");
-		String nickName = request.getParameter("nickName");
-		char gender = request.getParameter("gender").charAt(0);
-		String email = request.getParameter("email");
-		String addr = request.getParameter("addr");
-		String favTeam1 = request.getParameter("favTeam1");
-		String favTeam2 = request.getParameter("favTeam2");
-		String country = request.getParameter("country");
+		String userId = map.get("userId");
+		String password = map.get("password");
+		String name = map.get("name");
+		String phoneNum = map.get("phoneNum");
+		String photo = map.get("photo");
+		String ssn = map.get("ssn");
+		String nickName = map.get("nickName");
+		char gender = map.get("gender").charAt(0);
+		String email = map.get("email");
+		String addr = map.get("addr");
+		String favTeam1 = map.get("favTeam1");
+		String favTeam2 = map.get("favTeam2");
+		String country = map.get("country");
 		uVo.setUserId(userId);
 		uVo.setPass(password);
 		uVo.setName(name);
@@ -61,17 +65,17 @@ public class RegisterController implements Controller {
 		uVo.setCountry(country);
 		
 		//playerInfo
-		String position = request.getParameter("position");
-		String mainFoot = request.getParameter("mainFoot");
-		int height = Integer.parseInt(request.getParameter("height"));
-		int weight = Integer.parseInt(request.getParameter("weight"));
-		int injury = Integer.parseInt(request.getParameter("injury"));
-		int mental = Integer.parseInt(request.getParameter("mental"));
-		int speed = Integer.parseInt(request.getParameter("speed"));
-		int physical = Integer.parseInt(request.getParameter("physical"));
-		int dribble = Integer.parseInt(request.getParameter("dribble"));
-		int pass = Integer.parseInt(request.getParameter("pass"));
-		int defence = Integer.parseInt(request.getParameter("defence"));		
+		String position = map.get("position");
+		String mainFoot = map.get("mainFoot");
+		int height = Integer.parseInt(map.get("height"));
+		int weight = Integer.parseInt(map.get("weight"));
+		int injury = Integer.parseInt(map.get("injury"));
+		int mental = Integer.parseInt(map.get("mental"));
+		int speed = Integer.parseInt(map.get("speed"));
+		int physical = Integer.parseInt(map.get("physical"));
+		int dribble = Integer.parseInt(map.get("dribble"));
+		int pass = Integer.parseInt(map.get("pass"));
+		int defence = Integer.parseInt(map.get("defence"));		
 		pVo.setUserId(userId);
 		pVo.setPosition(position);
 		pVo.setMainFoot(mainFoot);
