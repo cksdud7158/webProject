@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,24 +20,26 @@ public class UpdateUserController implements Controller {
 			UserVO uVo= (UserVO) session.getAttribute("uVo");
 			System.out.println(uVo);
 			
-			//user 정보
-			String userId = request.getParameter("userId");
-			String password = request.getParameter("password");
-			String name = request.getParameter("name");
-			String phoneNum = request.getParameter("phoneNum");
+			HashMap<String, String> map = new fileuplaod().fileupload(request, response);
 			
-			String photo = request.getParameter("photo");
+			//user 정보
+			String userId = map.get("userId");
+			String password = map.get("password");
+			String name = map.get("name");
+			String phoneNum = map.get("phoneNum");
+			
+			String photo = map.get("photo");
 			if(photo==null) {
 				photo = uVo.getPhoto();
 			}
-			String ssn = request.getParameter("ssn");
-			String nickName = request.getParameter("nickName");
-			char gender = request.getParameter("gender").charAt(0);
-			String email = request.getParameter("email");
-			String addr = request.getParameter("addr");
-			String favTeam1 = request.getParameter("favTeam1");
-			String favTeam2 = request.getParameter("favTeam2");
-			String country = request.getParameter("country");
+			String ssn = map.get("ssn");
+			String nickName = map.get("nickName");
+			char gender = map.get("gender").charAt(0);
+			String email = map.get("email");
+			String addr = map.get("addr");
+			String favTeam1 = map.get("favTeam1");
+			String favTeam2 = map.get("favTeam2");
+			String country = map.get("country");
 			uVo.setUserId(userId);
 			uVo.setPass(password);
 			uVo.setName(name);
