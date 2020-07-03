@@ -79,16 +79,13 @@
 				<li><a href="showAllMember.do?teamId=${tVo.teamId}"> <i
 						class="zmdi zmdi-accounts"></i> <span>멤버 보기</span>
 				</a></li>
-				<li><a href="teamSchedule.jsp"> <i
-						class="zmdi zmdi-calendar-check"></i> <span>일정</span>
-				</a></li>
 				<li><a href="matchHistory.do?teamId=${tVo.teamId}"> <i
 						class="zmdi zmdi-file-text"></i> <span>전적 조회</span>
 				</a></li>
 				<li><a href="voteBulletin.do"> <i
 						class="zmdi zmdi-check-square"></i><span>투표하기</span>
 				</a></li>
-				<li><a href="matchAndSquad.jsp.do" target="_blank"> <i
+				<li><a href="matchAndSquad.do" target="_blank"> <i
 						class="icon-settings mr-2"></i> <span>매치</span>
 				</a></li>
 				<c:choose>
@@ -96,7 +93,7 @@
 						<li><a href="findMatch.jsp"> <i
 								class="zmdi zmdi-search-for"></i> <span>매치 찾기</span>
 						</a></li>
-						<li><a href="request.jsp" target="_blank"> <i
+						<li><a href="AllJoinRequest.do" target="_blank"> <i
 								class="zmdi zmdi-account-circle"></i> <span>가입신청 리스트</span>
 						</a></li>
 						<li><a href="makeVote.do"> <i

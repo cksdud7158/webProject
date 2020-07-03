@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,8 +18,7 @@
 <!--favicon-->
 <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
 <!-- Vector CSS -->
-<link href="assets/plugins/vectormap/jquery-jvectormap-2.0.2.css"
-	rel="stylesheet" />
+<!-- <link href="assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet" /> -->
 <!-- simplebar CSS-->
 <link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
 <!-- Bootstrap core CSS-->
@@ -52,7 +51,47 @@
 <script src="assets/plugins/Chart.js/Chart.min.js"></script>
 
 <!-- Index js -->
-<script src="assets/js/index.js"></script>
+<!-- <script src="assets/js/index.js"></script> -->
+<script type="text/javascript">
+	$(function() {
+		$('#search').click(function() {
+			var teamName = $('#searchTeam').val();
+
+			$.ajax({
+				type : 'post',
+				url : 'searchTeam.do',
+				data : 'teamName=' + teamName,
+
+				success : function(result) {
+					$('#resultView').html('');
+					$('#resultView').html(result);
+				}// callback
+			})// ajax
+		}); //click	
+	}); //ready1
+
+	var teamId = 0;
+	$(function() {
+		$('button[type=submit]').on('click', function() {
+			teamId = $(this).attr('value');
+			console.log(teamId);
+
+			$.ajax({
+				type : 'post',
+				url : 'RequestToJoin.do',
+				data : 'teamId=' + teamId,
+
+				success : function(result) {
+					if (result == "true") {
+						alert(teamId + "에 대한 가입 신청이 완료되었습니다.");
+					} else {
+						alert("이미 가입 신청하셨습니다. 팀 매니저 승인 전입니다.");
+					}
+				}//callback
+			});//ajax
+		});
+	}); //ready2
+</script>
 </head>
 
 <body class="bg-theme bg-theme1">
@@ -60,31 +99,31 @@
 	<!-- Start wrapper-->
 	<div id="wrapper">
 
-		 <!--Start sidebar-wrapper-->
+		<!--Start sidebar-wrapper-->
 		<div id="sidebar-wrapper" data-simplebar=""
 			data-simplebar-auto-hide="true">
 			<div class="brand-logo">
-				<a href="#"> <img src="ours/img/logo.png"
-					class="logo-icon" alt="logo icon">
+				<a href="#"> <img src="ours/img/logo.png" class="logo-icon"
+					alt="logo icon">
 				</a>
 			</div>
 			<ul class="sidebar-menu do-nicescrol">
 				<li class="sidebar-header"><b style="font-size: large">Menu</b></li>
 				<li style="margin-left: 50px; margin-bottom: 5px;">반갑습니다. <span><strong>${uVo.name}</strong></span>님
 				</li>
+				<li><a href="login.jsp"> <i
+						class="zmdi zmdi-view-dashboard"></i><span>내 홈으로</span>
+				</a></li>
 				<li><a href="profile.jsp"> <i class="zmdi zmdi-folder-star"></i>
 						<span>내정보</span>
 				</a></li>
-				<li><a href="searchTeam.do"> <i class="zmdi zmdi-folder-star"></i>
+				<li><a href="AllTeam.do"> <i class="zmdi zmdi-folder-star"></i>
 						<span>팀 찾기</span>
 				</a></li>
-				<li><a href="makeTeam.do"> <i class="zmdi zmdi-folder-star"></i>
+				<li><a href="createTeam.jsp"> <i class="zmdi zmdi-folder-star"></i>
 						<span>팀 만들기</span>
 				</a></li>
-				<li><a href="userSchedule.jsp"> <i
-						class="zmdi zmdi-calendar-check"></i> <span>나의 일정</span>
-				</a></li>
-				<li><a href="userSetting.jsp"> <i
+				<li><a href="profile.jsp"> <i
 						class="icon-settings mr-2"></i> <span>설정</span>
 				</a></li>
 			</ul>
@@ -146,12 +185,62 @@
 		<!--End topbar header-->
 
 		<div class="clearfix"></div>
+
 		<div class="content-wrapper">
-
-
-
 			<!-- 여기에 내용을 쓰면 됩니다. -->
 
+			<div class="row" style="margin-bottom: 40px">
+				<form class="search-bar">
+					<input type="text" class="form-control" id="searchTeam"
+						placeholder="팀 이름을 입력해주세요."> <a href="#"
+						onclick="return false;"><i id="search" class="icon-magnifier"></i></a>
+				</form>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title" style="font-size: 20px">All Teams in
+								FootBallTogether</h4>
+							<div class="table-responsive">
+								<table class="table table-hover" style="text-align: center">
+									<thead>
+										<tr>
+											<th scope="col" style="font-size: 15px;">#</th>
+											<th scope="col" style="font-size: 15px;">팀 이름</th>
+											<th scope="col" style="font-size: 15px;">랭킹</th>
+											<th scope="col" style="font-size: 15px;">회원수</th>
+											<th scope="col" style="font-size: 15px;">홈경기장</th>
+											<th scope="col" style="font-size: 15px;">가입 신청</th>
+										</tr>
+									</thead>
+									<tbody id="resultView">
+										<c:forEach items="${tvList}" var="team">
+											<tr>
+												<th scope="row"><img src="${team.emblem}"
+													style="width: 40px; height: 40px;"></th>
+												<td>${team.teamName}</td>
+												<td><c:if test="${team.ti.ranking != '0'}">${team.ti.ranking}</c:if>
+													<c:if test="${team.ti.ranking == '0'}">랭킹자료없음</c:if></td>
+												<td>${team.ti.memberNum}</td>
+												<td><c:if test="${team.stadiumId != null}">있음</c:if> <c:if
+														test="${team.stadiumId == null}">없음</c:if></td>
+												<td>
+													<button type="submit" class="btn btn-light px-5"
+														id="requestToJoin" value="${team.teamId}">
+														<i class="icon-lock"></i> 가입 신청
+													</button>
+												</td>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
 
 
 

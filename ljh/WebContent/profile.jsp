@@ -42,7 +42,7 @@
 
 <!-- Custom scripts -->
 <script src="assets/js/app-script.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="assets/plugins/Chart.js/Chart.min.js"></script>
 
 <style type="text/css">
 select option {
@@ -88,7 +88,7 @@ if("${uVo.pVo.mainFoot}"=="right"){
 	
 	
 
-	$(function() {
+	/* $(function() {
 		var ctx = $("#myChart");
 		var myLineChart = new Chart(ctx, {
 			type : 'radar',
@@ -108,7 +108,7 @@ if("${uVo.pVo.mainFoot}"=="right"){
 				}
 			}
 		});
-	});//jquery
+	});//jquery */
 </script>
 <style>
 #profilePicture{
@@ -135,19 +135,19 @@ if("${uVo.pVo.mainFoot}"=="right"){
 				<li class="sidebar-header"><b style="font-size: large">Menu</b></li>
 				<li style="margin-left: 50px; margin-bottom: 5px;">반갑습니다. <span><strong>${uVo.name}</strong></span>님
 				</li>
+					<li><a href="login.jsp"> <i
+						class="zmdi zmdi-view-dashboard"></i><span>내 홈으로</span>
+				</a></li>
 				<li><a href="profile.jsp"> <i class="zmdi zmdi-folder-star"></i>
 						<span>내정보</span>
 				</a></li>
-				<li><a href="searchTeam.do"> <i class="zmdi zmdi-folder-star"></i>
+				<li><a href="AllTeam.do"> <i class="zmdi zmdi-folder-star"></i>
 						<span>팀 찾기</span>
 				</a></li>
-				<li><a href="makeTeam.do"> <i class="zmdi zmdi-folder-star"></i>
+				<li><a href="createTeam.jsp"> <i class="zmdi zmdi-folder-star"></i>
 						<span>팀 만들기</span>
 				</a></li>
-				<li><a href="userSchedule.jsp"> <i
-						class="zmdi zmdi-calendar-check"></i> <span>나의 일정</span>
-				</a></li>
-				<li><a href="userSetting.jsp"> <i
+				<li><a href="profile.jsp"> <i
 						class="icon-settings mr-2"></i> <span>설정</span>
 				</a></li>
 			</ul>
@@ -236,11 +236,11 @@ if("${uVo.pVo.mainFoot}"=="right"){
 										<h3 class="mb-3">선수정보</h3>
 										<hr>
 										<div class="row">
-											<div class="col-md-6" id="profilePicture" style="background-image: url('${uVo.photo}')">
+											<div class="col-md-6" id="profilePicture" style="background-image: url('${uVo.photo}');" >
 												<div class="col-md-12" id="pictureIn1">
 													<div class="col-lg-12">
 														<div class="card">
-															<div class="card-body" style="background-color: rgb(175, 171, 171, 0.2); margin-top:25px;">
+															<div class="card-body" style="background-color: rgb(175, 171, 171, 0.2);">
 																<h5 class="card-title">${uVo.name}</h5>
 																<div class="table-responsive">
 																	<table class="table table-hover">
@@ -269,12 +269,29 @@ if("${uVo.pVo.mainFoot}"=="right"){
 													</div>
 												</div>
 											</div>
-											<div class="col-md-3" >
-												<div id="chartjs-radar">
-													<canvas id="myChart" style="color: #02fd89"></canvas>
+											<div class="col-md-3" style="padding-top: 20px; background-color: rgb(175, 171, 171, 0.2); height: 260px">
+												<div id="chartjs-radar" style="padding-top:10px">
+													<canvas id="myChart" style="height:200px; padding-top:10px">
+													<script>
+														new Chart(document.getElementById("myChart"),
+															{"type":"radar",
+															 "data":{"labels":["정신력","스피드","체격","드리블","패스","수비"],
+															 "datasets":[
+																		{"data" : [${uVo.pVo.mental}, ${uVo.pVo.speed}, ${uVo.pVo.physical}, ${uVo.pVo.dribble}, ${uVo.pVo.pass}, ${uVo.pVo.defence}],
+																		 "fill" : true,
+																		 "backgroundColor": "rgba(239, 0, 121, 0.2)", "borderColor":"rgb(239, 0, 121)",
+																		 "pointBackgroundColor" : "rgb(255, 99, 132)", "pointBorderColor":"#fff",
+																		 "pointHoverBackgroundColor":"#fff", "pointHoverBorderColor":"rgb(255, 99, 132)"}
+																]},
+															 "options": {"responsive": true,"maintainAspectRatio": false, "elements": {"line": {"tension":0,"borderWidth":3}}, "legend": {"display":false},
+															"scale" : {"display": true, "angleLines":{"color":"rgba(175,171,171,0.5)"}, "pointLabels":{"fontColor":"white", "fontStyle":"bold"}, "gridLines":{"color":"rgba(175,171,171,0.5)"}, "ticks" : {"fontColor":"rgba(175,171,171,0.5)", "display":false, "beginAtZero":true, "min":0, "max":100, "stepSize":20}},
+															"animation" : {"easing":"linear", "duration":1200}
+															 }
+															});
+													</script></canvas>
 												</div>
 											</div>
-											<div class="col-md-3" style="background-color: rgb(175, 171, 171, 0.2)">
+											<div class="col-md-3" style="background-color: rgb(175, 171, 171, 0.2); height: 260px">
 												<div class="col-md-12" id="pictureIn2">
 													<div class="row">
 														<div class="col-md-6">
@@ -440,13 +457,13 @@ if("${uVo.pVo.mainFoot}"=="right"){
 													<select name="position" id="position">
 														<option value="">포지션을 선택해 주세요.</option>
 														<option>FW</option>
-														<option>AMF</option>
-														<option>LMF</option>
-														<option>RMF</option>
-														<option>CB</option>
-														<option>RB</option>
-														<option>LB</option>
-														<option>GK</option>
+															<option>AMF</option>
+															<option>LMF</option>
+															<option>RMF</option>
+															<option>CB</option>
+															<option>RB</option>
+															<option>LB</option>
+															<option>GK</option>
 													</select>
 												</div>
 											</div>

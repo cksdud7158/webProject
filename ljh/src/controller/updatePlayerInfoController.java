@@ -1,7 +1,6 @@
 package controller;
 
 import java.sql.SQLException;
-import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +19,6 @@ public class updatePlayerInfoController implements Controller {
 		UserVO uVo= (UserVO) session.getAttribute("uVo");
 		System.out.println(uVo);
 		PlayerInfoVO pVo = uVo.getpVo();
-		
 		//playerInfo
 				String userId = uVo.getUserId();
 				String position = request.getParameter("position");

@@ -11,10 +11,19 @@ public class MatchVO {
 	private int voteId;
 	private MatchResultVO mrVo ;
 	private StadiumVO sVo;
+	private int victory; 
+	
+	public int getVictory() {
+		return victory;
+	}
+
+	public void setVictory(int victory) {
+		this.victory = victory;
+	}
+
 	public StadiumVO getsVo() {
 		return sVo;
 	}
-
 
 	public void setsVo(StadiumVO sVo) {
 		this.sVo = sVo;

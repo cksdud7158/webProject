@@ -19,7 +19,7 @@
   <!--favicon-->
   <link rel="icon" href="ours/img/logo.png" type="image/x-icon">
   <!-- Vector CSS -->
-  <link href="assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
+  <!-- <link href="assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/> -->
   <!-- simplebar CSS-->
   <link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
   <!-- Bootstrap core CSS-->
@@ -52,27 +52,28 @@
   <script src="assets/plugins/Chart.js/Chart.min.js"></script>
  
   <!-- Index js -->
-  <script src="assets/js/index.js"></script>
+  <!-- <script src="assets/js/index.js"></script> -->
   
   <script src="plugins/Chart.js"></script>
-  
-  <!-- match History  -->
-<!--   <script>
-  var arr1 = new Array();
-  var arr2 = new Array();
-  	<c:forEach items="${history}" var="match">
-  		var arr3 = ${match}.split(':');
-  		for(var i in arr3){
-  			${tvo}
-  		}
-  	</c:forEach>
-  
-  </script> -->
-  
-  
-  
+
 </head>
+<c:set var="win" value="${win}"/>
+<c:set var="lose" value="${lose}"/>
+<c:set var="draw" value="${draw}"/>
 <c:set var="manager" value="${tVo.tmvList[0].manager}" />
+<script>
+	var win = parseInt('<c:out value="${win}"/>');
+	var lose = parseInt('<c:out value="${lose}"/>');
+	var draw = parseInt('<c:out value="${draw}"/>');
+	/* console.log(typeof win);
+	console.log(lose);
+	console.log(draw); */
+	
+	var arr = [win, lose, draw];
+	console.log(arr);
+</script>
+
+
 <body class="bg-theme bg-theme1">
  
 <!-- Start wrapper-->
@@ -99,9 +100,6 @@
 				<li><a href="showAllMember.do?teamId=${tVo.teamId}"> <i
 						class="zmdi zmdi-accounts"></i> <span>멤버 보기</span>
 				</a></li>
-				<li><a href="teamSchedule.jsp"> <i
-						class="zmdi zmdi-calendar-check"></i> <span>일정</span>
-				</a></li>
 				<li><a href="matchHistory.do?teamId=${tVo.teamId}"> <i
 						class="zmdi zmdi-file-text"></i> <span>전적 조회</span>
 				</a></li>
@@ -116,7 +114,7 @@
 						<li><a href="findMatch.jsp"> <i
 								class="zmdi zmdi-search-for"></i> <span>매치 찾기</span>
 						</a></li>
-						<li><a href="request.jsp" target="_blank"> <i
+						<li><a href="AllJoinRequest.do" target="_blank"> <i
 								class="zmdi zmdi-account-circle"></i> <span>가입신청 리스트</span>
 						</a></li>
 						<li><a href="makeVote.do"> <i
@@ -200,41 +198,34 @@
                   <tr>
                     <th scope="col"  style="font-size: 15px;">#</th>
                     <th scope="col" style="font-size: 15px;">경기일자</th>
-                    <th scope="col" style="font-size: 15px;">상대팀</th>
+                    <th scope="col" style="font-size: 15px;">홈팀  :  어웨이팀</th>
                     <th scope="col" style="font-size: 15px;text-align:right;">결과</th>
                     <th scope="col"style="font-size: 15px;"></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- <tr>
-                    <th scope="row">1</th>
-                    <td>2020.6.1</td>
-                    <td>레알 마드리드</td>
-                    <td>2:0</td>
-                    <td>승</td>
-                    
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>2020.6.8</td>
-                    <td>토트넘</td>
-                    <td>1:3</td>
-                    <td>패</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>2020.6.15</td>
-                    <td>FC서울</td>
-                    <td>1:1</td>
-                    <td>무승부</td> 
-                  </tr> -->
                   <c:forEach items="${history}" var="match" varStatus="status">
                   	<tr>
                   	  <th scope="row">${status.count}</th>
                   	  <td>${match.schedule}</td>
-                  	  <td>${match.awayId}</td>
+                  	  <td>
+                  	  <c:forEach items="${tVoList}" var="team">
+                  	  	<c:choose>
+                  	  	<c:when test="${match.teamId == team.teamId}">
+                  	  	<img src="${team.emblem}" style="width:40px; height:40px;">&nbsp;&nbsp;:</c:when>
+                  	  	<c:when test="${match.awayId == team.teamId}">
+                  	  	&nbsp;&nbsp;<img src="${team.emblem}" style="width:40px; height:40px;"></c:when>
+                  	  	</c:choose>
+                  	  </c:forEach>
+                  	  </td>
                   	  <td>${match.mrVo.score}</td>
-                  	  <td>승</td>     
+                  	  <td>
+                  	  <c:choose>
+                  	  	<c:when test="${match.victory=='1'}">승리</c:when>
+                  	  	<c:when test="${match.victory=='0'}">무승부</c:when>
+                  	  	<c:when test="${match.victory=='-1'}">패배</c:when>
+                  	  </c:choose>
+                  	  </td>     
                   </c:forEach>
                 </tbody>
               </table>
@@ -246,13 +237,16 @@
         	<canvas id="myChart" width="200" height="200"></canvas>
         <!-- graph 들어갈 자리 -->
          <script>
+     	var win = parseInt('<c:out value="${win}"/>');
+    	var lose = parseInt('<c:out value="${lose}"/>');
+    	var draw = parseInt('<c:out value="${draw}"/>');
   var ctx = document.getElementById('myChart');
   var myChart = new Chart(ctx, {
       type: 'doughnut',
       data: {
           labels: ['승리', '패배', '무승부'],
           datasets: [{
-              data: [10, 20, 30],
+              data: [win, lose, draw],
               backgroundColor: [
             	  'rgba(249, 0, 120, 0.7)',
             	  'rgba(1, 166, 247, 0.7)',

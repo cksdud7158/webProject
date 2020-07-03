@@ -28,8 +28,6 @@ public class VoteBulletinController implements Controller {
 		} catch (SQLException e) {
 			System.out.println(e);
 		}
-
 		return new ModelAndView(path);
 	}
-
 }

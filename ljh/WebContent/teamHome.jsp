@@ -73,13 +73,10 @@
 
 				<!-- 매니저 / 일반회원인지에 따라 왼쪽 메뉴가 다르게 보여야 함 -->
 				<li><a href="ToHome.do"> <i
-						class="zmdi zmdi-view-dashboard"></i><span>홈으로</span>
+						class="zmdi zmdi-view-dashboard"></i><span> 현재팀 홈으로</span>
 				</a></li>
 				<li><a href="showAllMember.do?teamId=${tVo.teamId}"> <i
 						class="zmdi zmdi-accounts"></i> <span>멤버 보기</span>
-				</a></li>
-				<li><a href="teamSchedule.jsp"> <i
-						class="zmdi zmdi-calendar-check"></i> <span>일정</span>
 				</a></li>
 				<li><a href="matchHistory.do?teamId=${tVo.teamId}"> <i
 						class="zmdi zmdi-file-text"></i> <span>전적 조회</span>
@@ -87,7 +84,7 @@
 				<li><a href="voteBulletin.do"> <i
 						class="zmdi zmdi-check-square"></i><span>투표하기</span>
 				</a></li>
-				<li><a href="matchAndSquad.jsp.do" target="_blank"> <i
+				<li><a href="matchAndSquad.do" target="_blank"> <i
 						class="icon-settings mr-2"></i> <span>매치</span>
 				</a></li>
 				<c:choose>
@@ -95,7 +92,7 @@
 						<li><a href="findMatch.jsp"> <i
 								class="zmdi zmdi-search-for"></i> <span>매치 찾기</span>
 						</a></li>
-						<li><a href="request.jsp" target="_blank"> <i
+						<li><a href="AllJoinRequest.do" target="_blank"> <i
 								class="zmdi zmdi-account-circle"></i> <span>가입신청 리스트</span>
 						</a></li>
 						<li><a href="makeVote.do"> <i
@@ -175,7 +172,8 @@
 
 			<section>
 				<h1>We are ${tVo.teamName}</h1>
-				<div>현재 랭킹 : ${tVo.ti.ranking}위, 회원수 : ${tVo.ti.memberNum}</div>
+				<div><c:if test="${tVo.ti.ranking != '0'}">랭킹 ${tVo.ti.ranking}위,</c:if>
+													<c:if test="${tVo.ti.ranking == '0'}">랭킹자료없음,</c:if> 회원수 : ${tVo.ti.memberNum}</div>
 				<img src="${tVo.emblem}">
 
 			</section>

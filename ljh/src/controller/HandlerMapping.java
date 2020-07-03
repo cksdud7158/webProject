@@ -58,14 +58,41 @@ public class HandlerMapping {
 	}else if(command.equals("ToHome.do")) {
 		controller = new ToHomeController();
 		System.out.println("ToHome 컨트롤러 생성");
-	}else if(command.equals("updateTeamInfo.do")) {
-		controller = new updateTeamInfoController();
-		System.out.println("updateTeamInfo 컨트롤러 생성");
-	}
-		
-		
-		
-		
+	}else if(command.equals("matchAndSquad.do")) {
+		controller = new MatchAndSquadController();
+		System.out.println("MatchAndSquadController 컨트롤러 생성");
+	}else if(command.equals("matchResult.do")) {
+		controller = new MatchResultController();
+		System.out.println("matchResultController 컨트롤러 생성");
+	}else if(command.equals("AllTeam.do")) {
+        controller = new AllTeamController();
+        System.out.println("AllTeam 컨트롤러 생성");
+    }else if(command.equals("searchTeam.do")) {
+        controller = new SearchTeamController();
+        System.out.println("SearchTeam 컨트롤러 생성");
+    }else if(command.equals("RequestToJoin.do")) {
+        controller = new RequestToJoinController();
+        System.out.println("RequestToJoin 컨트롤러 생성");
+    }else if(command.equals("AllJoinRequest.do")) {
+        controller = new AllJoinRequestController();
+        System.out.println("AllJoinRequest 컨트롤러 생성");
+    }else if(command.equals("AllowToJoin.do")) {
+        controller = new AllowToJoinController();
+        System.out.println("AllowToJoin 컨트롤러 생성");
+    }else if(command.equals("RejectToJoin.do")) {
+        controller = new RejectToJoinController();
+        System.out.println("RejectToJoin 컨트롤러 생성");
+    }else if(command.equals("createTeam.do")) {
+		controller = new createTeamController();
+		System.out.println("createTeam 컨트롤러 생성");
+	}else if(command.equals("findMatch.do")) {
+		controller = new FindMatchController();
+		System.out.println("findMatchController 컨트롤러 생성");
+	}else if(command.equals("requestToPlay.do")) {
+			controller = new requestToPlayController();
+			System.out.println("requestToPlayController 컨트롤러 생성");
+		}
+	
 		return controller;
 	}
 }
