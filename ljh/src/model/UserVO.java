@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public class UserVO {
+public class UserVO implements Comparable<UserVO>{
 	private String userId;
 	private String pass;
 	private String name;
@@ -262,6 +262,11 @@ public class UserVO {
 				+ ", addr=" + addr + ", favTeam1=" + favTeam1 + ", favTeam2=" + favTeam2 + ", regDate=" + regDate
 				+ ", country=" + country + ", recentLogin=" + recentLogin + ", tVoList=" + tVoList + ", pVo=" + pVo
 				+ "]";
+	}
+
+	@Override
+	public int compareTo(UserVO uVo) {
+		return uVo.getpVo().getTotal() - this.getpVo().getTotal();
 	}
 
 	

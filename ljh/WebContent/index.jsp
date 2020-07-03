@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -181,7 +181,7 @@ box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.50);
 		   </div>
 		  </div>
 		  <div class="card-footer text-center py-3">
-		    <p class="text-warning mb-0">Do not have an account? <a href="join.jsp"> Sign Up here</a></p>
+		    <p class="text-warning mb-0">Do not have an account? <a href="register.jsp"> Sign Up here</a></p>
 		  </div>
 	     </div>
      <!--Start Back To Top Button-->

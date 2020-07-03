@@ -1,8 +1,6 @@
 package controller;
 
 import java.io.File;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,9 +11,10 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+
 public class fileuplaod {
 	private static final String CHARSET = "utf-8";
-	private static final String ATTACHES_DIR = "C:\\pcy\\webProject\\football10\\WebContent\\ours\\img";
+	private static final String ATTACHES_DIR = "C:\\ljh\\apache-tomcat-8.5.55\\webapps\\ljh\\WebContent\\ours\\img";
 	private static final int LIMIT_SIZE_BYTES = 1024 * 1024;
 	
 	public HashMap<String, String> fileupload(HttpServletRequest request, HttpServletResponse response) throws Exception{

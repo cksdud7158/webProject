@@ -85,19 +85,19 @@
 				<li class="sidebar-header"><b style="font-size: large">Menu</b></li>
 				<li style="margin-left: 50px; margin-bottom: 5px;">반갑습니다. <span><strong>${uVo.name}</strong></span>님
 				</li>
+				<li><a href="login.jsp"> <i
+						class="zmdi zmdi-view-dashboard"></i><span>내 홈으로</span>
+				</a></li>
 				<li><a href="profile.jsp"> <i class="zmdi zmdi-folder-star"></i>
 						<span>내정보</span>
 				</a></li>
-				<li><a href="searchTeam.do"> <i class="zmdi zmdi-folder-star"></i>
+				<li><a href="AllTeam.do"> <i class="zmdi zmdi-folder-star"></i>
 						<span>팀 찾기</span>
 				</a></li>
-				<li><a href="makeTeam.do"> <i class="zmdi zmdi-folder-star"></i>
+				<li><a href="createTeam.jsp"> <i class="zmdi zmdi-folder-star"></i>
 						<span>팀 만들기</span>
 				</a></li>
-				<li><a href="userSchedule.jsp"> <i
-						class="zmdi zmdi-calendar-check"></i> <span>나의 일정</span>
-				</a></li>
-				<li><a href="userSetting.jsp"> <i
+				<li><a href="profile.jsp"> <i
 						class="icon-settings mr-2"></i> <span>설정</span>
 				</a></li>
 			</ul>

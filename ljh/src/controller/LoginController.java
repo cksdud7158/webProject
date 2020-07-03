@@ -21,6 +21,7 @@ public class LoginController implements Controller {
 		System.out.println("여기까지 실행");
 		try {
 			UserVO uVo = FootBallDAOImpl.getInstance().login(id, pass);
+			System.out.println("로그인했습니다."+uVo);
 			HttpSession session = request.getSession();
 
 			if (uVo != null) {

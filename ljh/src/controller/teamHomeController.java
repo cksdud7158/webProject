@@ -20,7 +20,7 @@ public class teamHomeController implements Controller {
 		
 		// 팀 정보(회원수, 랭킹, 엠블럼) 가져오기 --- 새로운 메소드 getMyTeam
 		TeamVO tVo = FootBallDAOImpl.getInstance().getSelectedTeam(teamId);
-		System.out.println(tVo);
+		System.out.println("팀홈으로 들어갑니다."+tVo);
 		session.setAttribute("tVo", tVo);
 		if(tVo!=null) {
 			path = "teamHome.jsp";
